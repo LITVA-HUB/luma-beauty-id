@@ -1,0 +1,1 @@
+"""Luma Beauty ID backend."""

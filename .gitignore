@@ -1,0 +1,21 @@
+# Local secrets and runtime state
+.env
+.env.save
+*.env.local
+backend/.env
+backend/.data/
+.data/
+
+# Python
+__pycache__/
+.pytest_cache/
+*.pyc
+.venv/
+
+# Apple/Xcode local state
+DerivedData/
+*.xcuserstate
+xcuserdata/
+
+# Archives
+*.zip

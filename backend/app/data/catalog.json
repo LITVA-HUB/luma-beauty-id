@@ -1,0 +1,5592 @@
+[
+  {
+    "sku": "LUMA-001",
+    "source_sku": "FD-BUD-01",
+    "catalog_number": 1,
+    "brand": "Lumiere Daily",
+    "name": "Everyday Skin Foundation LIGHT NEUTRAL",
+    "variant": "LIGHT NEUTRAL",
+    "display_name": "Lumiere Daily Everyday Skin Foundation LIGHT NEUTRAL",
+    "category": "foundation",
+    "domain": "makeup",
+    "price_segment": "budget",
+    "price_value": 890,
+    "currency": "RUB",
+    "image_url": "/assets/cards/001_FD-BUD-01.png",
+    "gallery": [
+      "/assets/cards/001_FD-BUD-01.png"
+    ],
+    "availability": true,
+    "inventory_status": "in_stock",
+    "skin_types": [
+      "normal",
+      "combination"
+    ],
+    "concerns": [
+      "tone_match",
+      "texture",
+      "redness"
+    ],
+    "tags": [
+      "complexion",
+      "shade-match",
+      "buildable"
+    ],
+    "ingredients": [
+      "glycerin",
+      "squalane"
+    ],
+    "ingredient_highlights": [
+      "glycerin",
+      "squalane"
+    ],
+    "exclusions": [],
+    "warnings": [],
+    "finishes": [
+      "natural",
+      "satin"
+    ],
+    "coverage_levels": [
+      "medium"
+    ],
+    "color_families": [
+      "light",
+      "neutral"
+    ],
+    "texture": "liquid",
+    "rating": 4.3,
+    "review_count": 531,
+    "source": "synthetic_catalog",
+    "asset_source": "gpt_image_2_packshot_card_crop",
+    "card_image_url": "/assets/cards/001_FD-BUD-01.png",
+    "product_type": "foundation",
+    "category_group": "makeup"
+  },
+  {
+    "sku": "LUMA-002",
+    "source_sku": "CO-BUD-01",
+    "catalog_number": 2,
+    "brand": "Lumiere Daily",
+    "name": "Bright Flex Concealer LIGHT NEUTRAL",
+    "variant": "LIGHT NEUTRAL",
+    "display_name": "Lumiere Daily Bright Flex Concealer LIGHT NEUTRAL",
+    "category": "concealer",
+    "domain": "makeup",
+    "price_segment": "budget",
+    "price_value": 1190,
+    "currency": "RUB",
+    "image_url": "/assets/cards/002_CO-BUD-01.png",
+    "gallery": [
+      "/assets/cards/002_CO-BUD-01.png"
+    ],
+    "availability": true,
+    "inventory_status": "in_stock",
+    "skin_types": [
+      "normal",
+      "combination"
+    ],
+    "concerns": [
+      "under_eye",
+      "redness",
+      "tone_match"
+    ],
+    "tags": [
+      "complexion",
+      "brightening",
+      "buildable"
+    ],
+    "ingredients": [
+      "glycerin",
+      "squalane"
+    ],
+    "ingredient_highlights": [
+      "glycerin",
+      "squalane"
+    ],
+    "exclusions": [],
+    "warnings": [],
+    "finishes": [
+      "natural"
+    ],
+    "coverage_levels": [
+      "medium",
+      "buildable"
+    ],
+    "color_families": [
+      "light",
+      "neutral"
+    ],
+    "texture": "liquid",
+    "rating": 4.4,
+    "review_count": 571,
+    "source": "synthetic_catalog",
+    "asset_source": "gpt_image_2_packshot_card_crop",
+    "card_image_url": "/assets/cards/002_CO-BUD-01.png",
+    "product_type": "concealer",
+    "category_group": "makeup"
+  },
+  {
+    "sku": "LUMA-003",
+    "source_sku": "PW-BUD-01",
+    "catalog_number": 3,
+    "brand": "Lumiere Daily",
+    "name": "Soft Set Loose Powder TRANSLUCENT",
+    "variant": "TRANSLUCENT",
+    "display_name": "Lumiere Daily Soft Set Loose Powder TRANSLUCENT",
+    "category": "powder",
+    "domain": "makeup",
+    "price_segment": "budget",
+    "price_value": 1290,
+    "currency": "RUB",
+    "image_url": "/assets/cards/003_PW-BUD-01.png",
+    "gallery": [
+      "/assets/cards/003_PW-BUD-01.png"
+    ],
+    "availability": true,
+    "inventory_status": "in_stock",
+    "skin_types": [
+      "combination",
+      "oily",
+      "normal"
+    ],
+    "concerns": [
+      "shine_control",
+      "texture",
+      "pores"
+    ],
+    "tags": [
+      "set",
+      "blur",
+      "soft-focus"
+    ],
+    "ingredients": [
+      "mica",
+      "silica"
+    ],
+    "ingredient_highlights": [
+      "mica",
+      "silica"
+    ],
+    "exclusions": [],
+    "warnings": [],
+    "finishes": [
+      "soft_matte",
+      "blurred"
+    ],
+    "coverage_levels": [
+      "sheer"
+    ],
+    "color_families": [
+      "translucent"
+    ],
+    "texture": "powder",
+    "rating": 4.5,
+    "review_count": 622,
+    "source": "synthetic_catalog",
+    "asset_source": "gpt_image_2_packshot_card_crop",
+    "card_image_url": "/assets/cards/003_PW-BUD-01.png",
+    "product_type": "loose_powder",
+    "category_group": "makeup"
+  },
+  {
+    "sku": "LUMA-004",
+    "source_sku": "PW-BUD-02",
+    "catalog_number": 4,
+    "brand": "Lumiere Daily",
+    "name": "Blurring Pact Powder LIGHT",
+    "variant": "LIGHT",
+    "display_name": "Lumiere Daily Blurring Pact Powder LIGHT",
+    "category": "powder",
+    "domain": "makeup",
+    "price_segment": "budget",
+    "price_value": 990,
+    "currency": "RUB",
+    "image_url": "/assets/cards/004_PW-BUD-02.png",
+    "gallery": [
+      "/assets/cards/004_PW-BUD-02.png"
+    ],
+    "availability": true,
+    "inventory_status": "in_stock",
+    "skin_types": [
+      "combination",
+      "oily",
+      "normal"
+    ],
+    "concerns": [
+      "shine_control",
+      "texture",
+      "pores"
+    ],
+    "tags": [
+      "set",
+      "blur",
+      "soft-focus"
+    ],
+    "ingredients": [
+      "mica",
+      "silica"
+    ],
+    "ingredient_highlights": [
+      "mica",
+      "silica"
+    ],
+    "exclusions": [],
+    "warnings": [],
+    "finishes": [
+      "soft_matte",
+      "blurred"
+    ],
+    "coverage_levels": [
+      "sheer"
+    ],
+    "color_families": [
+      "light"
+    ],
+    "texture": "powder",
+    "rating": 4.6,
+    "review_count": 618,
+    "source": "synthetic_catalog",
+    "asset_source": "gpt_image_2_packshot_card_crop",
+    "card_image_url": "/assets/cards/004_PW-BUD-02.png",
+    "product_type": "pressed_powder",
+    "category_group": "makeup"
+  },
+  {
+    "sku": "LUMA-005",
+    "source_sku": "EY-BUD-01",
+    "catalog_number": 5,
+    "brand": "Color Atelier",
+    "name": "Soft Nude Palette",
+    "variant": null,
+    "display_name": "Color Atelier Soft Nude Palette",
+    "category": "eyeshadow_palette",
+    "domain": "makeup",
+    "price_segment": "budget",
+    "price_value": 1090,
+    "currency": "RUB",
+    "image_url": "/assets/cards/005_EY-BUD-01.png",
+    "gallery": [
+      "/assets/cards/005_EY-BUD-01.png"
+    ],
+    "availability": true,
+    "inventory_status": "in_stock",
+    "skin_types": [
+      "normal",
+      "combination",
+      "dry",
+      "oily"
+    ],
+    "concerns": [
+      "eye_definition",
+      "color"
+    ],
+    "tags": [
+      "palette",
+      "blendable",
+      "color"
+    ],
+    "ingredients": [
+      "mica",
+      "silica"
+    ],
+    "ingredient_highlights": [
+      "mica",
+      "silica"
+    ],
+    "exclusions": [],
+    "warnings": [],
+    "finishes": [
+      "satin",
+      "shimmer",
+      "matte"
+    ],
+    "coverage_levels": [],
+    "color_families": [
+      "nude",
+      "beige",
+      "brown"
+    ],
+    "texture": "pressed_powder",
+    "rating": 4.7,
+    "review_count": 592,
+    "source": "synthetic_catalog",
+    "asset_source": "gpt_image_2_packshot_card_crop",
+    "card_image_url": "/assets/cards/005_EY-BUD-01.png",
+    "product_type": "eyeshadow_palette",
+    "category_group": "makeup"
+  },
+  {
+    "sku": "LUMA-006",
+    "source_sku": "CH-BUD-01",
+    "catalog_number": 6,
+    "brand": "Face Poetry",
+    "name": "Cloud Flush Blush PEACH",
+    "variant": "PEACH",
+    "display_name": "Face Poetry Cloud Flush Blush PEACH",
+    "category": "blush",
+    "domain": "makeup",
+    "price_segment": "budget",
+    "price_value": 990,
+    "currency": "RUB",
+    "image_url": "/assets/cards/006_CH-BUD-01.png",
+    "gallery": [
+      "/assets/cards/006_CH-BUD-01.png"
+    ],
+    "availability": true,
+    "inventory_status": "in_stock",
+    "skin_types": [
+      "normal",
+      "combination",
+      "dry"
+    ],
+    "concerns": [
+      "color",
+      "freshness"
+    ],
+    "tags": [
+      "cheek",
+      "blendable",
+      "soft-color"
+    ],
+    "ingredients": [
+      "mica",
+      "silica"
+    ],
+    "ingredient_highlights": [
+      "mica",
+      "silica"
+    ],
+    "exclusions": [],
+    "warnings": [],
+    "finishes": [
+      "satin"
+    ],
+    "coverage_levels": [],
+    "color_families": [
+      "peach"
+    ],
+    "texture": "pressed_powder",
+    "rating": 4.8,
+    "review_count": 731,
+    "source": "synthetic_catalog",
+    "asset_source": "gpt_image_2_packshot_card_crop",
+    "card_image_url": "/assets/cards/006_CH-BUD-01.png",
+    "product_type": "blush",
+    "category_group": "makeup"
+  },
+  {
+    "sku": "LUMA-007",
+    "source_sku": "LP-BUD-01",
+    "catalog_number": 7,
+    "brand": "Glow Pop",
+    "name": "Silky Touch Lipstick NUDE MAUVE",
+    "variant": "NUDE MAUVE",
+    "display_name": "Glow Pop Silky Touch Lipstick NUDE MAUVE",
+    "category": "lipstick",
+    "domain": "makeup",
+    "price_segment": "budget",
+    "price_value": 990,
+    "currency": "RUB",
+    "image_url": "/assets/cards/007_LP-BUD-01.png",
+    "gallery": [
+      "/assets/cards/007_LP-BUD-01.png"
+    ],
+    "availability": true,
+    "inventory_status": "in_stock",
+    "skin_types": [
+      "normal"
+    ],
+    "concerns": [
+      "lip_color"
+    ],
+    "tags": [
+      "lip",
+      "color",
+      "comfortable"
+    ],
+    "ingredients": [
+      "jojoba oil",
+      "shea butter"
+    ],
+    "ingredient_highlights": [
+      "jojoba oil",
+      "shea butter"
+    ],
+    "exclusions": [],
+    "warnings": [],
+    "finishes": [
+      "satin"
+    ],
+    "coverage_levels": [],
+    "color_families": [
+      "nude",
+      "mauve"
+    ],
+    "texture": "stick",
+    "rating": 4.9,
+    "review_count": 892,
+    "source": "synthetic_catalog",
+    "asset_source": "gpt_image_2_packshot_card_crop",
+    "card_image_url": "/assets/cards/007_LP-BUD-01.png",
+    "product_type": "lipstick",
+    "category_group": "makeup"
+  },
+  {
+    "sku": "LUMA-008",
+    "source_sku": "LP-BUD-02",
+    "catalog_number": 8,
+    "brand": "Glow Pop",
+    "name": "Juicy Glow Lip Tint BERRY",
+    "variant": "BERRY",
+    "display_name": "Glow Pop Juicy Glow Lip Tint BERRY",
+    "category": "lip_tint",
+    "domain": "makeup",
+    "price_segment": "budget",
+    "price_value": 1390,
+    "currency": "RUB",
+    "image_url": "/assets/cards/008_LP-BUD-02.png",
+    "gallery": [
+      "/assets/cards/008_LP-BUD-02.png"
+    ],
+    "availability": true,
+    "inventory_status": "in_stock",
+    "skin_types": [
+      "normal"
+    ],
+    "concerns": [
+      "lip_color"
+    ],
+    "tags": [
+      "lip",
+      "tint",
+      "glow"
+    ],
+    "ingredients": [
+      "jojoba oil",
+      "shea butter"
+    ],
+    "ingredient_highlights": [
+      "jojoba oil",
+      "shea butter"
+    ],
+    "exclusions": [],
+    "warnings": [],
+    "finishes": [
+      "glossy",
+      "tint"
+    ],
+    "coverage_levels": [],
+    "color_families": [
+      "berry"
+    ],
+    "texture": "tint",
+    "rating": 4.2,
+    "review_count": 899,
+    "source": "synthetic_catalog",
+    "asset_source": "gpt_image_2_packshot_card_crop",
+    "card_image_url": "/assets/cards/008_LP-BUD-02.png",
+    "product_type": "lip_tint",
+    "category_group": "makeup"
+  },
+  {
+    "sku": "LUMA-009",
+    "source_sku": "BR-BUD-01",
+    "catalog_number": 9,
+    "brand": "Brow Craft",
+    "name": "Clear Fix Brow Gel",
+    "variant": null,
+    "display_name": "Brow Craft Clear Fix Brow Gel",
+    "category": "brow_gel",
+    "domain": "makeup",
+    "price_segment": "budget",
+    "price_value": 1090,
+    "currency": "RUB",
+    "image_url": "/assets/cards/009_BR-BUD-01.png",
+    "gallery": [
+      "/assets/cards/009_BR-BUD-01.png"
+    ],
+    "availability": true,
+    "inventory_status": "in_stock",
+    "skin_types": [
+      "normal"
+    ],
+    "concerns": [
+      "brow_definition"
+    ],
+    "tags": [
+      "brow",
+      "definition",
+      "clear"
+    ],
+    "ingredients": [
+      "panthenol",
+      "film formers"
+    ],
+    "ingredient_highlights": [
+      "panthenol",
+      "film formers"
+    ],
+    "exclusions": [],
+    "warnings": [],
+    "finishes": [
+      "natural"
+    ],
+    "coverage_levels": [],
+    "color_families": [
+      "clear"
+    ],
+    "texture": "gel",
+    "rating": 4.3,
+    "review_count": 895,
+    "source": "synthetic_catalog",
+    "asset_source": "gpt_image_2_packshot_card_crop",
+    "card_image_url": "/assets/cards/009_BR-BUD-01.png",
+    "product_type": "brow_gel",
+    "category_group": "makeup"
+  },
+  {
+    "sku": "LUMA-010",
+    "source_sku": "EY-BUD-02",
+    "catalog_number": 10,
+    "brand": "Lash Craft",
+    "name": "Volume Boost Mascara",
+    "variant": null,
+    "display_name": "Lash Craft Volume Boost Mascara",
+    "category": "mascara",
+    "domain": "makeup",
+    "price_segment": "budget",
+    "price_value": 1390,
+    "currency": "RUB",
+    "image_url": "/assets/cards/010_EY-BUD-02.png",
+    "gallery": [
+      "/assets/cards/010_EY-BUD-02.png"
+    ],
+    "availability": true,
+    "inventory_status": "in_stock",
+    "skin_types": [
+      "normal"
+    ],
+    "concerns": [
+      "lash_volume",
+      "eye_definition"
+    ],
+    "tags": [
+      "lash",
+      "volume",
+      "definition"
+    ],
+    "ingredients": [
+      "beeswax",
+      "panthenol"
+    ],
+    "ingredient_highlights": [
+      "beeswax",
+      "panthenol"
+    ],
+    "exclusions": [],
+    "warnings": [],
+    "finishes": [
+      "natural"
+    ],
+    "coverage_levels": [],
+    "color_families": [
+      "black"
+    ],
+    "texture": "mascara",
+    "rating": 4.4,
+    "review_count": 129,
+    "source": "synthetic_catalog",
+    "asset_source": "gpt_image_2_packshot_card_crop",
+    "card_image_url": "/assets/cards/010_EY-BUD-02.png",
+    "product_type": "mascara",
+    "category_group": "makeup"
+  },
+  {
+    "sku": "LUMA-011",
+    "source_sku": "CL-MID-001",
+    "catalog_number": 11,
+    "brand": "Skin Logic",
+    "name": "Barrier Cloud Cream Cleanser",
+    "variant": null,
+    "display_name": "Skin Logic Barrier Cloud Cream Cleanser",
+    "category": "cleanser",
+    "domain": "skincare",
+    "price_segment": "mid",
+    "price_value": 2290,
+    "currency": "RUB",
+    "image_url": "/assets/cards/011_CL-MID-001.png",
+    "gallery": [
+      "/assets/cards/011_CL-MID-001.png"
+    ],
+    "availability": true,
+    "inventory_status": "in_stock",
+    "skin_types": [
+      "combination",
+      "oily",
+      "sensitive"
+    ],
+    "concerns": [
+      "oiliness",
+      "pores",
+      "redness",
+      "maintenance"
+    ],
+    "tags": [
+      "gentle",
+      "daily",
+      "non-comedogenic"
+    ],
+    "ingredients": [
+      "ceramide",
+      "glycerin"
+    ],
+    "ingredient_highlights": [
+      "ceramide",
+      "glycerin"
+    ],
+    "exclusions": [],
+    "warnings": [],
+    "finishes": [],
+    "coverage_levels": [],
+    "color_families": [],
+    "texture": "cream",
+    "rating": 4.5,
+    "review_count": 290,
+    "source": "synthetic_catalog",
+    "asset_source": "gpt_image_2_packshot_card_crop",
+    "card_image_url": "/assets/cards/011_CL-MID-001.png",
+    "product_type": "cleanser",
+    "category_group": "skincare"
+  },
+  {
+    "sku": "LUMA-012",
+    "source_sku": "CL-PRE-001",
+    "catalog_number": 12,
+    "brand": "Atelier Six",
+    "name": "Micro Foam Reset Cleanser",
+    "variant": null,
+    "display_name": "Atelier Six Micro Foam Reset Cleanser",
+    "category": "cleanser",
+    "domain": "skincare",
+    "price_segment": "premium",
+    "price_value": 2890,
+    "currency": "RUB",
+    "image_url": "/assets/cards/012_CL-PRE-001.png",
+    "gallery": [
+      "/assets/cards/012_CL-PRE-001.png"
+    ],
+    "availability": true,
+    "inventory_status": "in_stock",
+    "skin_types": [
+      "combination",
+      "oily",
+      "sensitive"
+    ],
+    "concerns": [
+      "oiliness",
+      "pores",
+      "redness",
+      "maintenance"
+    ],
+    "tags": [
+      "gentle",
+      "daily",
+      "non-comedogenic"
+    ],
+    "ingredients": [
+      "panthenol",
+      "betaine"
+    ],
+    "ingredient_highlights": [
+      "panthenol",
+      "betaine"
+    ],
+    "exclusions": [],
+    "warnings": [],
+    "finishes": [],
+    "coverage_levels": [],
+    "color_families": [],
+    "texture": "foam",
+    "rating": 4.6,
+    "review_count": 330,
+    "source": "synthetic_catalog",
+    "asset_source": "gpt_image_2_packshot_card_crop",
+    "card_image_url": "/assets/cards/012_CL-PRE-001.png",
+    "product_type": "cleanser",
+    "category_group": "skincare"
+  },
+  {
+    "sku": "LUMA-013",
+    "source_sku": "SE-BUD-001",
+    "catalog_number": 13,
+    "brand": "Derma Pure",
+    "name": "Calm Code Niacinamide Serum",
+    "variant": null,
+    "display_name": "Derma Pure Calm Code Niacinamide Serum",
+    "category": "serum",
+    "domain": "skincare",
+    "price_segment": "budget",
+    "price_value": 790,
+    "currency": "RUB",
+    "image_url": "/assets/cards/013_SE-BUD-001.png",
+    "gallery": [
+      "/assets/cards/013_SE-BUD-001.png"
+    ],
+    "availability": true,
+    "inventory_status": "in_stock",
+    "skin_types": [
+      "normal",
+      "combination",
+      "sensitive"
+    ],
+    "concerns": [
+      "oiliness",
+      "pores",
+      "redness"
+    ],
+    "tags": [
+      "targeted",
+      "daily",
+      "layerable"
+    ],
+    "ingredients": [
+      "niacinamide",
+      "zinc PCA"
+    ],
+    "ingredient_highlights": [
+      "niacinamide",
+      "zinc PCA"
+    ],
+    "exclusions": [],
+    "warnings": [],
+    "finishes": [],
+    "coverage_levels": [],
+    "color_families": [],
+    "texture": "serum",
+    "rating": 4.7,
+    "review_count": 425,
+    "source": "synthetic_catalog",
+    "asset_source": "gpt_image_2_packshot_card_crop",
+    "card_image_url": "/assets/cards/013_SE-BUD-001.png",
+    "product_type": "serum",
+    "category_group": "skincare"
+  },
+  {
+    "sku": "LUMA-014",
+    "source_sku": "SE-BUD-002",
+    "catalog_number": 14,
+    "brand": "Pure Reason",
+    "name": "Hydra Barrier B5 Serum",
+    "variant": null,
+    "display_name": "Pure Reason Hydra Barrier B5 Serum",
+    "category": "serum",
+    "domain": "skincare",
+    "price_segment": "budget",
+    "price_value": 1190,
+    "currency": "RUB",
+    "image_url": "/assets/cards/014_SE-BUD-002.png",
+    "gallery": [
+      "/assets/cards/014_SE-BUD-002.png"
+    ],
+    "availability": true,
+    "inventory_status": "in_stock",
+    "skin_types": [
+      "normal",
+      "combination",
+      "sensitive"
+    ],
+    "concerns": [
+      "dryness",
+      "barrier",
+      "sensitivity"
+    ],
+    "tags": [
+      "targeted",
+      "daily",
+      "layerable"
+    ],
+    "ingredients": [
+      "panthenol",
+      "beta-glucan"
+    ],
+    "ingredient_highlights": [
+      "panthenol",
+      "beta-glucan"
+    ],
+    "exclusions": [],
+    "warnings": [],
+    "finishes": [],
+    "coverage_levels": [],
+    "color_families": [],
+    "texture": "serum",
+    "rating": 4.8,
+    "review_count": 443,
+    "source": "synthetic_catalog",
+    "asset_source": "gpt_image_2_packshot_card_crop",
+    "card_image_url": "/assets/cards/014_SE-BUD-002.png",
+    "product_type": "serum",
+    "category_group": "skincare"
+  },
+  {
+    "sku": "LUMA-015",
+    "source_sku": "SE-MID-001",
+    "catalog_number": 15,
+    "brand": "Skin Logic",
+    "name": "Clear Balance Azelaic Serum",
+    "variant": null,
+    "display_name": "Skin Logic Clear Balance Azelaic Serum",
+    "category": "serum",
+    "domain": "skincare",
+    "price_segment": "mid",
+    "price_value": 1590,
+    "currency": "RUB",
+    "image_url": "/assets/cards/015_SE-MID-001.png",
+    "gallery": [
+      "/assets/cards/015_SE-MID-001.png"
+    ],
+    "availability": true,
+    "inventory_status": "in_stock",
+    "skin_types": [
+      "normal",
+      "combination",
+      "sensitive"
+    ],
+    "concerns": [
+      "redness",
+      "breakouts",
+      "texture"
+    ],
+    "tags": [
+      "targeted",
+      "daily",
+      "layerable"
+    ],
+    "ingredients": [
+      "azelaic acid",
+      "green tea"
+    ],
+    "ingredient_highlights": [
+      "azelaic acid",
+      "green tea"
+    ],
+    "exclusions": [],
+    "warnings": [],
+    "finishes": [],
+    "coverage_levels": [],
+    "color_families": [],
+    "texture": "serum",
+    "rating": 4.9,
+    "review_count": 571,
+    "source": "synthetic_catalog",
+    "asset_source": "gpt_image_2_packshot_card_crop",
+    "card_image_url": "/assets/cards/015_SE-MID-001.png",
+    "product_type": "serum",
+    "category_group": "skincare"
+  },
+  {
+    "sku": "LUMA-016",
+    "source_sku": "SE-MID-002",
+    "catalog_number": 16,
+    "brand": "Glow Science",
+    "name": "Vitamin C Radiance Serum",
+    "variant": null,
+    "display_name": "Glow Science Vitamin C Radiance Serum",
+    "category": "serum",
+    "domain": "skincare",
+    "price_segment": "mid",
+    "price_value": 2290,
+    "currency": "RUB",
+    "image_url": "/assets/cards/016_SE-MID-002.png",
+    "gallery": [
+      "/assets/cards/016_SE-MID-002.png"
+    ],
+    "availability": true,
+    "inventory_status": "in_stock",
+    "skin_types": [
+      "normal",
+      "combination",
+      "sensitive"
+    ],
+    "concerns": [
+      "dullness",
+      "tone",
+      "radiance",
+      "maintenance"
+    ],
+    "tags": [
+      "targeted",
+      "daily",
+      "layerable"
+    ],
+    "ingredients": [
+      "vitamin c",
+      "ferulic acid"
+    ],
+    "ingredient_highlights": [
+      "vitamin c",
+      "ferulic acid"
+    ],
+    "exclusions": [],
+    "warnings": [],
+    "finishes": [],
+    "coverage_levels": [],
+    "color_families": [],
+    "texture": "serum",
+    "rating": 4.2,
+    "review_count": 611,
+    "source": "synthetic_catalog",
+    "asset_source": "gpt_image_2_packshot_card_crop",
+    "card_image_url": "/assets/cards/016_SE-MID-002.png",
+    "product_type": "serum",
+    "category_group": "skincare"
+  },
+  {
+    "sku": "LUMA-017",
+    "source_sku": "SE-PRE-001",
+    "catalog_number": 17,
+    "brand": "Atelier Six",
+    "name": "Peptide Renew Serum",
+    "variant": null,
+    "display_name": "Atelier Six Peptide Renew Serum",
+    "category": "serum",
+    "domain": "skincare",
+    "price_segment": "premium",
+    "price_value": 2890,
+    "currency": "RUB",
+    "image_url": "/assets/cards/017_SE-PRE-001.png",
+    "gallery": [
+      "/assets/cards/017_SE-PRE-001.png"
+    ],
+    "availability": true,
+    "inventory_status": "in_stock",
+    "skin_types": [
+      "normal",
+      "combination",
+      "sensitive"
+    ],
+    "concerns": [
+      "barrier",
+      "texture",
+      "maintenance"
+    ],
+    "tags": [
+      "targeted",
+      "daily",
+      "layerable"
+    ],
+    "ingredients": [
+      "peptides",
+      "squalane"
+    ],
+    "ingredient_highlights": [
+      "peptides",
+      "squalane"
+    ],
+    "exclusions": [],
+    "warnings": [],
+    "finishes": [],
+    "coverage_levels": [],
+    "color_families": [],
+    "texture": "serum",
+    "rating": 4.3,
+    "review_count": 629,
+    "source": "synthetic_catalog",
+    "asset_source": "gpt_image_2_packshot_card_crop",
+    "card_image_url": "/assets/cards/017_SE-PRE-001.png",
+    "product_type": "serum",
+    "category_group": "skincare"
+  },
+  {
+    "sku": "LUMA-018",
+    "source_sku": "SP-BUD-001",
+    "catalog_number": 18,
+    "brand": "Pure Reason",
+    "name": "City Calm SPF 50 Fluid",
+    "variant": null,
+    "display_name": "Pure Reason City Calm SPF 50 Fluid",
+    "category": "spf",
+    "domain": "skincare",
+    "price_segment": "budget",
+    "price_value": 1190,
+    "currency": "RUB",
+    "image_url": "/assets/cards/018_SP-BUD-001.png",
+    "gallery": [
+      "/assets/cards/018_SP-BUD-001.png"
+    ],
+    "availability": true,
+    "inventory_status": "in_stock",
+    "skin_types": [
+      "normal",
+      "combination",
+      "sensitive"
+    ],
+    "concerns": [
+      "maintenance",
+      "redness",
+      "daily_uv"
+    ],
+    "tags": [
+      "spf",
+      "daily",
+      "lightweight"
+    ],
+    "ingredients": [
+      "niacinamide",
+      "panthenol"
+    ],
+    "ingredient_highlights": [
+      "niacinamide",
+      "panthenol"
+    ],
+    "exclusions": [],
+    "warnings": [],
+    "finishes": [],
+    "coverage_levels": [],
+    "color_families": [],
+    "texture": "fluid",
+    "rating": 4.4,
+    "review_count": 735,
+    "source": "synthetic_catalog",
+    "asset_source": "gpt_image_2_packshot_card_crop",
+    "card_image_url": "/assets/cards/018_SP-BUD-001.png",
+    "product_type": "sunscreen",
+    "category_group": "suncare"
+  },
+  {
+    "sku": "LUMA-019",
+    "source_sku": "SP-MID-001",
+    "catalog_number": 19,
+    "brand": "Skin Logic",
+    "name": "Tone Up Sun Essence SPF 50+",
+    "variant": null,
+    "display_name": "Skin Logic Tone Up Sun Essence SPF 50+",
+    "category": "spf",
+    "domain": "skincare",
+    "price_segment": "mid",
+    "price_value": 2490,
+    "currency": "RUB",
+    "image_url": "/assets/cards/019_SP-MID-001.png",
+    "gallery": [
+      "/assets/cards/019_SP-MID-001.png"
+    ],
+    "availability": true,
+    "inventory_status": "in_stock",
+    "skin_types": [
+      "normal",
+      "combination",
+      "sensitive"
+    ],
+    "concerns": [
+      "maintenance",
+      "redness",
+      "daily_uv"
+    ],
+    "tags": [
+      "spf",
+      "daily",
+      "lightweight"
+    ],
+    "ingredients": [
+      "niacinamide",
+      "panthenol"
+    ],
+    "ingredient_highlights": [
+      "niacinamide",
+      "panthenol"
+    ],
+    "exclusions": [],
+    "warnings": [],
+    "finishes": [],
+    "coverage_levels": [],
+    "color_families": [],
+    "texture": "essence",
+    "rating": 4.5,
+    "review_count": 863,
+    "source": "synthetic_catalog",
+    "asset_source": "gpt_image_2_packshot_card_crop",
+    "card_image_url": "/assets/cards/019_SP-MID-001.png",
+    "product_type": "sunscreen",
+    "category_group": "suncare"
+  },
+  {
+    "sku": "LUMA-020",
+    "source_sku": "SP-PRE-001",
+    "catalog_number": 20,
+    "brand": "Atelier Six",
+    "name": "Water Sun Gel SPF 50",
+    "variant": null,
+    "display_name": "Atelier Six Water Sun Gel SPF 50",
+    "category": "spf",
+    "domain": "skincare",
+    "price_segment": "premium",
+    "price_value": 4390,
+    "currency": "RUB",
+    "image_url": "/assets/cards/020_SP-PRE-001.png",
+    "gallery": [
+      "/assets/cards/020_SP-PRE-001.png"
+    ],
+    "availability": true,
+    "inventory_status": "in_stock",
+    "skin_types": [
+      "normal",
+      "combination",
+      "sensitive"
+    ],
+    "concerns": [
+      "maintenance",
+      "redness",
+      "daily_uv"
+    ],
+    "tags": [
+      "spf",
+      "daily",
+      "lightweight"
+    ],
+    "ingredients": [
+      "niacinamide",
+      "panthenol"
+    ],
+    "ingredient_highlights": [
+      "niacinamide",
+      "panthenol"
+    ],
+    "exclusions": [],
+    "warnings": [],
+    "finishes": [],
+    "coverage_levels": [],
+    "color_families": [],
+    "texture": "gel",
+    "rating": 4.6,
+    "review_count": 859,
+    "source": "synthetic_catalog",
+    "asset_source": "gpt_image_2_packshot_card_crop",
+    "card_image_url": "/assets/cards/020_SP-PRE-001.png",
+    "product_type": "sunscreen",
+    "category_group": "suncare"
+  },
+  {
+    "sku": "LUMA-021",
+    "source_sku": "FD-BUD-02",
+    "catalog_number": 21,
+    "brand": "Lumiere Daily",
+    "name": "Everyday Skin Foundation LIGHT NEUTRAL",
+    "variant": "LIGHT NEUTRAL",
+    "display_name": "Lumiere Daily Everyday Skin Foundation LIGHT NEUTRAL",
+    "category": "foundation",
+    "domain": "makeup",
+    "price_segment": "budget",
+    "price_value": 1190,
+    "currency": "RUB",
+    "image_url": "/assets/cards/021_FD-BUD-02.png",
+    "gallery": [
+      "/assets/cards/021_FD-BUD-02.png"
+    ],
+    "availability": true,
+    "inventory_status": "in_stock",
+    "skin_types": [
+      "normal",
+      "combination"
+    ],
+    "concerns": [
+      "tone_match",
+      "texture",
+      "redness"
+    ],
+    "tags": [
+      "complexion",
+      "shade-match",
+      "buildable"
+    ],
+    "ingredients": [
+      "glycerin",
+      "squalane"
+    ],
+    "ingredient_highlights": [
+      "glycerin",
+      "squalane"
+    ],
+    "exclusions": [],
+    "warnings": [],
+    "finishes": [
+      "natural",
+      "satin"
+    ],
+    "coverage_levels": [
+      "medium"
+    ],
+    "color_families": [
+      "light",
+      "neutral"
+    ],
+    "texture": "liquid",
+    "rating": 4.7,
+    "review_count": 269,
+    "source": "synthetic_catalog",
+    "asset_source": "gpt_image_2_packshot_card_crop",
+    "card_image_url": "/assets/cards/021_FD-BUD-02.png",
+    "product_type": "foundation",
+    "category_group": "makeup"
+  },
+  {
+    "sku": "LUMA-022",
+    "source_sku": "CO-BUD-02",
+    "catalog_number": 22,
+    "brand": "Lumiere Daily",
+    "name": "Bright Flex Concealer LIGHT NEUTRAL",
+    "variant": "LIGHT NEUTRAL",
+    "display_name": "Lumiere Daily Bright Flex Concealer LIGHT NEUTRAL",
+    "category": "concealer",
+    "domain": "makeup",
+    "price_segment": "budget",
+    "price_value": 1490,
+    "currency": "RUB",
+    "image_url": "/assets/cards/022_CO-BUD-02.png",
+    "gallery": [
+      "/assets/cards/022_CO-BUD-02.png"
+    ],
+    "availability": true,
+    "inventory_status": "in_stock",
+    "skin_types": [
+      "normal",
+      "combination"
+    ],
+    "concerns": [
+      "under_eye",
+      "redness",
+      "tone_match"
+    ],
+    "tags": [
+      "complexion",
+      "brightening",
+      "buildable"
+    ],
+    "ingredients": [
+      "glycerin",
+      "squalane"
+    ],
+    "ingredient_highlights": [
+      "glycerin",
+      "squalane"
+    ],
+    "exclusions": [],
+    "warnings": [],
+    "finishes": [
+      "natural"
+    ],
+    "coverage_levels": [
+      "medium",
+      "buildable"
+    ],
+    "color_families": [
+      "light",
+      "neutral"
+    ],
+    "texture": "liquid",
+    "rating": 4.8,
+    "review_count": 309,
+    "source": "synthetic_catalog",
+    "asset_source": "gpt_image_2_packshot_card_crop",
+    "card_image_url": "/assets/cards/022_CO-BUD-02.png",
+    "product_type": "concealer",
+    "category_group": "makeup"
+  },
+  {
+    "sku": "LUMA-023",
+    "source_sku": "PW-BUD-02",
+    "catalog_number": 23,
+    "brand": "Lumiere Daily",
+    "name": "Soft Set Loose Powder TRANSLUCENT MEDIUM",
+    "variant": "TRANSLUCENT MEDIUM",
+    "display_name": "Lumiere Daily Soft Set Loose Powder TRANSLUCENT MEDIUM",
+    "category": "powder",
+    "domain": "makeup",
+    "price_segment": "budget",
+    "price_value": 890,
+    "currency": "RUB",
+    "image_url": "/assets/cards/023_PW-BUD-02.png",
+    "gallery": [
+      "/assets/cards/023_PW-BUD-02.png"
+    ],
+    "availability": true,
+    "inventory_status": "in_stock",
+    "skin_types": [
+      "combination",
+      "oily",
+      "normal"
+    ],
+    "concerns": [
+      "shine_control",
+      "texture",
+      "pores"
+    ],
+    "tags": [
+      "set",
+      "blur",
+      "soft-focus"
+    ],
+    "ingredients": [
+      "mica",
+      "silica"
+    ],
+    "ingredient_highlights": [
+      "mica",
+      "silica"
+    ],
+    "exclusions": [],
+    "warnings": [],
+    "finishes": [
+      "soft_matte",
+      "blurred"
+    ],
+    "coverage_levels": [
+      "sheer"
+    ],
+    "color_families": [
+      "translucent"
+    ],
+    "texture": "powder",
+    "rating": 4.9,
+    "review_count": 437,
+    "source": "synthetic_catalog",
+    "asset_source": "gpt_image_2_packshot_card_crop",
+    "card_image_url": "/assets/cards/023_PW-BUD-02.png",
+    "product_type": "loose_powder",
+    "category_group": "makeup"
+  },
+  {
+    "sku": "LUMA-024",
+    "source_sku": "CL-BUD-002",
+    "catalog_number": 24,
+    "brand": "Derma Pure",
+    "name": "Pure Clean Cleansing Oil",
+    "variant": null,
+    "display_name": "Derma Pure Pure Clean Cleansing Oil",
+    "category": "cleanser",
+    "domain": "skincare",
+    "price_segment": "budget",
+    "price_value": 1290,
+    "currency": "RUB",
+    "image_url": "/assets/cards/024_CL-BUD-002.png",
+    "gallery": [
+      "/assets/cards/024_CL-BUD-002.png"
+    ],
+    "availability": true,
+    "inventory_status": "in_stock",
+    "skin_types": [
+      "combination",
+      "oily",
+      "sensitive"
+    ],
+    "concerns": [
+      "makeup_removal",
+      "pores",
+      "maintenance"
+    ],
+    "tags": [
+      "gentle",
+      "daily",
+      "non-comedogenic"
+    ],
+    "ingredients": [
+      "squalane",
+      "jojoba oil"
+    ],
+    "ingredient_highlights": [
+      "squalane",
+      "jojoba oil"
+    ],
+    "exclusions": [],
+    "warnings": [],
+    "finishes": [],
+    "coverage_levels": [],
+    "color_families": [],
+    "texture": "oil",
+    "rating": 4.2,
+    "review_count": 334,
+    "source": "synthetic_catalog",
+    "asset_source": "gpt_image_2_packshot_card_crop",
+    "card_image_url": "/assets/cards/024_CL-BUD-002.png",
+    "product_type": "cleansing_oil",
+    "category_group": "skincare"
+  },
+  {
+    "sku": "LUMA-025",
+    "source_sku": "CR-MID-001",
+    "catalog_number": 25,
+    "brand": "Skin Logic",
+    "name": "Hydra Light Gel Cream",
+    "variant": null,
+    "display_name": "Skin Logic Hydra Light Gel Cream",
+    "category": "moisturizer",
+    "domain": "skincare",
+    "price_segment": "mid",
+    "price_value": 1290,
+    "currency": "RUB",
+    "image_url": "/assets/cards/025_CR-MID-001.png",
+    "gallery": [
+      "/assets/cards/025_CR-MID-001.png"
+    ],
+    "availability": true,
+    "inventory_status": "in_stock",
+    "skin_types": [
+      "dry",
+      "normal",
+      "sensitive"
+    ],
+    "concerns": [
+      "dryness",
+      "barrier",
+      "redness",
+      "maintenance"
+    ],
+    "tags": [
+      "comfort",
+      "barrier-support",
+      "daily"
+    ],
+    "ingredients": [
+      "hyaluronic acid",
+      "beta-glucan"
+    ],
+    "ingredient_highlights": [
+      "hyaluronic acid",
+      "beta-glucan"
+    ],
+    "exclusions": [],
+    "warnings": [],
+    "finishes": [],
+    "coverage_levels": [],
+    "color_families": [],
+    "texture": "gel cream",
+    "rating": 4.3,
+    "review_count": 374,
+    "source": "synthetic_catalog",
+    "asset_source": "gpt_image_2_packshot_card_crop",
+    "card_image_url": "/assets/cards/025_CR-MID-001.png",
+    "product_type": "cream",
+    "category_group": "skincare"
+  },
+  {
+    "sku": "LUMA-026",
+    "source_sku": "CR-BUD-001",
+    "catalog_number": 26,
+    "brand": "Pure Reason",
+    "name": "Daily Moisturizer",
+    "variant": null,
+    "display_name": "Pure Reason Daily Moisturizer",
+    "category": "moisturizer",
+    "domain": "skincare",
+    "price_segment": "budget",
+    "price_value": 990,
+    "currency": "RUB",
+    "image_url": "/assets/cards/026_CR-BUD-001.png",
+    "gallery": [
+      "/assets/cards/026_CR-BUD-001.png"
+    ],
+    "availability": true,
+    "inventory_status": "in_stock",
+    "skin_types": [
+      "dry",
+      "normal",
+      "sensitive"
+    ],
+    "concerns": [
+      "dryness",
+      "barrier",
+      "redness",
+      "maintenance"
+    ],
+    "tags": [
+      "comfort",
+      "barrier-support",
+      "daily"
+    ],
+    "ingredients": [
+      "ceramide",
+      "squalane"
+    ],
+    "ingredient_highlights": [
+      "ceramide",
+      "squalane"
+    ],
+    "exclusions": [],
+    "warnings": [],
+    "finishes": [],
+    "coverage_levels": [],
+    "color_families": [],
+    "texture": "cream",
+    "rating": 4.4,
+    "review_count": 403,
+    "source": "synthetic_catalog",
+    "asset_source": "gpt_image_2_packshot_card_crop",
+    "card_image_url": "/assets/cards/026_CR-BUD-001.png",
+    "product_type": "moisturizer",
+    "category_group": "skincare"
+  },
+  {
+    "sku": "LUMA-027",
+    "source_sku": "SE-MID-002",
+    "catalog_number": 27,
+    "brand": "Glow Science",
+    "name": "Vitamin C 15% Bright Serum",
+    "variant": null,
+    "display_name": "Glow Science Vitamin C 15% Bright Serum",
+    "category": "serum",
+    "domain": "skincare",
+    "price_segment": "mid",
+    "price_value": 2190,
+    "currency": "RUB",
+    "image_url": "/assets/cards/027_SE-MID-002.png",
+    "gallery": [
+      "/assets/cards/027_SE-MID-002.png"
+    ],
+    "availability": true,
+    "inventory_status": "in_stock",
+    "skin_types": [
+      "normal",
+      "combination",
+      "sensitive"
+    ],
+    "concerns": [
+      "dullness",
+      "tone",
+      "radiance",
+      "maintenance"
+    ],
+    "tags": [
+      "targeted",
+      "daily",
+      "layerable"
+    ],
+    "ingredients": [
+      "vitamin c",
+      "ferulic acid"
+    ],
+    "ingredient_highlights": [
+      "vitamin c",
+      "ferulic acid"
+    ],
+    "exclusions": [],
+    "warnings": [],
+    "finishes": [],
+    "coverage_levels": [],
+    "color_families": [],
+    "texture": "serum",
+    "rating": 4.5,
+    "review_count": 575,
+    "source": "synthetic_catalog",
+    "asset_source": "gpt_image_2_packshot_card_crop",
+    "card_image_url": "/assets/cards/027_SE-MID-002.png",
+    "product_type": "serum",
+    "category_group": "skincare"
+  },
+  {
+    "sku": "LUMA-028",
+    "source_sku": "SE-PRE-003",
+    "catalog_number": 28,
+    "brand": "Skin Logic",
+    "name": "Peptide Repair Serum",
+    "variant": null,
+    "display_name": "Skin Logic Peptide Repair Serum",
+    "category": "serum",
+    "domain": "skincare",
+    "price_segment": "premium",
+    "price_value": 2790,
+    "currency": "RUB",
+    "image_url": "/assets/cards/028_SE-PRE-003.png",
+    "gallery": [
+      "/assets/cards/028_SE-PRE-003.png"
+    ],
+    "availability": true,
+    "inventory_status": "in_stock",
+    "skin_types": [
+      "normal",
+      "combination",
+      "sensitive"
+    ],
+    "concerns": [
+      "barrier",
+      "texture",
+      "maintenance"
+    ],
+    "tags": [
+      "targeted",
+      "daily",
+      "layerable"
+    ],
+    "ingredients": [
+      "peptides",
+      "squalane"
+    ],
+    "ingredient_highlights": [
+      "peptides",
+      "squalane"
+    ],
+    "exclusions": [],
+    "warnings": [],
+    "finishes": [],
+    "coverage_levels": [],
+    "color_families": [],
+    "texture": "serum",
+    "rating": 4.6,
+    "review_count": 582,
+    "source": "synthetic_catalog",
+    "asset_source": "gpt_image_2_packshot_card_crop",
+    "card_image_url": "/assets/cards/028_SE-PRE-003.png",
+    "product_type": "serum",
+    "category_group": "skincare"
+  },
+  {
+    "sku": "LUMA-029",
+    "source_sku": "SP-MID-002",
+    "catalog_number": 29,
+    "brand": "Atelier Six",
+    "name": "Hydrating Tone Up Sun Cream SPF 50+",
+    "variant": null,
+    "display_name": "Atelier Six Hydrating Tone Up Sun Cream SPF 50+",
+    "category": "spf",
+    "domain": "skincare",
+    "price_segment": "mid",
+    "price_value": 1690,
+    "currency": "RUB",
+    "image_url": "/assets/cards/029_SP-MID-002.png",
+    "gallery": [
+      "/assets/cards/029_SP-MID-002.png"
+    ],
+    "availability": true,
+    "inventory_status": "in_stock",
+    "skin_types": [
+      "normal",
+      "combination",
+      "sensitive"
+    ],
+    "concerns": [
+      "maintenance",
+      "redness",
+      "daily_uv"
+    ],
+    "tags": [
+      "spf",
+      "daily",
+      "lightweight"
+    ],
+    "ingredients": [
+      "niacinamide",
+      "panthenol"
+    ],
+    "ingredient_highlights": [
+      "niacinamide",
+      "panthenol"
+    ],
+    "exclusions": [],
+    "warnings": [],
+    "finishes": [],
+    "coverage_levels": [],
+    "color_families": [],
+    "texture": "cream",
+    "rating": 4.7,
+    "review_count": 820,
+    "source": "synthetic_catalog",
+    "asset_source": "gpt_image_2_packshot_card_crop",
+    "card_image_url": "/assets/cards/029_SP-MID-002.png",
+    "product_type": "sunscreen",
+    "category_group": "suncare"
+  },
+  {
+    "sku": "LUMA-030",
+    "source_sku": "LP-BUD-01",
+    "catalog_number": 30,
+    "brand": "Glow Pop",
+    "name": "Juicy Glow Lip Tint ROSE",
+    "variant": "ROSE",
+    "display_name": "Glow Pop Juicy Glow Lip Tint ROSE",
+    "category": "lip_tint",
+    "domain": "makeup",
+    "price_segment": "budget",
+    "price_value": 1090,
+    "currency": "RUB",
+    "image_url": "/assets/cards/030_LP-BUD-01.png",
+    "gallery": [
+      "/assets/cards/030_LP-BUD-01.png"
+    ],
+    "availability": true,
+    "inventory_status": "in_stock",
+    "skin_types": [
+      "normal"
+    ],
+    "concerns": [
+      "lip_color"
+    ],
+    "tags": [
+      "lip",
+      "tint",
+      "glow"
+    ],
+    "ingredients": [
+      "jojoba oil",
+      "shea butter"
+    ],
+    "ingredient_highlights": [
+      "jojoba oil",
+      "shea butter"
+    ],
+    "exclusions": [],
+    "warnings": [],
+    "finishes": [
+      "glossy",
+      "tint"
+    ],
+    "coverage_levels": [],
+    "color_families": [
+      "rose"
+    ],
+    "texture": "tint",
+    "rating": 4.8,
+    "review_count": 772,
+    "source": "synthetic_catalog",
+    "asset_source": "gpt_image_2_packshot_card_crop",
+    "card_image_url": "/assets/cards/030_LP-BUD-01.png",
+    "product_type": "lip_tint",
+    "category_group": "makeup"
+  },
+  {
+    "sku": "LUMA-031",
+    "source_sku": "CL-MID-002",
+    "catalog_number": 31,
+    "brand": "Derma Pure",
+    "name": "Pore Control Cleansing Oil",
+    "variant": null,
+    "display_name": "Derma Pure Pore Control Cleansing Oil",
+    "category": "cleanser",
+    "domain": "skincare",
+    "price_segment": "mid",
+    "price_value": 1990,
+    "currency": "RUB",
+    "image_url": "/assets/cards/031_CL-MID-002.png",
+    "gallery": [
+      "/assets/cards/031_CL-MID-002.png"
+    ],
+    "availability": true,
+    "inventory_status": "in_stock",
+    "skin_types": [
+      "combination",
+      "oily",
+      "sensitive"
+    ],
+    "concerns": [
+      "makeup_removal",
+      "pores",
+      "maintenance"
+    ],
+    "tags": [
+      "gentle",
+      "daily",
+      "non-comedogenic"
+    ],
+    "ingredients": [
+      "squalane",
+      "jojoba oil"
+    ],
+    "ingredient_highlights": [
+      "squalane",
+      "jojoba oil"
+    ],
+    "exclusions": [],
+    "warnings": [],
+    "finishes": [],
+    "coverage_levels": [],
+    "color_families": [],
+    "texture": "oil",
+    "rating": 4.9,
+    "review_count": 867,
+    "source": "synthetic_catalog",
+    "asset_source": "gpt_image_2_packshot_card_crop",
+    "card_image_url": "/assets/cards/031_CL-MID-002.png",
+    "product_type": "cleansing_oil",
+    "category_group": "skincare"
+  },
+  {
+    "sku": "LUMA-032",
+    "source_sku": "CL-PRE-002",
+    "catalog_number": 32,
+    "brand": "Pure Reason",
+    "name": "Gentle Amino Cleansing Foam",
+    "variant": null,
+    "display_name": "Pure Reason Gentle Amino Cleansing Foam",
+    "category": "cleanser",
+    "domain": "skincare",
+    "price_segment": "premium",
+    "price_value": 3890,
+    "currency": "RUB",
+    "image_url": "/assets/cards/032_CL-PRE-002.png",
+    "gallery": [
+      "/assets/cards/032_CL-PRE-002.png"
+    ],
+    "availability": true,
+    "inventory_status": "in_stock",
+    "skin_types": [
+      "combination",
+      "oily",
+      "sensitive"
+    ],
+    "concerns": [
+      "oiliness",
+      "pores",
+      "redness",
+      "maintenance"
+    ],
+    "tags": [
+      "gentle",
+      "daily",
+      "non-comedogenic"
+    ],
+    "ingredients": [
+      "amino acids",
+      "allantoin"
+    ],
+    "ingredient_highlights": [
+      "amino acids",
+      "allantoin"
+    ],
+    "exclusions": [],
+    "warnings": [],
+    "finishes": [],
+    "coverage_levels": [],
+    "color_families": [],
+    "texture": "foam",
+    "rating": 4.2,
+    "review_count": 90,
+    "source": "synthetic_catalog",
+    "asset_source": "gpt_image_2_packshot_card_crop",
+    "card_image_url": "/assets/cards/032_CL-PRE-002.png",
+    "product_type": "cleanser",
+    "category_group": "skincare"
+  },
+  {
+    "sku": "LUMA-033",
+    "source_sku": "SE-PRE-002",
+    "catalog_number": 33,
+    "brand": "Atelier Six",
+    "name": "PDRN Glow Serum",
+    "variant": null,
+    "display_name": "Atelier Six PDRN Glow Serum",
+    "category": "serum",
+    "domain": "skincare",
+    "price_segment": "premium",
+    "price_value": 3690,
+    "currency": "RUB",
+    "image_url": "/assets/cards/033_SE-PRE-002.png",
+    "gallery": [
+      "/assets/cards/033_SE-PRE-002.png"
+    ],
+    "availability": true,
+    "inventory_status": "in_stock",
+    "skin_types": [
+      "normal",
+      "combination",
+      "sensitive"
+    ],
+    "concerns": [
+      "texture",
+      "barrier",
+      "maintenance"
+    ],
+    "tags": [
+      "targeted",
+      "daily",
+      "layerable"
+    ],
+    "ingredients": [
+      "pdrn",
+      "squalane"
+    ],
+    "ingredient_highlights": [
+      "pdrn",
+      "squalane"
+    ],
+    "exclusions": [],
+    "warnings": [],
+    "finishes": [],
+    "coverage_levels": [],
+    "color_families": [],
+    "texture": "serum",
+    "rating": 4.3,
+    "review_count": 892,
+    "source": "synthetic_catalog",
+    "asset_source": "gpt_image_2_packshot_card_crop",
+    "card_image_url": "/assets/cards/033_SE-PRE-002.png",
+    "product_type": "serum",
+    "category_group": "skincare"
+  },
+  {
+    "sku": "LUMA-034",
+    "source_sku": "SE-PRE-001",
+    "catalog_number": 34,
+    "brand": "Pure Reason",
+    "name": "Vitamin C 20% Bright Serum",
+    "variant": null,
+    "display_name": "Pure Reason Vitamin C 20% Bright Serum",
+    "category": "serum",
+    "domain": "skincare",
+    "price_segment": "premium",
+    "price_value": 4390,
+    "currency": "RUB",
+    "image_url": "/assets/cards/034_SE-PRE-001.png",
+    "gallery": [
+      "/assets/cards/034_SE-PRE-001.png"
+    ],
+    "availability": true,
+    "inventory_status": "in_stock",
+    "skin_types": [
+      "normal",
+      "combination",
+      "sensitive"
+    ],
+    "concerns": [
+      "dullness",
+      "tone",
+      "radiance",
+      "maintenance"
+    ],
+    "tags": [
+      "targeted",
+      "daily",
+      "layerable"
+    ],
+    "ingredients": [
+      "vitamin c",
+      "ferulic acid"
+    ],
+    "ingredient_highlights": [
+      "vitamin c",
+      "ferulic acid"
+    ],
+    "exclusions": [],
+    "warnings": [],
+    "finishes": [],
+    "coverage_levels": [],
+    "color_families": [],
+    "texture": "serum",
+    "rating": 4.4,
+    "review_count": 225,
+    "source": "synthetic_catalog",
+    "asset_source": "gpt_image_2_packshot_card_crop",
+    "card_image_url": "/assets/cards/034_SE-PRE-001.png",
+    "product_type": "serum",
+    "category_group": "skincare"
+  },
+  {
+    "sku": "LUMA-035",
+    "source_sku": "CR-MID-002",
+    "catalog_number": 35,
+    "brand": "Derma Pure",
+    "name": "Cica Calming Cream",
+    "variant": null,
+    "display_name": "Derma Pure Cica Calming Cream",
+    "category": "moisturizer",
+    "domain": "skincare",
+    "price_segment": "mid",
+    "price_value": 1790,
+    "currency": "RUB",
+    "image_url": "/assets/cards/035_CR-MID-002.png",
+    "gallery": [
+      "/assets/cards/035_CR-MID-002.png"
+    ],
+    "availability": true,
+    "inventory_status": "in_stock",
+    "skin_types": [
+      "dry",
+      "normal",
+      "sensitive"
+    ],
+    "concerns": [
+      "dryness",
+      "barrier",
+      "redness",
+      "maintenance"
+    ],
+    "tags": [
+      "comfort",
+      "barrier-support",
+      "daily"
+    ],
+    "ingredients": [
+      "centella",
+      "madecassoside"
+    ],
+    "ingredient_highlights": [
+      "centella",
+      "madecassoside"
+    ],
+    "exclusions": [],
+    "warnings": [],
+    "finishes": [],
+    "coverage_levels": [],
+    "color_families": [],
+    "texture": "cream",
+    "rating": 4.5,
+    "review_count": 210,
+    "source": "synthetic_catalog",
+    "asset_source": "gpt_image_2_packshot_card_crop",
+    "card_image_url": "/assets/cards/035_CR-MID-002.png",
+    "product_type": "cream",
+    "category_group": "skincare"
+  },
+  {
+    "sku": "LUMA-036",
+    "source_sku": "SP-BUD-002",
+    "catalog_number": 36,
+    "brand": "Lumiere Daily",
+    "name": "Tone-Up Sun Cream SPF 50+",
+    "variant": null,
+    "display_name": "Lumiere Daily Tone-Up Sun Cream SPF 50+",
+    "category": "spf",
+    "domain": "skincare",
+    "price_segment": "budget",
+    "price_value": 690,
+    "currency": "RUB",
+    "image_url": "/assets/cards/036_SP-BUD-002.png",
+    "gallery": [
+      "/assets/cards/036_SP-BUD-002.png"
+    ],
+    "availability": true,
+    "inventory_status": "in_stock",
+    "skin_types": [
+      "normal",
+      "combination",
+      "sensitive"
+    ],
+    "concerns": [
+      "maintenance",
+      "redness",
+      "daily_uv"
+    ],
+    "tags": [
+      "spf",
+      "daily",
+      "lightweight"
+    ],
+    "ingredients": [
+      "niacinamide",
+      "panthenol"
+    ],
+    "ingredient_highlights": [
+      "niacinamide",
+      "panthenol"
+    ],
+    "exclusions": [],
+    "warnings": [],
+    "finishes": [],
+    "coverage_levels": [],
+    "color_families": [],
+    "texture": "cream",
+    "rating": 4.6,
+    "review_count": 360,
+    "source": "synthetic_catalog",
+    "asset_source": "gpt_image_2_packshot_card_crop",
+    "card_image_url": "/assets/cards/036_SP-BUD-002.png",
+    "product_type": "sunscreen",
+    "category_group": "suncare"
+  },
+  {
+    "sku": "LUMA-037",
+    "source_sku": "SP-MID-003",
+    "catalog_number": 37,
+    "brand": "Pure Reason",
+    "name": "Pink Tone-Up Sun Essence SPF 50+",
+    "variant": null,
+    "display_name": "Pure Reason Pink Tone-Up Sun Essence SPF 50+",
+    "category": "spf",
+    "domain": "skincare",
+    "price_segment": "mid",
+    "price_value": 2090,
+    "currency": "RUB",
+    "image_url": "/assets/cards/037_SP-MID-003.png",
+    "gallery": [
+      "/assets/cards/037_SP-MID-003.png"
+    ],
+    "availability": true,
+    "inventory_status": "in_stock",
+    "skin_types": [
+      "normal",
+      "combination",
+      "sensitive"
+    ],
+    "concerns": [
+      "maintenance",
+      "redness",
+      "daily_uv"
+    ],
+    "tags": [
+      "spf",
+      "daily",
+      "lightweight"
+    ],
+    "ingredients": [
+      "niacinamide",
+      "panthenol"
+    ],
+    "ingredient_highlights": [
+      "niacinamide",
+      "panthenol"
+    ],
+    "exclusions": [],
+    "warnings": [],
+    "finishes": [],
+    "coverage_levels": [],
+    "color_families": [],
+    "texture": "essence",
+    "rating": 4.7,
+    "review_count": 510,
+    "source": "synthetic_catalog",
+    "asset_source": "gpt_image_2_packshot_card_crop",
+    "card_image_url": "/assets/cards/037_SP-MID-003.png",
+    "product_type": "sunscreen",
+    "category_group": "suncare"
+  },
+  {
+    "sku": "LUMA-038",
+    "source_sku": "PW-BUD-03",
+    "catalog_number": 38,
+    "brand": "Lumiere Daily",
+    "name": "Blurring Pact Powder LIGHT",
+    "variant": "LIGHT",
+    "display_name": "Lumiere Daily Blurring Pact Powder LIGHT",
+    "category": "powder",
+    "domain": "makeup",
+    "price_segment": "budget",
+    "price_value": 1290,
+    "currency": "RUB",
+    "image_url": "/assets/cards/038_PW-BUD-03.png",
+    "gallery": [
+      "/assets/cards/038_PW-BUD-03.png"
+    ],
+    "availability": true,
+    "inventory_status": "in_stock",
+    "skin_types": [
+      "combination",
+      "oily",
+      "normal"
+    ],
+    "concerns": [
+      "shine_control",
+      "texture",
+      "pores"
+    ],
+    "tags": [
+      "set",
+      "blur",
+      "soft-focus"
+    ],
+    "ingredients": [
+      "mica",
+      "silica"
+    ],
+    "ingredient_highlights": [
+      "mica",
+      "silica"
+    ],
+    "exclusions": [],
+    "warnings": [],
+    "finishes": [
+      "soft_matte",
+      "blurred"
+    ],
+    "coverage_levels": [
+      "sheer"
+    ],
+    "color_families": [
+      "light"
+    ],
+    "texture": "powder",
+    "rating": 4.8,
+    "review_count": 517,
+    "source": "synthetic_catalog",
+    "asset_source": "gpt_image_2_packshot_card_crop",
+    "card_image_url": "/assets/cards/038_PW-BUD-03.png",
+    "product_type": "pressed_powder",
+    "category_group": "makeup"
+  },
+  {
+    "sku": "LUMA-039",
+    "source_sku": "PW-BUD-04",
+    "catalog_number": 39,
+    "brand": "Lumiere Daily",
+    "name": "Soft Set Loose Powder TRANSLUCENT PINK",
+    "variant": "TRANSLUCENT PINK",
+    "display_name": "Lumiere Daily Soft Set Loose Powder TRANSLUCENT PINK",
+    "category": "powder",
+    "domain": "makeup",
+    "price_segment": "budget",
+    "price_value": 990,
+    "currency": "RUB",
+    "image_url": "/assets/cards/039_PW-BUD-04.png",
+    "gallery": [
+      "/assets/cards/039_PW-BUD-04.png"
+    ],
+    "availability": true,
+    "inventory_status": "in_stock",
+    "skin_types": [
+      "combination",
+      "oily",
+      "normal"
+    ],
+    "concerns": [
+      "shine_control",
+      "texture",
+      "pores"
+    ],
+    "tags": [
+      "set",
+      "blur",
+      "soft-focus"
+    ],
+    "ingredients": [
+      "mica",
+      "silica"
+    ],
+    "ingredient_highlights": [
+      "mica",
+      "silica"
+    ],
+    "exclusions": [],
+    "warnings": [],
+    "finishes": [
+      "soft_matte",
+      "blurred"
+    ],
+    "coverage_levels": [
+      "sheer"
+    ],
+    "color_families": [
+      "translucent"
+    ],
+    "texture": "powder",
+    "rating": 4.9,
+    "review_count": 722,
+    "source": "synthetic_catalog",
+    "asset_source": "gpt_image_2_packshot_card_crop",
+    "card_image_url": "/assets/cards/039_PW-BUD-04.png",
+    "product_type": "loose_powder",
+    "category_group": "makeup"
+  },
+  {
+    "sku": "LUMA-040",
+    "source_sku": "EY-PRE-01",
+    "catalog_number": 40,
+    "brand": "Color Atelier",
+    "name": "Soft Nude Palette",
+    "variant": null,
+    "display_name": "Color Atelier Soft Nude Palette",
+    "category": "eyeshadow_palette",
+    "domain": "makeup",
+    "price_segment": "premium",
+    "price_value": 4990,
+    "currency": "RUB",
+    "image_url": "/assets/cards/040_EY-PRE-01.png",
+    "gallery": [
+      "/assets/cards/040_EY-PRE-01.png"
+    ],
+    "availability": true,
+    "inventory_status": "in_stock",
+    "skin_types": [
+      "normal",
+      "combination",
+      "dry",
+      "oily"
+    ],
+    "concerns": [
+      "eye_definition",
+      "color"
+    ],
+    "tags": [
+      "palette",
+      "blendable",
+      "color"
+    ],
+    "ingredients": [
+      "mica",
+      "silica"
+    ],
+    "ingredient_highlights": [
+      "mica",
+      "silica"
+    ],
+    "exclusions": [],
+    "warnings": [],
+    "finishes": [
+      "satin",
+      "shimmer",
+      "matte"
+    ],
+    "coverage_levels": [],
+    "color_families": [
+      "nude",
+      "beige",
+      "brown"
+    ],
+    "texture": "pressed_powder",
+    "rating": 4.2,
+    "review_count": 564,
+    "source": "synthetic_catalog",
+    "asset_source": "gpt_image_2_packshot_card_crop",
+    "card_image_url": "/assets/cards/040_EY-PRE-01.png",
+    "product_type": "eyeshadow_palette",
+    "category_group": "makeup"
+  },
+  {
+    "sku": "LUMA-041",
+    "source_sku": "FD-BUD-03",
+    "catalog_number": 41,
+    "brand": "Lumiere Daily",
+    "name": "Everyday Skin Foundation MEDIUM NEUTRAL",
+    "variant": "MEDIUM NEUTRAL",
+    "display_name": "Lumiere Daily Everyday Skin Foundation MEDIUM NEUTRAL",
+    "category": "foundation",
+    "domain": "makeup",
+    "price_segment": "budget",
+    "price_value": 1490,
+    "currency": "RUB",
+    "image_url": "/assets/cards/041_FD-BUD-03.png",
+    "gallery": [
+      "/assets/cards/041_FD-BUD-03.png"
+    ],
+    "availability": true,
+    "inventory_status": "in_stock",
+    "skin_types": [
+      "normal",
+      "combination"
+    ],
+    "concerns": [
+      "tone_match",
+      "texture",
+      "redness"
+    ],
+    "tags": [
+      "complexion",
+      "shade-match",
+      "buildable"
+    ],
+    "ingredients": [
+      "glycerin",
+      "squalane"
+    ],
+    "ingredient_highlights": [
+      "glycerin",
+      "squalane"
+    ],
+    "exclusions": [],
+    "warnings": [],
+    "finishes": [
+      "natural",
+      "satin"
+    ],
+    "coverage_levels": [
+      "medium"
+    ],
+    "color_families": [
+      "medium",
+      "neutral"
+    ],
+    "texture": "liquid",
+    "rating": 4.3,
+    "review_count": 879,
+    "source": "synthetic_catalog",
+    "asset_source": "gpt_image_2_packshot_card_crop",
+    "card_image_url": "/assets/cards/041_FD-BUD-03.png",
+    "product_type": "foundation",
+    "category_group": "makeup"
+  },
+  {
+    "sku": "LUMA-042",
+    "source_sku": "CO-BUD-03",
+    "catalog_number": 42,
+    "brand": "Lumiere Daily",
+    "name": "Bright Flex Concealer MEDIUM NEUTRAL",
+    "variant": "MEDIUM NEUTRAL",
+    "display_name": "Lumiere Daily Bright Flex Concealer MEDIUM NEUTRAL",
+    "category": "concealer",
+    "domain": "makeup",
+    "price_segment": "budget",
+    "price_value": 1090,
+    "currency": "RUB",
+    "image_url": "/assets/cards/042_CO-BUD-03.png",
+    "gallery": [
+      "/assets/cards/042_CO-BUD-03.png"
+    ],
+    "availability": true,
+    "inventory_status": "in_stock",
+    "skin_types": [
+      "normal",
+      "combination"
+    ],
+    "concerns": [
+      "under_eye",
+      "redness",
+      "tone_match"
+    ],
+    "tags": [
+      "complexion",
+      "brightening",
+      "buildable"
+    ],
+    "ingredients": [
+      "glycerin",
+      "squalane"
+    ],
+    "ingredient_highlights": [
+      "glycerin",
+      "squalane"
+    ],
+    "exclusions": [],
+    "warnings": [],
+    "finishes": [
+      "natural"
+    ],
+    "coverage_levels": [
+      "medium",
+      "buildable"
+    ],
+    "color_families": [
+      "medium",
+      "neutral"
+    ],
+    "texture": "liquid",
+    "rating": 4.4,
+    "review_count": 58,
+    "source": "synthetic_catalog",
+    "asset_source": "gpt_image_2_packshot_card_crop",
+    "card_image_url": "/assets/cards/042_CO-BUD-03.png",
+    "product_type": "concealer",
+    "category_group": "makeup"
+  },
+  {
+    "sku": "LUMA-043",
+    "source_sku": "PW-BUD-05",
+    "catalog_number": 43,
+    "brand": "Lumiere Daily",
+    "name": "Soft Set Loose Powder TRANSLUCENT MEDIUM",
+    "variant": "TRANSLUCENT MEDIUM",
+    "display_name": "Lumiere Daily Soft Set Loose Powder TRANSLUCENT MEDIUM",
+    "category": "powder",
+    "domain": "makeup",
+    "price_segment": "budget",
+    "price_value": 1190,
+    "currency": "RUB",
+    "image_url": "/assets/cards/043_PW-BUD-05.png",
+    "gallery": [
+      "/assets/cards/043_PW-BUD-05.png"
+    ],
+    "availability": true,
+    "inventory_status": "in_stock",
+    "skin_types": [
+      "combination",
+      "oily",
+      "normal"
+    ],
+    "concerns": [
+      "shine_control",
+      "texture",
+      "pores"
+    ],
+    "tags": [
+      "set",
+      "blur",
+      "soft-focus"
+    ],
+    "ingredients": [
+      "mica",
+      "silica"
+    ],
+    "ingredient_highlights": [
+      "mica",
+      "silica"
+    ],
+    "exclusions": [],
+    "warnings": [],
+    "finishes": [
+      "soft_matte",
+      "blurred"
+    ],
+    "coverage_levels": [
+      "sheer"
+    ],
+    "color_families": [
+      "translucent"
+    ],
+    "texture": "powder",
+    "rating": 4.5,
+    "review_count": 175,
+    "source": "synthetic_catalog",
+    "asset_source": "gpt_image_2_packshot_card_crop",
+    "card_image_url": "/assets/cards/043_PW-BUD-05.png",
+    "product_type": "loose_powder",
+    "category_group": "makeup"
+  },
+  {
+    "sku": "LUMA-044",
+    "source_sku": "PW-BUD-06",
+    "catalog_number": 44,
+    "brand": "Lumiere Daily",
+    "name": "Blurring Pact Powder MEDIUM",
+    "variant": "MEDIUM",
+    "display_name": "Lumiere Daily Blurring Pact Powder MEDIUM",
+    "category": "powder",
+    "domain": "makeup",
+    "price_segment": "budget",
+    "price_value": 890,
+    "currency": "RUB",
+    "image_url": "/assets/cards/044_PW-BUD-06.png",
+    "gallery": [
+      "/assets/cards/044_PW-BUD-06.png"
+    ],
+    "availability": true,
+    "inventory_status": "in_stock",
+    "skin_types": [
+      "combination",
+      "oily",
+      "normal"
+    ],
+    "concerns": [
+      "shine_control",
+      "texture",
+      "pores"
+    ],
+    "tags": [
+      "set",
+      "blur",
+      "soft-focus"
+    ],
+    "ingredients": [
+      "mica",
+      "silica"
+    ],
+    "ingredient_highlights": [
+      "mica",
+      "silica"
+    ],
+    "exclusions": [],
+    "warnings": [],
+    "finishes": [
+      "soft_matte",
+      "blurred"
+    ],
+    "coverage_levels": [
+      "sheer"
+    ],
+    "color_families": [
+      "medium"
+    ],
+    "texture": "powder",
+    "rating": 4.6,
+    "review_count": 105,
+    "source": "synthetic_catalog",
+    "asset_source": "gpt_image_2_packshot_card_crop",
+    "card_image_url": "/assets/cards/044_PW-BUD-06.png",
+    "product_type": "pressed_powder",
+    "category_group": "makeup"
+  },
+  {
+    "sku": "LUMA-045",
+    "source_sku": "EY-BUD-01",
+    "catalog_number": 45,
+    "brand": "Color Atelier",
+    "name": "Soft Nude Palette",
+    "variant": null,
+    "display_name": "Color Atelier Soft Nude Palette",
+    "category": "eyeshadow_palette",
+    "domain": "makeup",
+    "price_segment": "budget",
+    "price_value": 990,
+    "currency": "RUB",
+    "image_url": "/assets/cards/045_EY-BUD-01.png",
+    "gallery": [
+      "/assets/cards/045_EY-BUD-01.png"
+    ],
+    "availability": true,
+    "inventory_status": "in_stock",
+    "skin_types": [
+      "normal",
+      "combination",
+      "dry",
+      "oily"
+    ],
+    "concerns": [
+      "eye_definition",
+      "color"
+    ],
+    "tags": [
+      "palette",
+      "blendable",
+      "color"
+    ],
+    "ingredients": [
+      "mica",
+      "silica"
+    ],
+    "ingredient_highlights": [
+      "mica",
+      "silica"
+    ],
+    "exclusions": [],
+    "warnings": [],
+    "finishes": [
+      "satin",
+      "shimmer",
+      "matte"
+    ],
+    "coverage_levels": [],
+    "color_families": [
+      "nude",
+      "beige",
+      "brown"
+    ],
+    "texture": "pressed_powder",
+    "rating": 4.7,
+    "review_count": 68,
+    "source": "synthetic_catalog",
+    "asset_source": "gpt_image_2_packshot_card_crop",
+    "card_image_url": "/assets/cards/045_EY-BUD-01.png",
+    "product_type": "eyeshadow_palette",
+    "category_group": "makeup"
+  },
+  {
+    "sku": "LUMA-046",
+    "source_sku": "CH-BUD-01",
+    "catalog_number": 46,
+    "brand": "Face Poetry",
+    "name": "Cloud Flush Blush PEACH",
+    "variant": "PEACH",
+    "display_name": "Face Poetry Cloud Flush Blush PEACH",
+    "category": "blush",
+    "domain": "makeup",
+    "price_segment": "budget",
+    "price_value": 890,
+    "currency": "RUB",
+    "image_url": "/assets/cards/046_CH-BUD-01.png",
+    "gallery": [
+      "/assets/cards/046_CH-BUD-01.png"
+    ],
+    "availability": true,
+    "inventory_status": "in_stock",
+    "skin_types": [
+      "normal",
+      "combination",
+      "dry"
+    ],
+    "concerns": [
+      "color",
+      "freshness"
+    ],
+    "tags": [
+      "cheek",
+      "blendable",
+      "soft-color"
+    ],
+    "ingredients": [
+      "mica",
+      "silica"
+    ],
+    "ingredient_highlights": [
+      "mica",
+      "silica"
+    ],
+    "exclusions": [],
+    "warnings": [],
+    "finishes": [
+      "satin"
+    ],
+    "coverage_levels": [],
+    "color_families": [
+      "peach"
+    ],
+    "texture": "pressed_powder",
+    "rating": 4.8,
+    "review_count": 207,
+    "source": "synthetic_catalog",
+    "asset_source": "gpt_image_2_packshot_card_crop",
+    "card_image_url": "/assets/cards/046_CH-BUD-01.png",
+    "product_type": "blush",
+    "category_group": "makeup"
+  },
+  {
+    "sku": "LUMA-047",
+    "source_sku": "LP-BUD-02",
+    "catalog_number": 47,
+    "brand": "Glow Pop",
+    "name": "Silky Touch Lipstick NUDE ROSE",
+    "variant": "NUDE ROSE",
+    "display_name": "Glow Pop Silky Touch Lipstick NUDE ROSE",
+    "category": "lipstick",
+    "domain": "makeup",
+    "price_segment": "budget",
+    "price_value": 890,
+    "currency": "RUB",
+    "image_url": "/assets/cards/047_LP-BUD-02.png",
+    "gallery": [
+      "/assets/cards/047_LP-BUD-02.png"
+    ],
+    "availability": true,
+    "inventory_status": "in_stock",
+    "skin_types": [
+      "normal"
+    ],
+    "concerns": [
+      "lip_color"
+    ],
+    "tags": [
+      "lip",
+      "color",
+      "comfortable"
+    ],
+    "ingredients": [
+      "jojoba oil",
+      "shea butter"
+    ],
+    "ingredient_highlights": [
+      "jojoba oil",
+      "shea butter"
+    ],
+    "exclusions": [],
+    "warnings": [],
+    "finishes": [
+      "satin"
+    ],
+    "coverage_levels": [],
+    "color_families": [
+      "nude",
+      "rose"
+    ],
+    "texture": "stick",
+    "rating": 4.9,
+    "review_count": 357,
+    "source": "synthetic_catalog",
+    "asset_source": "gpt_image_2_packshot_card_crop",
+    "card_image_url": "/assets/cards/047_LP-BUD-02.png",
+    "product_type": "lipstick",
+    "category_group": "makeup"
+  },
+  {
+    "sku": "LUMA-048",
+    "source_sku": "LP-BUD-03",
+    "catalog_number": 48,
+    "brand": "Glow Pop",
+    "name": "Juicy Glow Lip Tint BERRY",
+    "variant": "BERRY",
+    "display_name": "Glow Pop Juicy Glow Lip Tint BERRY",
+    "category": "lip_tint",
+    "domain": "makeup",
+    "price_segment": "budget",
+    "price_value": 1290,
+    "currency": "RUB",
+    "image_url": "/assets/cards/048_LP-BUD-03.png",
+    "gallery": [
+      "/assets/cards/048_LP-BUD-03.png"
+    ],
+    "availability": true,
+    "inventory_status": "in_stock",
+    "skin_types": [
+      "normal"
+    ],
+    "concerns": [
+      "lip_color"
+    ],
+    "tags": [
+      "lip",
+      "tint",
+      "glow"
+    ],
+    "ingredients": [
+      "jojoba oil",
+      "shea butter"
+    ],
+    "ingredient_highlights": [
+      "jojoba oil",
+      "shea butter"
+    ],
+    "exclusions": [],
+    "warnings": [],
+    "finishes": [
+      "glossy",
+      "tint"
+    ],
+    "coverage_levels": [],
+    "color_families": [
+      "berry"
+    ],
+    "texture": "tint",
+    "rating": 4.2,
+    "review_count": 375,
+    "source": "synthetic_catalog",
+    "asset_source": "gpt_image_2_packshot_card_crop",
+    "card_image_url": "/assets/cards/048_LP-BUD-03.png",
+    "product_type": "lip_tint",
+    "category_group": "makeup"
+  },
+  {
+    "sku": "LUMA-049",
+    "source_sku": "BR-BUD-01",
+    "catalog_number": 49,
+    "brand": "Brow Craft",
+    "name": "Clear Fix Brow Gel",
+    "variant": null,
+    "display_name": "Brow Craft Clear Fix Brow Gel",
+    "category": "brow_gel",
+    "domain": "makeup",
+    "price_segment": "budget",
+    "price_value": 990,
+    "currency": "RUB",
+    "image_url": "/assets/cards/049_BR-BUD-01.png",
+    "gallery": [
+      "/assets/cards/049_BR-BUD-01.png"
+    ],
+    "availability": true,
+    "inventory_status": "in_stock",
+    "skin_types": [
+      "normal"
+    ],
+    "concerns": [
+      "brow_definition"
+    ],
+    "tags": [
+      "brow",
+      "definition",
+      "clear"
+    ],
+    "ingredients": [
+      "panthenol",
+      "film formers"
+    ],
+    "ingredient_highlights": [
+      "panthenol",
+      "film formers"
+    ],
+    "exclusions": [],
+    "warnings": [],
+    "finishes": [
+      "natural"
+    ],
+    "coverage_levels": [],
+    "color_families": [
+      "clear"
+    ],
+    "texture": "gel",
+    "rating": 4.3,
+    "review_count": 371,
+    "source": "synthetic_catalog",
+    "asset_source": "gpt_image_2_packshot_card_crop",
+    "card_image_url": "/assets/cards/049_BR-BUD-01.png",
+    "product_type": "brow_gel",
+    "category_group": "makeup"
+  },
+  {
+    "sku": "LUMA-050",
+    "source_sku": "EY-BUD-02",
+    "catalog_number": 50,
+    "brand": "Lash Craft",
+    "name": "Volume Boost Mascara",
+    "variant": null,
+    "display_name": "Lash Craft Volume Boost Mascara",
+    "category": "mascara",
+    "domain": "makeup",
+    "price_segment": "budget",
+    "price_value": 1290,
+    "currency": "RUB",
+    "image_url": "/assets/cards/050_EY-BUD-02.png",
+    "gallery": [
+      "/assets/cards/050_EY-BUD-02.png"
+    ],
+    "availability": true,
+    "inventory_status": "in_stock",
+    "skin_types": [
+      "normal"
+    ],
+    "concerns": [
+      "lash_volume",
+      "eye_definition"
+    ],
+    "tags": [
+      "lash",
+      "volume",
+      "definition"
+    ],
+    "ingredients": [
+      "beeswax",
+      "panthenol"
+    ],
+    "ingredient_highlights": [
+      "beeswax",
+      "panthenol"
+    ],
+    "exclusions": [],
+    "warnings": [],
+    "finishes": [
+      "natural"
+    ],
+    "coverage_levels": [],
+    "color_families": [
+      "black"
+    ],
+    "texture": "mascara",
+    "rating": 4.4,
+    "review_count": 466,
+    "source": "synthetic_catalog",
+    "asset_source": "gpt_image_2_packshot_card_crop",
+    "card_image_url": "/assets/cards/050_EY-BUD-02.png",
+    "product_type": "mascara",
+    "category_group": "makeup"
+  },
+  {
+    "sku": "LUMA-051",
+    "source_sku": "FD-BUD-04",
+    "catalog_number": 51,
+    "brand": "Lumiere Daily",
+    "name": "Everyday Skin Foundation TAN NEUTRAL",
+    "variant": "TAN NEUTRAL",
+    "display_name": "Lumiere Daily Everyday Skin Foundation TAN NEUTRAL",
+    "category": "foundation",
+    "domain": "makeup",
+    "price_segment": "budget",
+    "price_value": 1290,
+    "currency": "RUB",
+    "image_url": "/assets/cards/051_FD-BUD-04.png",
+    "gallery": [
+      "/assets/cards/051_FD-BUD-04.png"
+    ],
+    "availability": true,
+    "inventory_status": "in_stock",
+    "skin_types": [
+      "normal",
+      "combination"
+    ],
+    "concerns": [
+      "tone_match",
+      "texture",
+      "redness"
+    ],
+    "tags": [
+      "complexion",
+      "shade-match",
+      "buildable"
+    ],
+    "ingredients": [
+      "glycerin",
+      "squalane"
+    ],
+    "ingredient_highlights": [
+      "glycerin",
+      "squalane"
+    ],
+    "exclusions": [],
+    "warnings": [],
+    "finishes": [
+      "natural",
+      "satin"
+    ],
+    "coverage_levels": [
+      "medium"
+    ],
+    "color_families": [
+      "tan",
+      "neutral"
+    ],
+    "texture": "liquid",
+    "rating": 4.5,
+    "review_count": 715,
+    "source": "synthetic_catalog",
+    "asset_source": "gpt_image_2_packshot_card_crop",
+    "card_image_url": "/assets/cards/051_FD-BUD-04.png",
+    "product_type": "foundation",
+    "category_group": "makeup"
+  },
+  {
+    "sku": "LUMA-052",
+    "source_sku": "CO-BUD-04",
+    "catalog_number": 52,
+    "brand": "Lumiere Daily",
+    "name": "Bright Flex Concealer TAN NEUTRAL",
+    "variant": "TAN NEUTRAL",
+    "display_name": "Lumiere Daily Bright Flex Concealer TAN NEUTRAL",
+    "category": "concealer",
+    "domain": "makeup",
+    "price_segment": "budget",
+    "price_value": 890,
+    "currency": "RUB",
+    "image_url": "/assets/cards/052_CO-BUD-04.png",
+    "gallery": [
+      "/assets/cards/052_CO-BUD-04.png"
+    ],
+    "availability": true,
+    "inventory_status": "in_stock",
+    "skin_types": [
+      "normal",
+      "combination"
+    ],
+    "concerns": [
+      "under_eye",
+      "redness",
+      "tone_match"
+    ],
+    "tags": [
+      "complexion",
+      "brightening",
+      "buildable"
+    ],
+    "ingredients": [
+      "glycerin",
+      "squalane"
+    ],
+    "ingredient_highlights": [
+      "glycerin",
+      "squalane"
+    ],
+    "exclusions": [],
+    "warnings": [],
+    "finishes": [
+      "natural"
+    ],
+    "coverage_levels": [
+      "medium",
+      "buildable"
+    ],
+    "color_families": [
+      "tan",
+      "neutral"
+    ],
+    "texture": "liquid",
+    "rating": 4.6,
+    "review_count": 755,
+    "source": "synthetic_catalog",
+    "asset_source": "gpt_image_2_packshot_card_crop",
+    "card_image_url": "/assets/cards/052_CO-BUD-04.png",
+    "product_type": "concealer",
+    "category_group": "makeup"
+  },
+  {
+    "sku": "LUMA-053",
+    "source_sku": "PW-BUD-07",
+    "catalog_number": 53,
+    "brand": "Lumiere Daily",
+    "name": "Soft Set Loose Powder TRANSLUCENT TAN",
+    "variant": "TRANSLUCENT TAN",
+    "display_name": "Lumiere Daily Soft Set Loose Powder TRANSLUCENT TAN",
+    "category": "powder",
+    "domain": "makeup",
+    "price_segment": "budget",
+    "price_value": 990,
+    "currency": "RUB",
+    "image_url": "/assets/cards/053_PW-BUD-07.png",
+    "gallery": [
+      "/assets/cards/053_PW-BUD-07.png"
+    ],
+    "availability": true,
+    "inventory_status": "in_stock",
+    "skin_types": [
+      "combination",
+      "oily",
+      "normal"
+    ],
+    "concerns": [
+      "shine_control",
+      "texture",
+      "pores"
+    ],
+    "tags": [
+      "set",
+      "blur",
+      "soft-focus"
+    ],
+    "ingredients": [
+      "mica",
+      "silica"
+    ],
+    "ingredient_highlights": [
+      "mica",
+      "silica"
+    ],
+    "exclusions": [],
+    "warnings": [],
+    "finishes": [
+      "soft_matte",
+      "blurred"
+    ],
+    "coverage_levels": [
+      "sheer"
+    ],
+    "color_families": [
+      "translucent"
+    ],
+    "texture": "powder",
+    "rating": 4.7,
+    "review_count": 872,
+    "source": "synthetic_catalog",
+    "asset_source": "gpt_image_2_packshot_card_crop",
+    "card_image_url": "/assets/cards/053_PW-BUD-07.png",
+    "product_type": "loose_powder",
+    "category_group": "makeup"
+  },
+  {
+    "sku": "LUMA-054",
+    "source_sku": "PW-BUD-08",
+    "catalog_number": 54,
+    "brand": "Lumiere Daily",
+    "name": "Blurring Pact Powder TAN",
+    "variant": "TAN",
+    "display_name": "Lumiere Daily Blurring Pact Powder TAN",
+    "category": "powder",
+    "domain": "makeup",
+    "price_segment": "budget",
+    "price_value": 1390,
+    "currency": "RUB",
+    "image_url": "/assets/cards/054_PW-BUD-08.png",
+    "gallery": [
+      "/assets/cards/054_PW-BUD-08.png"
+    ],
+    "availability": true,
+    "inventory_status": "in_stock",
+    "skin_types": [
+      "combination",
+      "oily",
+      "normal"
+    ],
+    "concerns": [
+      "shine_control",
+      "texture",
+      "pores"
+    ],
+    "tags": [
+      "set",
+      "blur",
+      "soft-focus"
+    ],
+    "ingredients": [
+      "mica",
+      "silica"
+    ],
+    "ingredient_highlights": [
+      "mica",
+      "silica"
+    ],
+    "exclusions": [],
+    "warnings": [],
+    "finishes": [
+      "soft_matte",
+      "blurred"
+    ],
+    "coverage_levels": [
+      "sheer"
+    ],
+    "color_families": [
+      "tan"
+    ],
+    "texture": "powder",
+    "rating": 4.8,
+    "review_count": 802,
+    "source": "synthetic_catalog",
+    "asset_source": "gpt_image_2_packshot_card_crop",
+    "card_image_url": "/assets/cards/054_PW-BUD-08.png",
+    "product_type": "pressed_powder",
+    "category_group": "makeup"
+  },
+  {
+    "sku": "LUMA-055",
+    "source_sku": "EY-BUD-03",
+    "catalog_number": 55,
+    "brand": "Color Atelier",
+    "name": "Soft Bronze Palette",
+    "variant": null,
+    "display_name": "Color Atelier Soft Bronze Palette",
+    "category": "eyeshadow_palette",
+    "domain": "makeup",
+    "price_segment": "budget",
+    "price_value": 1490,
+    "currency": "RUB",
+    "image_url": "/assets/cards/055_EY-BUD-03.png",
+    "gallery": [
+      "/assets/cards/055_EY-BUD-03.png"
+    ],
+    "availability": true,
+    "inventory_status": "in_stock",
+    "skin_types": [
+      "normal",
+      "combination",
+      "dry",
+      "oily"
+    ],
+    "concerns": [
+      "eye_definition",
+      "color"
+    ],
+    "tags": [
+      "palette",
+      "blendable",
+      "color"
+    ],
+    "ingredients": [
+      "mica",
+      "silica"
+    ],
+    "ingredient_highlights": [
+      "mica",
+      "silica"
+    ],
+    "exclusions": [],
+    "warnings": [],
+    "finishes": [
+      "satin",
+      "shimmer",
+      "matte"
+    ],
+    "coverage_levels": [],
+    "color_families": [
+      "bronze",
+      "brown",
+      "warm"
+    ],
+    "texture": "pressed_powder",
+    "rating": 4.9,
+    "review_count": 820,
+    "source": "synthetic_catalog",
+    "asset_source": "gpt_image_2_packshot_card_crop",
+    "card_image_url": "/assets/cards/055_EY-BUD-03.png",
+    "product_type": "eyeshadow_palette",
+    "category_group": "makeup"
+  },
+  {
+    "sku": "LUMA-056",
+    "source_sku": "CH-BUD-02",
+    "catalog_number": 56,
+    "brand": "Face Poetry",
+    "name": "Cloud Flush Blush CORAL",
+    "variant": "CORAL",
+    "display_name": "Face Poetry Cloud Flush Blush CORAL",
+    "category": "blush",
+    "domain": "makeup",
+    "price_segment": "budget",
+    "price_value": 1390,
+    "currency": "RUB",
+    "image_url": "/assets/cards/056_CH-BUD-02.png",
+    "gallery": [
+      "/assets/cards/056_CH-BUD-02.png"
+    ],
+    "availability": true,
+    "inventory_status": "in_stock",
+    "skin_types": [
+      "normal",
+      "combination",
+      "dry"
+    ],
+    "concerns": [
+      "color",
+      "freshness"
+    ],
+    "tags": [
+      "cheek",
+      "blendable",
+      "soft-color"
+    ],
+    "ingredients": [
+      "mica",
+      "silica"
+    ],
+    "ingredient_highlights": [
+      "mica",
+      "silica"
+    ],
+    "exclusions": [],
+    "warnings": [],
+    "finishes": [
+      "satin"
+    ],
+    "coverage_levels": [],
+    "color_families": [
+      "coral"
+    ],
+    "texture": "pressed_powder",
+    "rating": 4.2,
+    "review_count": 76,
+    "source": "synthetic_catalog",
+    "asset_source": "gpt_image_2_packshot_card_crop",
+    "card_image_url": "/assets/cards/056_CH-BUD-02.png",
+    "product_type": "blush",
+    "category_group": "makeup"
+  },
+  {
+    "sku": "LUMA-057",
+    "source_sku": "LP-BUD-04",
+    "catalog_number": 57,
+    "brand": "Glow Pop",
+    "name": "Silky Touch Lipstick NUDE MAUVE",
+    "variant": "NUDE MAUVE",
+    "display_name": "Glow Pop Silky Touch Lipstick NUDE MAUVE",
+    "category": "lipstick",
+    "domain": "makeup",
+    "price_segment": "budget",
+    "price_value": 1390,
+    "currency": "RUB",
+    "image_url": "/assets/cards/057_LP-BUD-04.png",
+    "gallery": [
+      "/assets/cards/057_LP-BUD-04.png"
+    ],
+    "availability": true,
+    "inventory_status": "in_stock",
+    "skin_types": [
+      "normal"
+    ],
+    "concerns": [
+      "lip_color"
+    ],
+    "tags": [
+      "lip",
+      "color",
+      "comfortable"
+    ],
+    "ingredients": [
+      "jojoba oil",
+      "shea butter"
+    ],
+    "ingredient_highlights": [
+      "jojoba oil",
+      "shea butter"
+    ],
+    "exclusions": [],
+    "warnings": [],
+    "finishes": [
+      "satin"
+    ],
+    "coverage_levels": [],
+    "color_families": [
+      "nude",
+      "mauve"
+    ],
+    "texture": "stick",
+    "rating": 4.3,
+    "review_count": 237,
+    "source": "synthetic_catalog",
+    "asset_source": "gpt_image_2_packshot_card_crop",
+    "card_image_url": "/assets/cards/057_LP-BUD-04.png",
+    "product_type": "lipstick",
+    "category_group": "makeup"
+  },
+  {
+    "sku": "LUMA-058",
+    "source_sku": "LP-BUD-05",
+    "catalog_number": 58,
+    "brand": "Glow Pop",
+    "name": "Juicy Glow Lip Tint PLUM",
+    "variant": "PLUM",
+    "display_name": "Glow Pop Juicy Glow Lip Tint PLUM",
+    "category": "lip_tint",
+    "domain": "makeup",
+    "price_segment": "budget",
+    "price_value": 1090,
+    "currency": "RUB",
+    "image_url": "/assets/cards/058_LP-BUD-05.png",
+    "gallery": [
+      "/assets/cards/058_LP-BUD-05.png"
+    ],
+    "availability": true,
+    "inventory_status": "in_stock",
+    "skin_types": [
+      "normal"
+    ],
+    "concerns": [
+      "lip_color"
+    ],
+    "tags": [
+      "lip",
+      "tint",
+      "glow"
+    ],
+    "ingredients": [
+      "jojoba oil",
+      "shea butter"
+    ],
+    "ingredient_highlights": [
+      "jojoba oil",
+      "shea butter"
+    ],
+    "exclusions": [],
+    "warnings": [],
+    "finishes": [
+      "glossy",
+      "tint"
+    ],
+    "coverage_levels": [],
+    "color_families": [
+      "plum"
+    ],
+    "texture": "tint",
+    "rating": 4.4,
+    "review_count": 233,
+    "source": "synthetic_catalog",
+    "asset_source": "gpt_image_2_packshot_card_crop",
+    "card_image_url": "/assets/cards/058_LP-BUD-05.png",
+    "product_type": "lip_tint",
+    "category_group": "makeup"
+  },
+  {
+    "sku": "LUMA-059",
+    "source_sku": "BR-BUD-02",
+    "catalog_number": 59,
+    "brand": "Brow Craft",
+    "name": "Clear Fix Brow Gel",
+    "variant": null,
+    "display_name": "Brow Craft Clear Fix Brow Gel",
+    "category": "brow_gel",
+    "domain": "makeup",
+    "price_segment": "budget",
+    "price_value": 1490,
+    "currency": "RUB",
+    "image_url": "/assets/cards/059_BR-BUD-02.png",
+    "gallery": [
+      "/assets/cards/059_BR-BUD-02.png"
+    ],
+    "availability": true,
+    "inventory_status": "in_stock",
+    "skin_types": [
+      "normal"
+    ],
+    "concerns": [
+      "brow_definition"
+    ],
+    "tags": [
+      "brow",
+      "definition",
+      "clear"
+    ],
+    "ingredients": [
+      "panthenol",
+      "film formers"
+    ],
+    "ingredient_highlights": [
+      "panthenol",
+      "film formers"
+    ],
+    "exclusions": [],
+    "warnings": [],
+    "finishes": [
+      "natural"
+    ],
+    "coverage_levels": [],
+    "color_families": [
+      "clear"
+    ],
+    "texture": "gel",
+    "rating": 4.5,
+    "review_count": 240,
+    "source": "synthetic_catalog",
+    "asset_source": "gpt_image_2_packshot_card_crop",
+    "card_image_url": "/assets/cards/059_BR-BUD-02.png",
+    "product_type": "brow_gel",
+    "category_group": "makeup"
+  },
+  {
+    "sku": "LUMA-060",
+    "source_sku": "EY-BUD-04",
+    "catalog_number": 60,
+    "brand": "Lash Craft",
+    "name": "Volume Boost Mascara",
+    "variant": null,
+    "display_name": "Lash Craft Volume Boost Mascara",
+    "category": "mascara",
+    "domain": "makeup",
+    "price_segment": "budget",
+    "price_value": 1090,
+    "currency": "RUB",
+    "image_url": "/assets/cards/060_EY-BUD-04.png",
+    "gallery": [
+      "/assets/cards/060_EY-BUD-04.png"
+    ],
+    "availability": true,
+    "inventory_status": "in_stock",
+    "skin_types": [
+      "normal"
+    ],
+    "concerns": [
+      "lash_volume",
+      "eye_definition"
+    ],
+    "tags": [
+      "lash",
+      "volume",
+      "definition"
+    ],
+    "ingredients": [
+      "beeswax",
+      "panthenol"
+    ],
+    "ingredient_highlights": [
+      "beeswax",
+      "panthenol"
+    ],
+    "exclusions": [],
+    "warnings": [],
+    "finishes": [
+      "natural"
+    ],
+    "coverage_levels": [],
+    "color_families": [
+      "black"
+    ],
+    "texture": "mascara",
+    "rating": 4.6,
+    "review_count": 335,
+    "source": "synthetic_catalog",
+    "asset_source": "gpt_image_2_packshot_card_crop",
+    "card_image_url": "/assets/cards/060_EY-BUD-04.png",
+    "product_type": "mascara",
+    "category_group": "makeup"
+  },
+  {
+    "sku": "LUMA-061",
+    "source_sku": "FD-BUD-05",
+    "catalog_number": 61,
+    "brand": "Lumiere Daily",
+    "name": "Everyday Skin Foundation MEDIUM WARM",
+    "variant": "MEDIUM WARM",
+    "display_name": "Lumiere Daily Everyday Skin Foundation MEDIUM WARM",
+    "category": "foundation",
+    "domain": "makeup",
+    "price_segment": "budget",
+    "price_value": 1090,
+    "currency": "RUB",
+    "image_url": "/assets/cards/061_FD-BUD-05.png",
+    "gallery": [
+      "/assets/cards/061_FD-BUD-05.png"
+    ],
+    "availability": true,
+    "inventory_status": "in_stock",
+    "skin_types": [
+      "normal",
+      "combination"
+    ],
+    "concerns": [
+      "tone_match",
+      "texture",
+      "redness"
+    ],
+    "tags": [
+      "complexion",
+      "shade-match",
+      "buildable"
+    ],
+    "ingredients": [
+      "glycerin",
+      "squalane"
+    ],
+    "ingredient_highlights": [
+      "glycerin",
+      "squalane"
+    ],
+    "exclusions": [],
+    "warnings": [],
+    "finishes": [
+      "natural",
+      "satin"
+    ],
+    "coverage_levels": [
+      "medium"
+    ],
+    "color_families": [
+      "medium",
+      "warm"
+    ],
+    "texture": "liquid",
+    "rating": 4.7,
+    "review_count": 584,
+    "source": "synthetic_catalog",
+    "asset_source": "gpt_image_2_packshot_card_crop",
+    "card_image_url": "/assets/cards/061_FD-BUD-05.png",
+    "product_type": "foundation",
+    "category_group": "makeup"
+  },
+  {
+    "sku": "LUMA-062",
+    "source_sku": "CO-BUD-05",
+    "catalog_number": 62,
+    "brand": "Lumiere Daily",
+    "name": "Bright Flex Concealer MEDIUM WARM",
+    "variant": "MEDIUM WARM",
+    "display_name": "Lumiere Daily Bright Flex Concealer MEDIUM WARM",
+    "category": "concealer",
+    "domain": "makeup",
+    "price_segment": "budget",
+    "price_value": 1390,
+    "currency": "RUB",
+    "image_url": "/assets/cards/062_CO-BUD-05.png",
+    "gallery": [
+      "/assets/cards/062_CO-BUD-05.png"
+    ],
+    "availability": true,
+    "inventory_status": "in_stock",
+    "skin_types": [
+      "normal",
+      "combination"
+    ],
+    "concerns": [
+      "under_eye",
+      "redness",
+      "tone_match"
+    ],
+    "tags": [
+      "complexion",
+      "brightening",
+      "buildable"
+    ],
+    "ingredients": [
+      "glycerin",
+      "squalane"
+    ],
+    "ingredient_highlights": [
+      "glycerin",
+      "squalane"
+    ],
+    "exclusions": [],
+    "warnings": [],
+    "finishes": [
+      "natural"
+    ],
+    "coverage_levels": [
+      "medium",
+      "buildable"
+    ],
+    "color_families": [
+      "medium",
+      "warm"
+    ],
+    "texture": "liquid",
+    "rating": 4.8,
+    "review_count": 624,
+    "source": "synthetic_catalog",
+    "asset_source": "gpt_image_2_packshot_card_crop",
+    "card_image_url": "/assets/cards/062_CO-BUD-05.png",
+    "product_type": "concealer",
+    "category_group": "makeup"
+  },
+  {
+    "sku": "LUMA-063",
+    "source_sku": "PW-BUD-09",
+    "catalog_number": 63,
+    "brand": "Lumiere Daily",
+    "name": "Soft Set Loose Powder TRANSLUCENT MEDIUM",
+    "variant": "TRANSLUCENT MEDIUM",
+    "display_name": "Lumiere Daily Soft Set Loose Powder TRANSLUCENT MEDIUM",
+    "category": "powder",
+    "domain": "makeup",
+    "price_segment": "budget",
+    "price_value": 1490,
+    "currency": "RUB",
+    "image_url": "/assets/cards/063_PW-BUD-09.png",
+    "gallery": [
+      "/assets/cards/063_PW-BUD-09.png"
+    ],
+    "availability": true,
+    "inventory_status": "in_stock",
+    "skin_types": [
+      "combination",
+      "oily",
+      "normal"
+    ],
+    "concerns": [
+      "shine_control",
+      "texture",
+      "pores"
+    ],
+    "tags": [
+      "set",
+      "blur",
+      "soft-focus"
+    ],
+    "ingredients": [
+      "mica",
+      "silica"
+    ],
+    "ingredient_highlights": [
+      "mica",
+      "silica"
+    ],
+    "exclusions": [],
+    "warnings": [],
+    "finishes": [
+      "soft_matte",
+      "blurred"
+    ],
+    "coverage_levels": [
+      "sheer"
+    ],
+    "color_families": [
+      "translucent"
+    ],
+    "texture": "powder",
+    "rating": 4.9,
+    "review_count": 774,
+    "source": "synthetic_catalog",
+    "asset_source": "gpt_image_2_packshot_card_crop",
+    "card_image_url": "/assets/cards/063_PW-BUD-09.png",
+    "product_type": "loose_powder",
+    "category_group": "makeup"
+  },
+  {
+    "sku": "LUMA-064",
+    "source_sku": "PW-BUD-10",
+    "catalog_number": 64,
+    "brand": "Lumiere Daily",
+    "name": "Blurring Pact Powder MEDIUM",
+    "variant": "MEDIUM",
+    "display_name": "Lumiere Daily Blurring Pact Powder MEDIUM",
+    "category": "powder",
+    "domain": "makeup",
+    "price_segment": "budget",
+    "price_value": 1190,
+    "currency": "RUB",
+    "image_url": "/assets/cards/064_PW-BUD-10.png",
+    "gallery": [
+      "/assets/cards/064_PW-BUD-10.png"
+    ],
+    "availability": true,
+    "inventory_status": "in_stock",
+    "skin_types": [
+      "combination",
+      "oily",
+      "normal"
+    ],
+    "concerns": [
+      "shine_control",
+      "texture",
+      "pores"
+    ],
+    "tags": [
+      "set",
+      "blur",
+      "soft-focus"
+    ],
+    "ingredients": [
+      "mica",
+      "silica"
+    ],
+    "ingredient_highlights": [
+      "mica",
+      "silica"
+    ],
+    "exclusions": [],
+    "warnings": [],
+    "finishes": [
+      "soft_matte",
+      "blurred"
+    ],
+    "coverage_levels": [
+      "sheer"
+    ],
+    "color_families": [
+      "medium"
+    ],
+    "texture": "powder",
+    "rating": 4.2,
+    "review_count": 704,
+    "source": "synthetic_catalog",
+    "asset_source": "gpt_image_2_packshot_card_crop",
+    "card_image_url": "/assets/cards/064_PW-BUD-10.png",
+    "product_type": "pressed_powder",
+    "category_group": "makeup"
+  },
+  {
+    "sku": "LUMA-065",
+    "source_sku": "EY-BUD-05",
+    "catalog_number": 65,
+    "brand": "Color Atelier",
+    "name": "Soft Bronze Palette",
+    "variant": null,
+    "display_name": "Color Atelier Soft Bronze Palette",
+    "category": "eyeshadow_palette",
+    "domain": "makeup",
+    "price_segment": "budget",
+    "price_value": 1290,
+    "currency": "RUB",
+    "image_url": "/assets/cards/065_EY-BUD-05.png",
+    "gallery": [
+      "/assets/cards/065_EY-BUD-05.png"
+    ],
+    "availability": true,
+    "inventory_status": "in_stock",
+    "skin_types": [
+      "normal",
+      "combination",
+      "dry",
+      "oily"
+    ],
+    "concerns": [
+      "eye_definition",
+      "color"
+    ],
+    "tags": [
+      "palette",
+      "blendable",
+      "color"
+    ],
+    "ingredients": [
+      "mica",
+      "silica"
+    ],
+    "ingredient_highlights": [
+      "mica",
+      "silica"
+    ],
+    "exclusions": [],
+    "warnings": [],
+    "finishes": [
+      "satin",
+      "shimmer",
+      "matte"
+    ],
+    "coverage_levels": [],
+    "color_families": [
+      "bronze",
+      "brown",
+      "warm"
+    ],
+    "texture": "pressed_powder",
+    "rating": 4.3,
+    "review_count": 689,
+    "source": "synthetic_catalog",
+    "asset_source": "gpt_image_2_packshot_card_crop",
+    "card_image_url": "/assets/cards/065_EY-BUD-05.png",
+    "product_type": "eyeshadow_palette",
+    "category_group": "makeup"
+  },
+  {
+    "sku": "LUMA-066",
+    "source_sku": "CH-BUD-03",
+    "catalog_number": 66,
+    "brand": "Face Poetry",
+    "name": "Cloud Flush Blush ROSE",
+    "variant": "ROSE",
+    "display_name": "Face Poetry Cloud Flush Blush ROSE",
+    "category": "blush",
+    "domain": "makeup",
+    "price_segment": "budget",
+    "price_value": 1190,
+    "currency": "RUB",
+    "image_url": "/assets/cards/066_CH-BUD-03.png",
+    "gallery": [
+      "/assets/cards/066_CH-BUD-03.png"
+    ],
+    "availability": true,
+    "inventory_status": "in_stock",
+    "skin_types": [
+      "normal",
+      "combination",
+      "dry"
+    ],
+    "concerns": [
+      "color",
+      "freshness"
+    ],
+    "tags": [
+      "cheek",
+      "blendable",
+      "soft-color"
+    ],
+    "ingredients": [
+      "mica",
+      "silica"
+    ],
+    "ingredient_highlights": [
+      "mica",
+      "silica"
+    ],
+    "exclusions": [],
+    "warnings": [],
+    "finishes": [
+      "satin"
+    ],
+    "coverage_levels": [],
+    "color_families": [
+      "rose"
+    ],
+    "texture": "pressed_powder",
+    "rating": 4.4,
+    "review_count": 795,
+    "source": "synthetic_catalog",
+    "asset_source": "gpt_image_2_packshot_card_crop",
+    "card_image_url": "/assets/cards/066_CH-BUD-03.png",
+    "product_type": "blush",
+    "category_group": "makeup"
+  },
+  {
+    "sku": "LUMA-067",
+    "source_sku": "LP-BUD-06",
+    "catalog_number": 67,
+    "brand": "Glow Pop",
+    "name": "Silky Touch Lipstick ROSEWOOD",
+    "variant": "ROSEWOOD",
+    "display_name": "Glow Pop Silky Touch Lipstick ROSEWOOD",
+    "category": "lipstick",
+    "domain": "makeup",
+    "price_segment": "budget",
+    "price_value": 1190,
+    "currency": "RUB",
+    "image_url": "/assets/cards/067_LP-BUD-06.png",
+    "gallery": [
+      "/assets/cards/067_LP-BUD-06.png"
+    ],
+    "availability": true,
+    "inventory_status": "in_stock",
+    "skin_types": [
+      "normal"
+    ],
+    "concerns": [
+      "lip_color"
+    ],
+    "tags": [
+      "lip",
+      "color",
+      "comfortable"
+    ],
+    "ingredients": [
+      "jojoba oil",
+      "shea butter"
+    ],
+    "ingredient_highlights": [
+      "jojoba oil",
+      "shea butter"
+    ],
+    "exclusions": [],
+    "warnings": [],
+    "finishes": [
+      "satin"
+    ],
+    "coverage_levels": [],
+    "color_families": [],
+    "texture": "stick",
+    "rating": 4.5,
+    "review_count": 84,
+    "source": "synthetic_catalog",
+    "asset_source": "gpt_image_2_packshot_card_crop",
+    "card_image_url": "/assets/cards/067_LP-BUD-06.png",
+    "product_type": "lipstick",
+    "category_group": "makeup"
+  },
+  {
+    "sku": "LUMA-068",
+    "source_sku": "LP-BUD-07",
+    "catalog_number": 68,
+    "brand": "Glow Pop",
+    "name": "Juicy Glow Lip Tint FIG",
+    "variant": "FIG",
+    "display_name": "Glow Pop Juicy Glow Lip Tint FIG",
+    "category": "lip_tint",
+    "domain": "makeup",
+    "price_segment": "budget",
+    "price_value": 890,
+    "currency": "RUB",
+    "image_url": "/assets/cards/068_LP-BUD-07.png",
+    "gallery": [
+      "/assets/cards/068_LP-BUD-07.png"
+    ],
+    "availability": true,
+    "inventory_status": "in_stock",
+    "skin_types": [
+      "normal"
+    ],
+    "concerns": [
+      "lip_color"
+    ],
+    "tags": [
+      "lip",
+      "tint",
+      "glow"
+    ],
+    "ingredients": [
+      "jojoba oil",
+      "shea butter"
+    ],
+    "ingredient_highlights": [
+      "jojoba oil",
+      "shea butter"
+    ],
+    "exclusions": [],
+    "warnings": [],
+    "finishes": [
+      "glossy",
+      "tint"
+    ],
+    "coverage_levels": [],
+    "color_families": [],
+    "texture": "tint",
+    "rating": 4.6,
+    "review_count": 91,
+    "source": "synthetic_catalog",
+    "asset_source": "gpt_image_2_packshot_card_crop",
+    "card_image_url": "/assets/cards/068_LP-BUD-07.png",
+    "product_type": "lip_tint",
+    "category_group": "makeup"
+  },
+  {
+    "sku": "LUMA-069",
+    "source_sku": "BR-BUD-03",
+    "catalog_number": 69,
+    "brand": "Brow Craft",
+    "name": "Clear Fix Brow Gel",
+    "variant": null,
+    "display_name": "Brow Craft Clear Fix Brow Gel",
+    "category": "brow_gel",
+    "domain": "makeup",
+    "price_segment": "budget",
+    "price_value": 1290,
+    "currency": "RUB",
+    "image_url": "/assets/cards/069_BR-BUD-03.png",
+    "gallery": [
+      "/assets/cards/069_BR-BUD-03.png"
+    ],
+    "availability": true,
+    "inventory_status": "in_stock",
+    "skin_types": [
+      "normal"
+    ],
+    "concerns": [
+      "brow_definition"
+    ],
+    "tags": [
+      "brow",
+      "definition",
+      "clear"
+    ],
+    "ingredients": [
+      "panthenol",
+      "film formers"
+    ],
+    "ingredient_highlights": [
+      "panthenol",
+      "film formers"
+    ],
+    "exclusions": [],
+    "warnings": [],
+    "finishes": [
+      "natural"
+    ],
+    "coverage_levels": [],
+    "color_families": [
+      "clear"
+    ],
+    "texture": "gel",
+    "rating": 4.7,
+    "review_count": 109,
+    "source": "synthetic_catalog",
+    "asset_source": "gpt_image_2_packshot_card_crop",
+    "card_image_url": "/assets/cards/069_BR-BUD-03.png",
+    "product_type": "brow_gel",
+    "category_group": "makeup"
+  },
+  {
+    "sku": "LUMA-070",
+    "source_sku": "EY-MID-01",
+    "catalog_number": 70,
+    "brand": "Lash Craft",
+    "name": "Volume Boost Mascara",
+    "variant": null,
+    "display_name": "Lash Craft Volume Boost Mascara",
+    "category": "mascara",
+    "domain": "makeup",
+    "price_segment": "mid",
+    "price_value": 2290,
+    "currency": "RUB",
+    "image_url": "/assets/cards/070_EY-MID-01.png",
+    "gallery": [
+      "/assets/cards/070_EY-MID-01.png"
+    ],
+    "availability": true,
+    "inventory_status": "in_stock",
+    "skin_types": [
+      "normal"
+    ],
+    "concerns": [
+      "lash_volume",
+      "eye_definition"
+    ],
+    "tags": [
+      "lash",
+      "volume",
+      "definition"
+    ],
+    "ingredients": [
+      "beeswax",
+      "panthenol"
+    ],
+    "ingredient_highlights": [
+      "beeswax",
+      "panthenol"
+    ],
+    "exclusions": [],
+    "warnings": [],
+    "finishes": [
+      "natural"
+    ],
+    "coverage_levels": [],
+    "color_families": [
+      "black"
+    ],
+    "texture": "mascara",
+    "rating": 4.8,
+    "review_count": 204,
+    "source": "synthetic_catalog",
+    "asset_source": "gpt_image_2_packshot_card_crop",
+    "card_image_url": "/assets/cards/070_EY-MID-01.png",
+    "product_type": "mascara",
+    "category_group": "makeup"
+  },
+  {
+    "sku": "LUMA-071",
+    "source_sku": "FD-BUD-06",
+    "catalog_number": 71,
+    "brand": "Lumiere Daily",
+    "name": "Everyday Skin Foundation MEDIUM NEUTRAL",
+    "variant": "MEDIUM NEUTRAL",
+    "display_name": "Lumiere Daily Everyday Skin Foundation MEDIUM NEUTRAL",
+    "category": "foundation",
+    "domain": "makeup",
+    "price_segment": "budget",
+    "price_value": 890,
+    "currency": "RUB",
+    "image_url": "/assets/cards/071_FD-BUD-06.png",
+    "gallery": [
+      "/assets/cards/071_FD-BUD-06.png"
+    ],
+    "availability": true,
+    "inventory_status": "in_stock",
+    "skin_types": [
+      "normal",
+      "combination"
+    ],
+    "concerns": [
+      "tone_match",
+      "texture",
+      "redness"
+    ],
+    "tags": [
+      "complexion",
+      "shade-match",
+      "buildable"
+    ],
+    "ingredients": [
+      "glycerin",
+      "squalane"
+    ],
+    "ingredient_highlights": [
+      "glycerin",
+      "squalane"
+    ],
+    "exclusions": [],
+    "warnings": [],
+    "finishes": [
+      "natural",
+      "satin"
+    ],
+    "coverage_levels": [
+      "medium"
+    ],
+    "color_families": [
+      "medium",
+      "neutral"
+    ],
+    "texture": "liquid",
+    "rating": 4.9,
+    "review_count": 486,
+    "source": "synthetic_catalog",
+    "asset_source": "gpt_image_2_packshot_card_crop",
+    "card_image_url": "/assets/cards/071_FD-BUD-06.png",
+    "product_type": "foundation",
+    "category_group": "makeup"
+  },
+  {
+    "sku": "LUMA-072",
+    "source_sku": "CO-BUD-06",
+    "catalog_number": 72,
+    "brand": "Lumiere Daily",
+    "name": "Bright Flex Concealer LIGHT WARM",
+    "variant": "LIGHT WARM",
+    "display_name": "Lumiere Daily Bright Flex Concealer LIGHT WARM",
+    "category": "concealer",
+    "domain": "makeup",
+    "price_segment": "budget",
+    "price_value": 1190,
+    "currency": "RUB",
+    "image_url": "/assets/cards/072_CO-BUD-06.png",
+    "gallery": [
+      "/assets/cards/072_CO-BUD-06.png"
+    ],
+    "availability": true,
+    "inventory_status": "in_stock",
+    "skin_types": [
+      "normal",
+      "combination"
+    ],
+    "concerns": [
+      "under_eye",
+      "redness",
+      "tone_match"
+    ],
+    "tags": [
+      "complexion",
+      "brightening",
+      "buildable"
+    ],
+    "ingredients": [
+      "glycerin",
+      "squalane"
+    ],
+    "ingredient_highlights": [
+      "glycerin",
+      "squalane"
+    ],
+    "exclusions": [],
+    "warnings": [],
+    "finishes": [
+      "natural"
+    ],
+    "coverage_levels": [
+      "medium",
+      "buildable"
+    ],
+    "color_families": [
+      "light",
+      "warm"
+    ],
+    "texture": "liquid",
+    "rating": 4.2,
+    "review_count": 482,
+    "source": "synthetic_catalog",
+    "asset_source": "gpt_image_2_packshot_card_crop",
+    "card_image_url": "/assets/cards/072_CO-BUD-06.png",
+    "product_type": "concealer",
+    "category_group": "makeup"
+  },
+  {
+    "sku": "LUMA-073",
+    "source_sku": "PW-BUD-11",
+    "catalog_number": 73,
+    "brand": "Lumiere Daily",
+    "name": "Soft Set Loose Powder TRANSLUCENT LIGHT",
+    "variant": "TRANSLUCENT LIGHT",
+    "display_name": "Lumiere Daily Soft Set Loose Powder TRANSLUCENT LIGHT",
+    "category": "powder",
+    "domain": "makeup",
+    "price_segment": "budget",
+    "price_value": 1290,
+    "currency": "RUB",
+    "image_url": "/assets/cards/073_PW-BUD-11.png",
+    "gallery": [
+      "/assets/cards/073_PW-BUD-11.png"
+    ],
+    "availability": true,
+    "inventory_status": "in_stock",
+    "skin_types": [
+      "combination",
+      "oily",
+      "normal"
+    ],
+    "concerns": [
+      "shine_control",
+      "texture",
+      "pores"
+    ],
+    "tags": [
+      "set",
+      "blur",
+      "soft-focus"
+    ],
+    "ingredients": [
+      "mica",
+      "silica"
+    ],
+    "ingredient_highlights": [
+      "mica",
+      "silica"
+    ],
+    "exclusions": [],
+    "warnings": [],
+    "finishes": [
+      "soft_matte",
+      "blurred"
+    ],
+    "coverage_levels": [
+      "sheer"
+    ],
+    "color_families": [
+      "translucent"
+    ],
+    "texture": "powder",
+    "rating": 4.3,
+    "review_count": 632,
+    "source": "synthetic_catalog",
+    "asset_source": "gpt_image_2_packshot_card_crop",
+    "card_image_url": "/assets/cards/073_PW-BUD-11.png",
+    "product_type": "loose_powder",
+    "category_group": "makeup"
+  },
+  {
+    "sku": "LUMA-074",
+    "source_sku": "PW-BUD-12",
+    "catalog_number": 74,
+    "brand": "Lumiere Daily",
+    "name": "Blurring Pact Powder LIGHT",
+    "variant": "LIGHT",
+    "display_name": "Lumiere Daily Blurring Pact Powder LIGHT",
+    "category": "powder",
+    "domain": "makeup",
+    "price_segment": "budget",
+    "price_value": 990,
+    "currency": "RUB",
+    "image_url": "/assets/cards/074_PW-BUD-12.png",
+    "gallery": [
+      "/assets/cards/074_PW-BUD-12.png"
+    ],
+    "availability": true,
+    "inventory_status": "in_stock",
+    "skin_types": [
+      "combination",
+      "oily",
+      "normal"
+    ],
+    "concerns": [
+      "shine_control",
+      "texture",
+      "pores"
+    ],
+    "tags": [
+      "set",
+      "blur",
+      "soft-focus"
+    ],
+    "ingredients": [
+      "mica",
+      "silica"
+    ],
+    "ingredient_highlights": [
+      "mica",
+      "silica"
+    ],
+    "exclusions": [],
+    "warnings": [],
+    "finishes": [
+      "soft_matte",
+      "blurred"
+    ],
+    "coverage_levels": [
+      "sheer"
+    ],
+    "color_families": [
+      "light"
+    ],
+    "texture": "powder",
+    "rating": 4.4,
+    "review_count": 562,
+    "source": "synthetic_catalog",
+    "asset_source": "gpt_image_2_packshot_card_crop",
+    "card_image_url": "/assets/cards/074_PW-BUD-12.png",
+    "product_type": "pressed_powder",
+    "category_group": "makeup"
+  },
+  {
+    "sku": "LUMA-075",
+    "source_sku": "EY-MID-02",
+    "catalog_number": 75,
+    "brand": "Color Atelier",
+    "name": "Soft Rose Palette",
+    "variant": null,
+    "display_name": "Color Atelier Soft Rose Palette",
+    "category": "eyeshadow_palette",
+    "domain": "makeup",
+    "price_segment": "mid",
+    "price_value": 1790,
+    "currency": "RUB",
+    "image_url": "/assets/cards/075_EY-MID-02.png",
+    "gallery": [
+      "/assets/cards/075_EY-MID-02.png"
+    ],
+    "availability": true,
+    "inventory_status": "in_stock",
+    "skin_types": [
+      "normal",
+      "combination",
+      "dry",
+      "oily"
+    ],
+    "concerns": [
+      "eye_definition",
+      "color"
+    ],
+    "tags": [
+      "palette",
+      "blendable",
+      "color"
+    ],
+    "ingredients": [
+      "mica",
+      "silica"
+    ],
+    "ingredient_highlights": [
+      "mica",
+      "silica"
+    ],
+    "exclusions": [],
+    "warnings": [],
+    "finishes": [
+      "satin",
+      "shimmer",
+      "matte"
+    ],
+    "coverage_levels": [],
+    "color_families": [
+      "rose",
+      "pink",
+      "taupe"
+    ],
+    "texture": "pressed_powder",
+    "rating": 4.5,
+    "review_count": 536,
+    "source": "synthetic_catalog",
+    "asset_source": "gpt_image_2_packshot_card_crop",
+    "card_image_url": "/assets/cards/075_EY-MID-02.png",
+    "product_type": "eyeshadow_palette",
+    "category_group": "makeup"
+  },
+  {
+    "sku": "LUMA-076",
+    "source_sku": "CH-MID-01",
+    "catalog_number": 76,
+    "brand": "Face Poetry",
+    "name": "Cloud Flush Blush CORAL",
+    "variant": "CORAL",
+    "display_name": "Face Poetry Cloud Flush Blush CORAL",
+    "category": "blush",
+    "domain": "makeup",
+    "price_segment": "mid",
+    "price_value": 1690,
+    "currency": "RUB",
+    "image_url": "/assets/cards/076_CH-MID-01.png",
+    "gallery": [
+      "/assets/cards/076_CH-MID-01.png"
+    ],
+    "availability": true,
+    "inventory_status": "in_stock",
+    "skin_types": [
+      "normal",
+      "combination",
+      "dry"
+    ],
+    "concerns": [
+      "color",
+      "freshness"
+    ],
+    "tags": [
+      "cheek",
+      "blendable",
+      "soft-color"
+    ],
+    "ingredients": [
+      "mica",
+      "silica"
+    ],
+    "ingredient_highlights": [
+      "mica",
+      "silica"
+    ],
+    "exclusions": [],
+    "warnings": [],
+    "finishes": [
+      "satin"
+    ],
+    "coverage_levels": [],
+    "color_families": [
+      "coral"
+    ],
+    "texture": "pressed_powder",
+    "rating": 4.6,
+    "review_count": 675,
+    "source": "synthetic_catalog",
+    "asset_source": "gpt_image_2_packshot_card_crop",
+    "card_image_url": "/assets/cards/076_CH-MID-01.png",
+    "product_type": "blush",
+    "category_group": "makeup"
+  },
+  {
+    "sku": "LUMA-077",
+    "source_sku": "LP-MID-01",
+    "catalog_number": 77,
+    "brand": "Glow Pop",
+    "name": "Silky Touch Lipstick NUDE ROSE",
+    "variant": "NUDE ROSE",
+    "display_name": "Glow Pop Silky Touch Lipstick NUDE ROSE",
+    "category": "lipstick",
+    "domain": "makeup",
+    "price_segment": "mid",
+    "price_value": 1690,
+    "currency": "RUB",
+    "image_url": "/assets/cards/077_LP-MID-01.png",
+    "gallery": [
+      "/assets/cards/077_LP-MID-01.png"
+    ],
+    "availability": true,
+    "inventory_status": "in_stock",
+    "skin_types": [
+      "normal"
+    ],
+    "concerns": [
+      "lip_color"
+    ],
+    "tags": [
+      "lip",
+      "color",
+      "comfortable"
+    ],
+    "ingredients": [
+      "jojoba oil",
+      "shea butter"
+    ],
+    "ingredient_highlights": [
+      "jojoba oil",
+      "shea butter"
+    ],
+    "exclusions": [],
+    "warnings": [],
+    "finishes": [
+      "satin"
+    ],
+    "coverage_levels": [],
+    "color_families": [
+      "nude",
+      "rose"
+    ],
+    "texture": "stick",
+    "rating": 4.7,
+    "review_count": 825,
+    "source": "synthetic_catalog",
+    "asset_source": "gpt_image_2_packshot_card_crop",
+    "card_image_url": "/assets/cards/077_LP-MID-01.png",
+    "product_type": "lipstick",
+    "category_group": "makeup"
+  },
+  {
+    "sku": "LUMA-078",
+    "source_sku": "LP-MID-02",
+    "catalog_number": 78,
+    "brand": "Glow Pop",
+    "name": "Juicy Glow Lip Tint BERRY",
+    "variant": "BERRY",
+    "display_name": "Glow Pop Juicy Glow Lip Tint BERRY",
+    "category": "lip_tint",
+    "domain": "makeup",
+    "price_segment": "mid",
+    "price_value": 2790,
+    "currency": "RUB",
+    "image_url": "/assets/cards/078_LP-MID-02.png",
+    "gallery": [
+      "/assets/cards/078_LP-MID-02.png"
+    ],
+    "availability": true,
+    "inventory_status": "in_stock",
+    "skin_types": [
+      "normal"
+    ],
+    "concerns": [
+      "lip_color"
+    ],
+    "tags": [
+      "lip",
+      "tint",
+      "glow"
+    ],
+    "ingredients": [
+      "jojoba oil",
+      "shea butter"
+    ],
+    "ingredient_highlights": [
+      "jojoba oil",
+      "shea butter"
+    ],
+    "exclusions": [],
+    "warnings": [],
+    "finishes": [
+      "glossy",
+      "tint"
+    ],
+    "coverage_levels": [],
+    "color_families": [
+      "berry"
+    ],
+    "texture": "tint",
+    "rating": 4.8,
+    "review_count": 843,
+    "source": "synthetic_catalog",
+    "asset_source": "gpt_image_2_packshot_card_crop",
+    "card_image_url": "/assets/cards/078_LP-MID-02.png",
+    "product_type": "lip_tint",
+    "category_group": "makeup"
+  },
+  {
+    "sku": "LUMA-079",
+    "source_sku": "BR-MID-01",
+    "catalog_number": 79,
+    "brand": "Brow Craft",
+    "name": "Clear Fix Brow Gel",
+    "variant": null,
+    "display_name": "Brow Craft Clear Fix Brow Gel",
+    "category": "brow_gel",
+    "domain": "makeup",
+    "price_segment": "mid",
+    "price_value": 2490,
+    "currency": "RUB",
+    "image_url": "/assets/cards/079_BR-MID-01.png",
+    "gallery": [
+      "/assets/cards/079_BR-MID-01.png"
+    ],
+    "availability": true,
+    "inventory_status": "in_stock",
+    "skin_types": [
+      "normal"
+    ],
+    "concerns": [
+      "brow_definition"
+    ],
+    "tags": [
+      "brow",
+      "definition",
+      "clear"
+    ],
+    "ingredients": [
+      "panthenol",
+      "film formers"
+    ],
+    "ingredient_highlights": [
+      "panthenol",
+      "film formers"
+    ],
+    "exclusions": [],
+    "warnings": [],
+    "finishes": [
+      "natural"
+    ],
+    "coverage_levels": [],
+    "color_families": [
+      "clear"
+    ],
+    "texture": "gel",
+    "rating": 4.9,
+    "review_count": 839,
+    "source": "synthetic_catalog",
+    "asset_source": "gpt_image_2_packshot_card_crop",
+    "card_image_url": "/assets/cards/079_BR-MID-01.png",
+    "product_type": "brow_gel",
+    "category_group": "makeup"
+  },
+  {
+    "sku": "LUMA-080",
+    "source_sku": "EY-MID-03",
+    "catalog_number": 80,
+    "brand": "Lash Craft",
+    "name": "Volume Boost Mascara",
+    "variant": null,
+    "display_name": "Lash Craft Volume Boost Mascara",
+    "category": "mascara",
+    "domain": "makeup",
+    "price_segment": "mid",
+    "price_value": 2090,
+    "currency": "RUB",
+    "image_url": "/assets/cards/080_EY-MID-03.png",
+    "gallery": [
+      "/assets/cards/080_EY-MID-03.png"
+    ],
+    "availability": true,
+    "inventory_status": "in_stock",
+    "skin_types": [
+      "normal"
+    ],
+    "concerns": [
+      "lash_volume",
+      "eye_definition"
+    ],
+    "tags": [
+      "lash",
+      "volume",
+      "definition"
+    ],
+    "ingredients": [
+      "beeswax",
+      "panthenol"
+    ],
+    "ingredient_highlights": [
+      "beeswax",
+      "panthenol"
+    ],
+    "exclusions": [],
+    "warnings": [],
+    "finishes": [
+      "natural"
+    ],
+    "coverage_levels": [],
+    "color_families": [
+      "black"
+    ],
+    "texture": "mascara",
+    "rating": 4.2,
+    "review_count": 73,
+    "source": "synthetic_catalog",
+    "asset_source": "gpt_image_2_packshot_card_crop",
+    "card_image_url": "/assets/cards/080_EY-MID-03.png",
+    "product_type": "mascara",
+    "category_group": "makeup"
+  },
+  {
+    "sku": "LUMA-081",
+    "source_sku": "FD-MID-01",
+    "catalog_number": 81,
+    "brand": "Lumiere Daily",
+    "name": "Everyday Skin Foundation LIGHT NEUTRAL",
+    "variant": "LIGHT NEUTRAL",
+    "display_name": "Lumiere Daily Everyday Skin Foundation LIGHT NEUTRAL",
+    "category": "foundation",
+    "domain": "makeup",
+    "price_segment": "mid",
+    "price_value": 2090,
+    "currency": "RUB",
+    "image_url": "/assets/cards/081_FD-MID-01.png",
+    "gallery": [
+      "/assets/cards/081_FD-MID-01.png"
+    ],
+    "availability": true,
+    "inventory_status": "in_stock",
+    "skin_types": [
+      "normal",
+      "combination"
+    ],
+    "concerns": [
+      "tone_match",
+      "texture",
+      "redness"
+    ],
+    "tags": [
+      "complexion",
+      "shade-match",
+      "buildable"
+    ],
+    "ingredients": [
+      "glycerin",
+      "squalane"
+    ],
+    "ingredient_highlights": [
+      "glycerin",
+      "squalane"
+    ],
+    "exclusions": [],
+    "warnings": [],
+    "finishes": [
+      "natural",
+      "satin"
+    ],
+    "coverage_levels": [
+      "medium"
+    ],
+    "color_families": [
+      "light",
+      "neutral"
+    ],
+    "texture": "liquid",
+    "rating": 4.3,
+    "review_count": 344,
+    "source": "synthetic_catalog",
+    "asset_source": "gpt_image_2_packshot_card_crop",
+    "card_image_url": "/assets/cards/081_FD-MID-01.png",
+    "product_type": "foundation",
+    "category_group": "makeup"
+  },
+  {
+    "sku": "LUMA-082",
+    "source_sku": "CO-MID-01",
+    "catalog_number": 82,
+    "brand": "Lumiere Daily",
+    "name": "Bright Flex Concealer LIGHT NEUTRAL",
+    "variant": "LIGHT NEUTRAL",
+    "display_name": "Lumiere Daily Bright Flex Concealer LIGHT NEUTRAL",
+    "category": "concealer",
+    "domain": "makeup",
+    "price_segment": "mid",
+    "price_value": 1690,
+    "currency": "RUB",
+    "image_url": "/assets/cards/082_CO-MID-01.png",
+    "gallery": [
+      "/assets/cards/082_CO-MID-01.png"
+    ],
+    "availability": true,
+    "inventory_status": "in_stock",
+    "skin_types": [
+      "normal",
+      "combination"
+    ],
+    "concerns": [
+      "under_eye",
+      "redness",
+      "tone_match"
+    ],
+    "tags": [
+      "complexion",
+      "brightening",
+      "buildable"
+    ],
+    "ingredients": [
+      "glycerin",
+      "squalane"
+    ],
+    "ingredient_highlights": [
+      "glycerin",
+      "squalane"
+    ],
+    "exclusions": [],
+    "warnings": [],
+    "finishes": [
+      "natural"
+    ],
+    "coverage_levels": [
+      "medium",
+      "buildable"
+    ],
+    "color_families": [
+      "light",
+      "neutral"
+    ],
+    "texture": "liquid",
+    "rating": 4.4,
+    "review_count": 384,
+    "source": "synthetic_catalog",
+    "asset_source": "gpt_image_2_packshot_card_crop",
+    "card_image_url": "/assets/cards/082_CO-MID-01.png",
+    "product_type": "concealer",
+    "category_group": "makeup"
+  },
+  {
+    "sku": "LUMA-083",
+    "source_sku": "PW-MID-01",
+    "catalog_number": 83,
+    "brand": "Lumiere Daily",
+    "name": "Soft Set Loose Powder TRANSLUCENT",
+    "variant": "TRANSLUCENT",
+    "display_name": "Lumiere Daily Soft Set Loose Powder TRANSLUCENT",
+    "category": "powder",
+    "domain": "makeup",
+    "price_segment": "mid",
+    "price_value": 2490,
+    "currency": "RUB",
+    "image_url": "/assets/cards/083_PW-MID-01.png",
+    "gallery": [
+      "/assets/cards/083_PW-MID-01.png"
+    ],
+    "availability": true,
+    "inventory_status": "in_stock",
+    "skin_types": [
+      "combination",
+      "oily",
+      "normal"
+    ],
+    "concerns": [
+      "shine_control",
+      "texture",
+      "pores"
+    ],
+    "tags": [
+      "set",
+      "blur",
+      "soft-focus"
+    ],
+    "ingredients": [
+      "mica",
+      "silica"
+    ],
+    "ingredient_highlights": [
+      "mica",
+      "silica"
+    ],
+    "exclusions": [],
+    "warnings": [],
+    "finishes": [
+      "soft_matte",
+      "blurred"
+    ],
+    "coverage_levels": [
+      "sheer"
+    ],
+    "color_families": [
+      "translucent"
+    ],
+    "texture": "powder",
+    "rating": 4.5,
+    "review_count": 435,
+    "source": "synthetic_catalog",
+    "asset_source": "gpt_image_2_packshot_card_crop",
+    "card_image_url": "/assets/cards/083_PW-MID-01.png",
+    "product_type": "loose_powder",
+    "category_group": "makeup"
+  },
+  {
+    "sku": "LUMA-084",
+    "source_sku": "PW-MID-02",
+    "catalog_number": 84,
+    "brand": "Lumiere Daily",
+    "name": "Blurring Pact Powder LIGHT",
+    "variant": "LIGHT",
+    "display_name": "Lumiere Daily Blurring Pact Powder LIGHT",
+    "category": "powder",
+    "domain": "makeup",
+    "price_segment": "mid",
+    "price_value": 2190,
+    "currency": "RUB",
+    "image_url": "/assets/cards/084_PW-MID-02.png",
+    "gallery": [
+      "/assets/cards/084_PW-MID-02.png"
+    ],
+    "availability": true,
+    "inventory_status": "in_stock",
+    "skin_types": [
+      "combination",
+      "oily",
+      "normal"
+    ],
+    "concerns": [
+      "shine_control",
+      "texture",
+      "pores"
+    ],
+    "tags": [
+      "set",
+      "blur",
+      "soft-focus"
+    ],
+    "ingredients": [
+      "mica",
+      "silica"
+    ],
+    "ingredient_highlights": [
+      "mica",
+      "silica"
+    ],
+    "exclusions": [],
+    "warnings": [],
+    "finishes": [
+      "soft_matte",
+      "blurred"
+    ],
+    "coverage_levels": [
+      "sheer"
+    ],
+    "color_families": [
+      "light"
+    ],
+    "texture": "powder",
+    "rating": 4.6,
+    "review_count": 431,
+    "source": "synthetic_catalog",
+    "asset_source": "gpt_image_2_packshot_card_crop",
+    "card_image_url": "/assets/cards/084_PW-MID-02.png",
+    "product_type": "pressed_powder",
+    "category_group": "makeup"
+  },
+  {
+    "sku": "LUMA-085",
+    "source_sku": "EY-MID-04",
+    "catalog_number": 85,
+    "brand": "Color Atelier",
+    "name": "Soft Mauve Palette",
+    "variant": null,
+    "display_name": "Color Atelier Soft Mauve Palette",
+    "category": "eyeshadow_palette",
+    "domain": "makeup",
+    "price_segment": "mid",
+    "price_value": 1590,
+    "currency": "RUB",
+    "image_url": "/assets/cards/085_EY-MID-04.png",
+    "gallery": [
+      "/assets/cards/085_EY-MID-04.png"
+    ],
+    "availability": true,
+    "inventory_status": "in_stock",
+    "skin_types": [
+      "normal",
+      "combination",
+      "dry",
+      "oily"
+    ],
+    "concerns": [
+      "eye_definition",
+      "color"
+    ],
+    "tags": [
+      "palette",
+      "blendable",
+      "color"
+    ],
+    "ingredients": [
+      "mica",
+      "silica"
+    ],
+    "ingredient_highlights": [
+      "mica",
+      "silica"
+    ],
+    "exclusions": [],
+    "warnings": [],
+    "finishes": [
+      "satin",
+      "shimmer",
+      "matte"
+    ],
+    "coverage_levels": [],
+    "color_families": [
+      "mauve",
+      "rose",
+      "taupe"
+    ],
+    "texture": "pressed_powder",
+    "rating": 4.7,
+    "review_count": 416,
+    "source": "synthetic_catalog",
+    "asset_source": "gpt_image_2_packshot_card_crop",
+    "card_image_url": "/assets/cards/085_EY-MID-04.png",
+    "product_type": "eyeshadow_palette",
+    "category_group": "makeup"
+  },
+  {
+    "sku": "LUMA-086",
+    "source_sku": "CH-MID-02",
+    "catalog_number": 86,
+    "brand": "Face Poetry",
+    "name": "Cloud Flush Blush PEONY",
+    "variant": "PEONY",
+    "display_name": "Face Poetry Cloud Flush Blush PEONY",
+    "category": "blush",
+    "domain": "makeup",
+    "price_segment": "mid",
+    "price_value": 2890,
+    "currency": "RUB",
+    "image_url": "/assets/cards/086_CH-MID-02.png",
+    "gallery": [
+      "/assets/cards/086_CH-MID-02.png"
+    ],
+    "availability": true,
+    "inventory_status": "in_stock",
+    "skin_types": [
+      "normal",
+      "combination",
+      "dry"
+    ],
+    "concerns": [
+      "color",
+      "freshness"
+    ],
+    "tags": [
+      "cheek",
+      "blendable",
+      "soft-color"
+    ],
+    "ingredients": [
+      "mica",
+      "silica"
+    ],
+    "ingredient_highlights": [
+      "mica",
+      "silica"
+    ],
+    "exclusions": [],
+    "warnings": [],
+    "finishes": [
+      "satin"
+    ],
+    "coverage_levels": [],
+    "color_families": [],
+    "texture": "pressed_powder",
+    "rating": 4.8,
+    "review_count": 544,
+    "source": "synthetic_catalog",
+    "asset_source": "gpt_image_2_packshot_card_crop",
+    "card_image_url": "/assets/cards/086_CH-MID-02.png",
+    "product_type": "blush",
+    "category_group": "makeup"
+  },
+  {
+    "sku": "LUMA-087",
+    "source_sku": "LP-MID-03",
+    "catalog_number": 87,
+    "brand": "Glow Pop",
+    "name": "Silky Touch Lipstick ROSEWOOD",
+    "variant": "ROSEWOOD",
+    "display_name": "Glow Pop Silky Touch Lipstick ROSEWOOD",
+    "category": "lipstick",
+    "domain": "makeup",
+    "price_segment": "mid",
+    "price_value": 2890,
+    "currency": "RUB",
+    "image_url": "/assets/cards/087_LP-MID-03.png",
+    "gallery": [
+      "/assets/cards/087_LP-MID-03.png"
+    ],
+    "availability": true,
+    "inventory_status": "in_stock",
+    "skin_types": [
+      "normal"
+    ],
+    "concerns": [
+      "lip_color"
+    ],
+    "tags": [
+      "lip",
+      "color",
+      "comfortable"
+    ],
+    "ingredients": [
+      "jojoba oil",
+      "shea butter"
+    ],
+    "ingredient_highlights": [
+      "jojoba oil",
+      "shea butter"
+    ],
+    "exclusions": [],
+    "warnings": [],
+    "finishes": [
+      "satin"
+    ],
+    "coverage_levels": [],
+    "color_families": [],
+    "texture": "stick",
+    "rating": 4.9,
+    "review_count": 683,
+    "source": "synthetic_catalog",
+    "asset_source": "gpt_image_2_packshot_card_crop",
+    "card_image_url": "/assets/cards/087_LP-MID-03.png",
+    "product_type": "lipstick",
+    "category_group": "makeup"
+  },
+  {
+    "sku": "LUMA-088",
+    "source_sku": "LP-MID-04",
+    "catalog_number": 88,
+    "brand": "Glow Pop",
+    "name": "Juicy Glow Lip Tint PLUM",
+    "variant": "PLUM",
+    "display_name": "Glow Pop Juicy Glow Lip Tint PLUM",
+    "category": "lip_tint",
+    "domain": "makeup",
+    "price_segment": "mid",
+    "price_value": 2590,
+    "currency": "RUB",
+    "image_url": "/assets/cards/088_LP-MID-04.png",
+    "gallery": [
+      "/assets/cards/088_LP-MID-04.png"
+    ],
+    "availability": true,
+    "inventory_status": "in_stock",
+    "skin_types": [
+      "normal"
+    ],
+    "concerns": [
+      "lip_color"
+    ],
+    "tags": [
+      "lip",
+      "tint",
+      "glow"
+    ],
+    "ingredients": [
+      "jojoba oil",
+      "shea butter"
+    ],
+    "ingredient_highlights": [
+      "jojoba oil",
+      "shea butter"
+    ],
+    "exclusions": [],
+    "warnings": [],
+    "finishes": [
+      "glossy",
+      "tint"
+    ],
+    "coverage_levels": [],
+    "color_families": [
+      "plum"
+    ],
+    "texture": "tint",
+    "rating": 4.2,
+    "review_count": 701,
+    "source": "synthetic_catalog",
+    "asset_source": "gpt_image_2_packshot_card_crop",
+    "card_image_url": "/assets/cards/088_LP-MID-04.png",
+    "product_type": "lip_tint",
+    "category_group": "makeup"
+  },
+  {
+    "sku": "LUMA-089",
+    "source_sku": "BR-MID-02",
+    "catalog_number": 89,
+    "brand": "Brow Craft",
+    "name": "Clear Fix Brow Gel",
+    "variant": null,
+    "display_name": "Brow Craft Clear Fix Brow Gel",
+    "category": "brow_gel",
+    "domain": "makeup",
+    "price_segment": "mid",
+    "price_value": 2290,
+    "currency": "RUB",
+    "image_url": "/assets/cards/089_BR-MID-02.png",
+    "gallery": [
+      "/assets/cards/089_BR-MID-02.png"
+    ],
+    "availability": true,
+    "inventory_status": "in_stock",
+    "skin_types": [
+      "normal"
+    ],
+    "concerns": [
+      "brow_definition"
+    ],
+    "tags": [
+      "brow",
+      "definition",
+      "clear"
+    ],
+    "ingredients": [
+      "panthenol",
+      "film formers"
+    ],
+    "ingredient_highlights": [
+      "panthenol",
+      "film formers"
+    ],
+    "exclusions": [],
+    "warnings": [],
+    "finishes": [
+      "natural"
+    ],
+    "coverage_levels": [],
+    "color_families": [
+      "clear"
+    ],
+    "texture": "gel",
+    "rating": 4.3,
+    "review_count": 708,
+    "source": "synthetic_catalog",
+    "asset_source": "gpt_image_2_packshot_card_crop",
+    "card_image_url": "/assets/cards/089_BR-MID-02.png",
+    "product_type": "brow_gel",
+    "category_group": "makeup"
+  },
+  {
+    "sku": "LUMA-090",
+    "source_sku": "EY-MID-05",
+    "catalog_number": 90,
+    "brand": "Lash Craft",
+    "name": "Volume Boost Mascara",
+    "variant": null,
+    "display_name": "Lash Craft Volume Boost Mascara",
+    "category": "mascara",
+    "domain": "makeup",
+    "price_segment": "mid",
+    "price_value": 1890,
+    "currency": "RUB",
+    "image_url": "/assets/cards/090_EY-MID-05.png",
+    "gallery": [
+      "/assets/cards/090_EY-MID-05.png"
+    ],
+    "availability": true,
+    "inventory_status": "in_stock",
+    "skin_types": [
+      "normal"
+    ],
+    "concerns": [
+      "lash_volume",
+      "eye_definition"
+    ],
+    "tags": [
+      "lash",
+      "volume",
+      "definition"
+    ],
+    "ingredients": [
+      "beeswax",
+      "panthenol"
+    ],
+    "ingredient_highlights": [
+      "beeswax",
+      "panthenol"
+    ],
+    "exclusions": [],
+    "warnings": [],
+    "finishes": [
+      "natural"
+    ],
+    "coverage_levels": [],
+    "color_families": [
+      "black"
+    ],
+    "texture": "mascara",
+    "rating": 4.4,
+    "review_count": 803,
+    "source": "synthetic_catalog",
+    "asset_source": "gpt_image_2_packshot_card_crop",
+    "card_image_url": "/assets/cards/090_EY-MID-05.png",
+    "product_type": "mascara",
+    "category_group": "makeup"
+  },
+  {
+    "sku": "LUMA-091",
+    "source_sku": "FD-MID-02",
+    "catalog_number": 91,
+    "brand": "Lumiere Daily",
+    "name": "Everyday Skin Foundation MEDIUM NEUTRAL",
+    "variant": "MEDIUM NEUTRAL",
+    "display_name": "Lumiere Daily Everyday Skin Foundation MEDIUM NEUTRAL",
+    "category": "foundation",
+    "domain": "makeup",
+    "price_segment": "mid",
+    "price_value": 1890,
+    "currency": "RUB",
+    "image_url": "/assets/cards/091_FD-MID-02.png",
+    "gallery": [
+      "/assets/cards/091_FD-MID-02.png"
+    ],
+    "availability": true,
+    "inventory_status": "in_stock",
+    "skin_types": [
+      "normal",
+      "combination"
+    ],
+    "concerns": [
+      "tone_match",
+      "texture",
+      "redness"
+    ],
+    "tags": [
+      "complexion",
+      "shade-match",
+      "buildable"
+    ],
+    "ingredients": [
+      "glycerin",
+      "squalane"
+    ],
+    "ingredient_highlights": [
+      "glycerin",
+      "squalane"
+    ],
+    "exclusions": [],
+    "warnings": [],
+    "finishes": [
+      "natural",
+      "satin"
+    ],
+    "coverage_levels": [
+      "medium"
+    ],
+    "color_families": [
+      "medium",
+      "neutral"
+    ],
+    "texture": "liquid",
+    "rating": 4.5,
+    "review_count": 224,
+    "source": "synthetic_catalog",
+    "asset_source": "gpt_image_2_packshot_card_crop",
+    "card_image_url": "/assets/cards/091_FD-MID-02.png",
+    "product_type": "foundation",
+    "category_group": "makeup"
+  },
+  {
+    "sku": "LUMA-092",
+    "source_sku": "CO-MID-02",
+    "catalog_number": 92,
+    "brand": "Lumiere Daily",
+    "name": "Bright Flex Concealer MEDIUM NEUTRAL",
+    "variant": "MEDIUM NEUTRAL",
+    "display_name": "Lumiere Daily Bright Flex Concealer MEDIUM NEUTRAL",
+    "category": "concealer",
+    "domain": "makeup",
+    "price_segment": "mid",
+    "price_value": 2890,
+    "currency": "RUB",
+    "image_url": "/assets/cards/092_CO-MID-02.png",
+    "gallery": [
+      "/assets/cards/092_CO-MID-02.png"
+    ],
+    "availability": true,
+    "inventory_status": "in_stock",
+    "skin_types": [
+      "normal",
+      "combination"
+    ],
+    "concerns": [
+      "under_eye",
+      "redness",
+      "tone_match"
+    ],
+    "tags": [
+      "complexion",
+      "brightening",
+      "buildable"
+    ],
+    "ingredients": [
+      "glycerin",
+      "squalane"
+    ],
+    "ingredient_highlights": [
+      "glycerin",
+      "squalane"
+    ],
+    "exclusions": [],
+    "warnings": [],
+    "finishes": [
+      "natural"
+    ],
+    "coverage_levels": [
+      "medium",
+      "buildable"
+    ],
+    "color_families": [
+      "medium",
+      "neutral"
+    ],
+    "texture": "liquid",
+    "rating": 4.6,
+    "review_count": 264,
+    "source": "synthetic_catalog",
+    "asset_source": "gpt_image_2_packshot_card_crop",
+    "card_image_url": "/assets/cards/092_CO-MID-02.png",
+    "product_type": "concealer",
+    "category_group": "makeup"
+  },
+  {
+    "sku": "LUMA-093",
+    "source_sku": "PW-MID-03",
+    "catalog_number": 93,
+    "brand": "Lumiere Daily",
+    "name": "Blurring Pact Powder MEDIUM",
+    "variant": "MEDIUM",
+    "display_name": "Lumiere Daily Blurring Pact Powder MEDIUM",
+    "category": "powder",
+    "domain": "makeup",
+    "price_segment": "mid",
+    "price_value": 2290,
+    "currency": "RUB",
+    "image_url": "/assets/cards/093_PW-MID-03.png",
+    "gallery": [
+      "/assets/cards/093_PW-MID-03.png"
+    ],
+    "availability": true,
+    "inventory_status": "in_stock",
+    "skin_types": [
+      "combination",
+      "oily",
+      "normal"
+    ],
+    "concerns": [
+      "shine_control",
+      "texture",
+      "pores"
+    ],
+    "tags": [
+      "set",
+      "blur",
+      "soft-focus"
+    ],
+    "ingredients": [
+      "mica",
+      "silica"
+    ],
+    "ingredient_highlights": [
+      "mica",
+      "silica"
+    ],
+    "exclusions": [],
+    "warnings": [],
+    "finishes": [
+      "soft_matte",
+      "blurred"
+    ],
+    "coverage_levels": [
+      "sheer"
+    ],
+    "color_families": [
+      "medium"
+    ],
+    "texture": "powder",
+    "rating": 4.7,
+    "review_count": 238,
+    "source": "synthetic_catalog",
+    "asset_source": "gpt_image_2_packshot_card_crop",
+    "card_image_url": "/assets/cards/093_PW-MID-03.png",
+    "product_type": "pressed_powder",
+    "category_group": "makeup"
+  },
+  {
+    "sku": "LUMA-094",
+    "source_sku": "EY-MID-06",
+    "catalog_number": 94,
+    "brand": "Color Atelier",
+    "name": "Soft Taupe Palette",
+    "variant": null,
+    "display_name": "Color Atelier Soft Taupe Palette",
+    "category": "eyeshadow_palette",
+    "domain": "makeup",
+    "price_segment": "mid",
+    "price_value": 1690,
+    "currency": "RUB",
+    "image_url": "/assets/cards/094_EY-MID-06.png",
+    "gallery": [
+      "/assets/cards/094_EY-MID-06.png"
+    ],
+    "availability": false,
+    "inventory_status": "out_of_stock",
+    "skin_types": [
+      "normal",
+      "combination",
+      "dry",
+      "oily"
+    ],
+    "concerns": [
+      "eye_definition",
+      "color"
+    ],
+    "tags": [
+      "palette",
+      "blendable",
+      "color"
+    ],
+    "ingredients": [
+      "mica",
+      "silica"
+    ],
+    "ingredient_highlights": [
+      "mica",
+      "silica"
+    ],
+    "exclusions": [],
+    "warnings": [
+      "currently unavailable in the synthetic catalog"
+    ],
+    "finishes": [
+      "satin",
+      "shimmer",
+      "matte"
+    ],
+    "coverage_levels": [],
+    "color_families": [
+      "taupe",
+      "brown",
+      "neutral"
+    ],
+    "texture": "pressed_powder",
+    "rating": 4.8,
+    "review_count": 212,
+    "source": "synthetic_catalog",
+    "asset_source": "gpt_image_2_packshot_card_crop",
+    "card_image_url": "/assets/cards/094_EY-MID-06.png",
+    "product_type": "eyeshadow_palette",
+    "category_group": "makeup"
+  }
+]
