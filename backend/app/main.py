@@ -1,7 +1,9 @@
 from __future__ import annotations
 
 import logging
+import time
 import uuid
+from datetime import datetime
 from pathlib import Path
 from typing import Annotated
 
@@ -21,9 +23,15 @@ from .recommendations import completion_for_beauty_id, recommend_products, tags_
 from .scan import UploadedPhoto, ScanValidationError, get_scan_provider, parse_beauty_id_json, validate_photo
 from .schemas import (
     AddCartItemRequest,
+    ActiveSelectionItemRequest,
+    ActiveSelectionPatchRequest,
+    ActiveSelectionPutRequest,
+    ActiveSelectionResponse,
+    ActiveSelectionItem,
     AdvisorHistoryResponse,
     AdvisorRequest,
     AdvisorResponse,
+    AdvisorSelectionProduct,
     AuthLoginRequest,
     AuthRegisterRequest,
     AuthSessionResponse,
@@ -32,6 +40,8 @@ from .schemas import (
     CartResponse,
     CheckoutResponse,
     EnvironmentResponse,
+    EventRequest,
+    EventResponse,
     ExportResponse,
     FeedbackRequest,
     FeedbackResponse,
@@ -149,6 +159,7 @@ def human_error(code: str) -> str:
         "cart_empty": "Cart is empty.",
         "beauty_id_consent_required": "Consent is required before saving Beauty ID.",
         "invalid_saved_routine_sku": "Saved routine can include only current LUMA catalog products.",
+        "invalid_active_selection_sku": "Active selection can include only current LUMA catalog products.",
     }.get(code, code.replace("_", " ").capitalize())
 
 
@@ -222,6 +233,165 @@ def _validate_saved_routine_skus(skus: list[str], request: Request | None = None
             raise HTTPException(status_code=400, detail="invalid_saved_routine_sku")
         raise HTTPException(status_code=400, detail="invalid_saved_routine_sku")
     return valid
+
+
+def _validate_selection_items(items: list[ActiveSelectionItemRequest]) -> list[dict[str, object]]:
+    products = _products_by_sku()
+    seen: set[str] = set()
+    valid: list[dict[str, object]] = []
+    now = utcnow()
+    for item in items:
+        if item.sku not in products:
+            raise HTTPException(status_code=400, detail="invalid_active_selection_sku")
+        if item.sku in seen:
+            continue
+        seen.add(item.sku)
+        added_at = item.added_at or now
+        valid.append(
+            {
+                "sku": item.sku,
+                "source": item.source,
+                "routine_step": item.routine_step,
+                "reason": item.reason,
+                "match_score": item.match_score,
+                "added_at": added_at.isoformat(),
+                "updated_at": (item.updated_at or now).isoformat(),
+                "locked": item.locked,
+                "metadata": item.metadata,
+            }
+        )
+    return valid
+
+
+def _selection_response(account_id: str, added_count: int = 0, already_in_selection_count: int = 0) -> ActiveSelectionResponse:
+    stored = store.get_active_selection(account_id)
+    if not stored:
+        return ActiveSelectionResponse()
+    raw_items, updated_at = stored
+    products = _products_by_sku()
+    items: list[ActiveSelectionItem] = []
+    source_summary: dict[str, int] = {}
+    match_scores: list[int] = []
+    for raw in raw_items:
+        sku = str(raw.get("sku", "")).strip().upper()
+        product = products.get(sku)
+        if not product:
+            continue
+        source = str(raw.get("source") or "manual")
+        if source not in {"advisor", "recommendations", "manual", "cart", "saved_routine", "scan"}:
+            source = "manual"
+        source_summary[source] = source_summary.get(source, 0) + 1
+        score = raw.get("match_score")
+        if isinstance(score, int):
+            match_scores.append(score)
+        added_at_raw = raw.get("added_at")
+        updated_at_raw = raw.get("updated_at")
+        try:
+            added_at = utcnow() if not added_at_raw else datetime.fromisoformat(str(added_at_raw))
+        except ValueError:
+            added_at = utcnow()
+        parsed_updated_at = None
+        if updated_at_raw:
+            try:
+                parsed_updated_at = datetime.fromisoformat(str(updated_at_raw))
+            except ValueError:
+                parsed_updated_at = None
+        items.append(
+            ActiveSelectionItem(
+                sku=sku,
+                product=product,
+                source=source,  # type: ignore[arg-type]
+                routine_step=raw.get("routine_step") if isinstance(raw.get("routine_step"), str) else None,
+                reason=raw.get("reason") if isinstance(raw.get("reason"), str) else None,
+                match_score=score if isinstance(score, int) else None,
+                added_at=added_at,
+                updated_at=parsed_updated_at,
+                locked=bool(raw.get("locked")),
+                metadata=raw.get("metadata") if isinstance(raw.get("metadata"), dict) else {},
+            )
+        )
+    total = sum(item.product.price_value for item in items)
+    average_match = round(sum(match_scores) / len(match_scores), 1) if match_scores else None
+    return ActiveSelectionResponse(
+        items=items,
+        skus=[item.sku for item in items],
+        count=len(items),
+        total_price=total,
+        average_match=average_match,
+        updated_at=updated_at,
+        source_summary=source_summary,
+        added_count=added_count,
+        already_in_selection_count=already_in_selection_count,
+    )
+
+
+def _merge_active_selection(account_id: str, incoming: list[ActiveSelectionItemRequest]) -> tuple[int, int]:
+    valid_incoming = _validate_selection_items(incoming)
+    stored = store.get_active_selection(account_id)
+    existing = list(stored[0]) if stored else []
+    by_sku = {str(item.get("sku", "")).strip().upper(): index for index, item in enumerate(existing)}
+    added = 0
+    duplicate = 0
+    for item in valid_incoming:
+        sku = str(item["sku"])
+        if sku in by_sku:
+            duplicate += 1
+            old = dict(existing[by_sku[sku]])
+            old.update({key: value for key, value in item.items() if key != "added_at" and value is not None})
+            old["added_at"] = old.get("added_at") or item.get("added_at")
+            old["updated_at"] = utcnow().isoformat()
+            existing[by_sku[sku]] = old
+        else:
+            by_sku[sku] = len(existing)
+            existing.append(item)
+            added += 1
+    store.save_active_selection(account_id, existing)
+    return added, duplicate
+
+
+def _advisor_selection_context(account_id: str, payload: AdvisorRequest) -> tuple[list[AdvisorSelectionProduct], list[str]]:
+    try:
+        products = _products_by_sku()
+    except ProviderUnavailable:
+        return payload.current_selection, payload.current_skus
+    selection: list[AdvisorSelectionProduct] = []
+    skus: list[str] = []
+
+    def append_product(product: Product, routine_step: str | None = None) -> None:
+        if product.sku in skus:
+            return
+        skus.append(product.sku)
+        selection.append(
+            AdvisorSelectionProduct(
+                sku=product.sku,
+                brand=product.brand,
+                name=product.name,
+                category=product.category,
+                product_type=product.product_type,
+                price_value=product.price_value,
+                currency=product.currency,
+                routine_step=routine_step,
+            )
+        )
+
+    stored_selection = store.get_active_selection(account_id)
+    if stored_selection:
+        for item in stored_selection[0][:24]:
+            product = products.get(str(item.get("sku", "")).strip().upper())
+            if product:
+                append_product(product, item.get("routine_step") if isinstance(item.get("routine_step"), str) else None)
+
+    for item in payload.current_selection[:20]:
+        product = products.get(item.sku)
+        if product:
+            append_product(product, item.routine_step)
+
+    merged_skus = list(skus)
+    for sku in [*payload.current_skus, *[item.sku for item in payload.current_cart]]:
+        normalized = sku.strip().upper()
+        if normalized and normalized not in merged_skus:
+            merged_skus.append(normalized)
+    return selection, merged_skus
 
 
 @app.get("/health")
@@ -315,7 +485,7 @@ def profile(account: Annotated[StoredAccount, Depends(current_account)]) -> Prof
     return ProfileResponse(
         account=account.public(),
         beauty_id=beauty_response,
-        saved_routines=[saved_routine.dict(exclude_none=True)] if saved_routine.skus else [],
+        saved_routines=[saved_routine.model_dump(exclude_none=True)] if saved_routine.skus else [],
         recommendation_history=store.list_history("recommendation_history", account.account_id),
         order_history=[],
         privacy={
@@ -357,7 +527,7 @@ def product_detail(sku: str) -> Product:
 @app.post("/v1/recommendations", response_model=RecommendationsResponse)
 def recommendations(payload: RecommendationsRequest, account: Annotated[StoredAccount, Depends(current_account)]) -> RecommendationsResponse:
     beauty_id = payload.beauty_id or store.get_beauty_id(account.account_id) or BeautyID(consent=True)
-    response = recommend_products(payload.copy(update={"beauty_id": beauty_id}))
+    response = recommend_products(payload.model_copy(update={"beauty_id": beauty_id}))
     known = {item.sku for item in load_catalog(include_unavailable=False)}
     response.products = [item for item in response.products if item.sku in known]
     response.routine = [item for item in response.routine if item.sku in known]
@@ -382,6 +552,42 @@ def put_saved_routine(payload: SavedRoutineRequest, account: Annotated[StoredAcc
 def delete_saved_routine(account: Annotated[StoredAccount, Depends(current_account)]) -> SavedRoutineResponse:
     store.clear_saved_routine(account.account_id)
     return SavedRoutineResponse(skus=[], products=[], updated_at=None)
+
+
+@app.get("/v1/selection/current", response_model=ActiveSelectionResponse)
+def get_active_selection(account: Annotated[StoredAccount, Depends(current_account)]) -> ActiveSelectionResponse:
+    return _selection_response(account.account_id)
+
+
+@app.put("/v1/selection/current", response_model=ActiveSelectionResponse)
+def put_active_selection(payload: ActiveSelectionPutRequest, account: Annotated[StoredAccount, Depends(current_account)]) -> ActiveSelectionResponse:
+    items = _validate_selection_items(payload.items)
+    store.save_active_selection(account.account_id, items)
+    return _selection_response(account.account_id, added_count=len(items), already_in_selection_count=0)
+
+
+@app.patch("/v1/selection/current/items", response_model=ActiveSelectionResponse)
+def patch_active_selection(payload: ActiveSelectionPatchRequest, account: Annotated[StoredAccount, Depends(current_account)]) -> ActiveSelectionResponse:
+    added, duplicate = _merge_active_selection(account.account_id, payload.items)
+    return _selection_response(account.account_id, added_count=added, already_in_selection_count=duplicate)
+
+
+@app.delete("/v1/selection/current/items/{sku}", response_model=ActiveSelectionResponse)
+def delete_active_selection_item(sku: str, account: Annotated[StoredAccount, Depends(current_account)]) -> ActiveSelectionResponse:
+    normalized = sku.strip().upper()
+    stored = store.get_active_selection(account.account_id)
+    if not stored:
+        return ActiveSelectionResponse()
+    items, _ = stored
+    remaining = [item for item in items if str(item.get("sku", "")).strip().upper() != normalized]
+    store.save_active_selection(account.account_id, remaining)
+    return _selection_response(account.account_id)
+
+
+@app.delete("/v1/selection/current", response_model=ActiveSelectionResponse)
+def clear_active_selection(account: Annotated[StoredAccount, Depends(current_account)]) -> ActiveSelectionResponse:
+    store.clear_active_selection(account.account_id)
+    return ActiveSelectionResponse()
 
 
 @app.post("/v1/photo/scan", response_model=ScanResult)
@@ -411,17 +617,46 @@ def delete_scan(scan_id: str, account: Annotated[StoredAccount, Depends(current_
 
 
 @app.post("/v1/advisor/message", response_model=AdvisorResponse)
-async def advisor(payload: AdvisorRequest, account: Annotated[StoredAccount, Depends(current_account)]) -> AdvisorResponse:
+async def advisor(payload: AdvisorRequest, request: Request, account: Annotated[StoredAccount, Depends(current_account)]) -> AdvisorResponse:
     beauty_id = payload.beauty_id or store.get_beauty_id(account.account_id) or BeautyID(consent=True)
     clean_message = clean_display_message(payload.message)
     recent_history = store.list_advisor_messages(account.account_id, limit=24)
-    response = await build_advisor_response(payload.copy(update={"message": clean_message, "beauty_id": beauty_id, "conversation_history": recent_history}))
+    current_selection, current_skus = _advisor_selection_context(account.account_id, payload)
+    enriched_payload = payload.model_copy(
+        update={
+            "message": clean_message,
+            "beauty_id": beauty_id,
+            "conversation_history": recent_history,
+            "current_selection": current_selection,
+            "current_skus": current_skus,
+        }
+    )
+    started = time.perf_counter()
+    response = await build_advisor_response(enriched_payload)
+    latency_ms = int((time.perf_counter() - started) * 1000)
     if contains_internal_prompt_marker(response.answer):
         logger.error("advisor_internal_prompt_leak_blocked", extra={"account_id": account.account_id, "prompt_version": response.prompt_version})
         raise HTTPException(status_code=502, detail="advisor_response_invalid")
     known = {item.sku for item in load_catalog(include_unavailable=False)}
     response.recommendations = [item for item in response.recommendations if item.sku in known]
     response.recommended_skus = [item.sku for item in response.recommendations]
+    store.add_advisor_run(
+        account.account_id,
+        {
+            "prompt_version": response.prompt_version,
+            "provider": response.provider,
+            "model": settings.openrouter_model if settings.advisor_provider in {"openrouter", "llm"} else None,
+            "latency_ms": latency_ms,
+            "fallback_reason": response.fallback_reason,
+            "invalid_json": response.fallback_reason in {"advisor_provider_invalid_json", "advisor_provider_invalid_schema", "advisor_provider_invalid_response"},
+            "unknown_sku_count": 1 if response.fallback_reason == "advisor_provider_ungrounded_skus" else 0,
+            "medical_refusal": response.safety_note == "medical_boundary",
+            "allowed_products_count": len(response.recommendations),
+            "recommended_skus_count": len(response.recommended_skus),
+            "action_count": len(response.actions),
+            "request_id": getattr(request.state, "request_id", None),
+        },
+    )
     store.add_advisor_message(account.account_id, "user", clean_message, recommended_skus=[])
     store.add_advisor_message(
         account.account_id,
@@ -531,6 +766,19 @@ def feedback(payload: FeedbackRequest, account: Annotated[StoredAccount, Depends
         build=payload.build,
     )
     return FeedbackResponse(id=feedback_id, created_at=created_at)
+
+
+@app.post("/v1/events", response_model=EventResponse)
+def events(payload: EventRequest, account: Annotated[StoredAccount, Depends(current_account)]) -> EventResponse:
+    event_id, created_at = store.add_event(
+        account.account_id,
+        payload.event_name,
+        payload=payload.payload,
+        app_version=payload.app_version,
+        build=payload.build,
+        platform=payload.platform,
+    )
+    return EventResponse(id=event_id, created_at=created_at)
 
 
 @app.post("/v1/privacy/export", response_model=ExportResponse)

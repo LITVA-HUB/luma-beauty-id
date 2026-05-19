@@ -4,6 +4,11 @@ struct ProductDetailView: View {
     @EnvironmentObject private var appState: AppState
     let product: RecommendationProduct
     @State private var showingWhy = false
+    @State private var showingIssueReasons = false
+    @State private var showingReplacementReasons = false
+
+    private var cartQuantity: Int { appState.cartQuantity(for: product.sku) }
+    private var shelfStatus: ShelfStatus? { appState.shelfStatus(for: product.sku) }
 
     var body: some View {
         ZStack {
@@ -40,11 +45,9 @@ struct ProductDetailView: View {
                             .font(BeautyFont.headline)
                         HStack(spacing: BeautySpacing.sm) {
                             RoutineStepPill(title: product.routineStep)
-                            if !product.isLocalSeed, let rating = product.rating, let count = product.reviewCount {
-                                Text("★ \(String(format: "%.1f", rating)) · \(count)")
-                                    .font(BeautyFont.caption)
-                                    .foregroundStyle(BeautyColor.taupe)
-                            }
+                            Text("Отзывы demo-каталога не подключены")
+                                .font(BeautyFont.caption)
+                                .foregroundStyle(BeautyColor.taupe)
                         }
                     }
                     .beautyCard()
@@ -63,9 +66,10 @@ struct ProductDetailView: View {
                     detailSection(title: "Ключевые ингредиенты", items: product.ingredientHighlights.isEmpty ? product.ingredients.prefix(4).map { $0 } : product.ingredientHighlights)
                     if !product.warnings.isEmpty { detailSection(title: "На что обратить внимание", items: product.warnings) }
                     detailSection(title: "Текстура и финиш", items: textureItems)
+                    shelfActionsSection
 
                     VStack(spacing: BeautySpacing.sm) {
-                        PrimaryButton(title: product.isUnavailable ? "Сейчас недоступно" : "Добавить в корзину", systemImage: product.isUnavailable ? "exclamationmark.circle" : "bag") {
+                        PrimaryButton(title: primaryButtonTitle, systemImage: primaryButtonIcon) {
                             Task { await appState.addToCart(product) }
                         }
                         .disabled(product.isUnavailable)
@@ -81,6 +85,28 @@ struct ProductDetailView: View {
         .navigationBarTitleDisplayMode(.inline)
         .onAppear { appState.productOpened(product) }
         .sheet(isPresented: $showingWhy) { whySheet }
+        .confirmationDialog("Почему не подошло?", isPresented: $showingIssueReasons, titleVisibility: .visible) {
+            ForEach(ShelfIssueReason.allCases) { reason in
+                Button(reason.displayTitle) { appState.markProductDidNotFit(product, reason: reason) }
+            }
+        }
+        .confirmationDialog("Какую замену искать?", isPresented: $showingReplacementReasons, titleVisibility: .visible) {
+            ForEach(ReplacementReason.allCases) { reason in
+                Button(reason.displayTitle) { appState.markProductNeedsReplacement(product, reason: reason) }
+            }
+        }
+    }
+
+    private var primaryButtonTitle: String {
+        if product.isUnavailable { return "Сейчас недоступно" }
+        if cartQuantity > 1 { return "В корзине \(cartQuantity)" }
+        if cartQuantity == 1 { return "Добавлено" }
+        return "Добавить в корзину"
+    }
+
+    private var primaryButtonIcon: String {
+        if product.isUnavailable { return "exclamationmark.circle" }
+        return cartQuantity > 0 ? "checkmark" : "bag"
     }
 
     private var textureItems: [String] {
@@ -106,6 +132,37 @@ struct ProductDetailView: View {
             }
         }
         .beautyCard()
+    }
+
+    private var shelfActionsSection: some View {
+        VStack(alignment: .leading, spacing: BeautySpacing.md) {
+            SectionHeader(
+                title: "Моя полка",
+                subtitle: shelfStatus.map { "Текущий статус: \($0.displayTitle)" } ?? "Отметьте сигнал, чтобы следующие подборки стали точнее."
+            )
+            LazyVGrid(columns: [GridItem(.adaptive(minimum: 128), spacing: 8)], alignment: .leading, spacing: 8) {
+                shelfButton("Уже есть", icon: "checkmark.circle") { appState.markProductOwned(product) }
+                shelfButton("Хочу", icon: "sparkles") { appState.markProductWanted(product) }
+                shelfButton("Куплю позже", icon: "clock") { appState.markProductBuyLater(product) }
+                shelfButton("Не подошло", icon: "hand.thumbsdown") { showingIssueReasons = true }
+                shelfButton("Закончилось", icon: "drop.degreesign") { appState.markProductEmpty(product) }
+                shelfButton("Хочу замену", icon: "arrow.triangle.2.circlepath") { showingReplacementReasons = true }
+            }
+        }
+        .beautyCard()
+    }
+
+    private func shelfButton(_ title: String, icon: String, action: @escaping () -> Void) -> some View {
+        Button(action: action) {
+            Label(title, systemImage: icon)
+                .font(BeautyFont.caption)
+                .foregroundStyle(BeautyColor.ink)
+                .frame(maxWidth: .infinity)
+                .frame(height: 38)
+                .background(BeautyColor.milk, in: Capsule())
+                .overlay(Capsule().stroke(BeautyColor.line.opacity(0.68), lineWidth: 1))
+        }
+        .buttonStyle(.plain)
     }
 
     private var whySheet: some View {

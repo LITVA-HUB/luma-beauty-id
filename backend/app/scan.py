@@ -92,7 +92,7 @@ def parse_beauty_id_json(raw: str | None) -> BeautyID | None:
     if not raw:
         return None
     data = json.loads(raw)
-    return BeautyID.parse_obj(data)
+    return BeautyID.model_validate(data)
 
 
 def _detect_image_type(content: bytes) -> str | None:

@@ -19,6 +19,16 @@ if [[ "${DELETE_REMOTE:-0}" != "1" ]]; then
   echo "Remote delete is disabled. Set DELETE_REMOTE=1 only after checking excludes."
 fi
 
+compose_snippet='
+compose() {
+  if docker compose version >/dev/null 2>&1; then
+    docker compose "$@"
+  else
+    docker-compose "$@"
+  fi
+}
+'
+
 rsync -avz ${RSYNC_DELETE_ARGS} \
   --exclude ".env" \
   --exclude ".env.save" \
@@ -38,11 +48,12 @@ rsync -avz ${RSYNC_DELETE_ARGS} \
 
 ssh "${STAGING_USER}@${STAGING_HOST}" bash -s <<EOF
 set -euo pipefail
+${compose_snippet}
 cd "${STAGING_PATH}"
 echo "Creating PostgreSQL backup before rebuild..."
 ./scripts/backup_postgres.sh || true
-docker compose -f "${COMPOSE_FILE}" up -d --build
-docker compose -f "${COMPOSE_FILE}" ps
+compose -f "${COMPOSE_FILE}" up -d --build
+compose -f "${COMPOSE_FILE}" ps
 curl -fsS "${BASE_URL_LOCAL}/health" >/dev/null
 echo "OK /health"
 curl -fsS "${BASE_URL_LOCAL}/ready" >/dev/null

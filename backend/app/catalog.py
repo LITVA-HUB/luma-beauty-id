@@ -74,7 +74,7 @@ class LocalCatalogProvider(CatalogProvider):
                 item["warnings"] = [*item.get("warnings", []), "currently unavailable in the synthetic catalog"]
             else:
                 item.setdefault("inventory_status", "in_stock" if item.get("availability", True) else "out_of_stock")
-            products.append(Product.parse_obj(item))
+            products.append(Product.model_validate(item))
         return tuple(products)
 
     def list_products(self, query: str | None = None, category: str | None = None, domain: str | None = None, include_unavailable: bool = True) -> list[Product]:

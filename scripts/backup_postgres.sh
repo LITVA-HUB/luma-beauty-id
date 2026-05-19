@@ -9,9 +9,17 @@ STAMP="$(date +%Y%m%d_%H%M%S)"
 OUT_DIR="${BACKUP_DIR:-./backups}"
 OUT_FILE="${OUT_DIR}/luma_staging_${STAMP}.sql.gz"
 
+compose() {
+  if docker compose version >/dev/null 2>&1; then
+    docker compose "$@"
+  else
+    docker-compose "$@"
+  fi
+}
+
 mkdir -p "${OUT_DIR}"
 
-docker compose -f "${COMPOSE_FILE}" exec -T "${SERVICE}" \
+compose -f "${COMPOSE_FILE}" exec -T "${SERVICE}" \
   pg_dump -U "${DB_USER}" -d "${DB_NAME}" --no-owner --no-privileges \
   | gzip -c > "${OUT_FILE}"
 

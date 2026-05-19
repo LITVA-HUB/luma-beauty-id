@@ -180,7 +180,7 @@ def recommend_products(request: RecommendationsRequest) -> RecommendationsRespon
             continue
         score, product, reasons, warnings = ranked[0]
         alternatives = [candidate.sku for _, candidate, _, _ in ranked[1:4]]
-        product_data = product.dict()
+        product_data = product.model_dump()
         product_data["warnings"] = list(dict.fromkeys([*product.warnings, *warnings]))
         selected.append(
             RecommendationProduct(
@@ -205,7 +205,7 @@ def recommend_products(request: RecommendationsRequest) -> RecommendationsRespon
     for score, product, reasons, warnings in extra_ranked:
         if len(products) >= request.limit:
             break
-        product_data = product.dict()
+        product_data = product.model_dump()
         product_data["warnings"] = list(dict.fromkeys([*product.warnings, *warnings]))
         products.append(
             RecommendationProduct(

@@ -5,8 +5,10 @@ struct BeautyIDSetupView: View {
     @State private var draft = BeautyID(consent: true)
     @State private var step = 0
     @State private var exclusionText = ""
+    @State private var selectedOwnedRoles: Set<RoutineRole> = []
+    @State private var ownedChoice: OwnedRolesChoice?
 
-    private let steps = ["Ощущения", "Предпочтения", "Бюджет", "Согласие"]
+    private let steps = ["Ощущения", "Предпочтения", "Бюджет", "Что есть", "Согласие"]
 
     var body: some View {
         ZStack {
@@ -26,6 +28,7 @@ struct BeautyIDSetupView: View {
         .onAppear {
             appState.startBeautyIDSetup()
             if let existing = appState.beautyID { draft = existing }
+            selectedOwnedRoles = appState.ownedRoles
         }
     }
 
@@ -114,6 +117,10 @@ struct BeautyIDSetupView: View {
                     MultiChipGrid(options: draft.ingredientExclusions, selected: $draft.ingredientExclusions)
                 }
             }
+        case 3:
+            StepCard(title: "Что у вас уже есть?", subtitle: "Так Luma не будет собирать вас с нуля и не добавит лишний шаг.") {
+                OwnedRolesStep(selectedRoles: $selectedOwnedRoles, ownedChoice: $ownedChoice)
+            }
         default:
             StepCard(title: "Приватность и согласие", subtitle: "Beauty ID нужен для подбора продуктов, его можно изменить позже.") {
                 VStack(alignment: .leading, spacing: BeautySpacing.md) {
@@ -143,6 +150,12 @@ struct BeautyIDSetupView: View {
                         return
                     }
                     Task { await appState.saveBeautyID(draft) }
+                    switch ownedChoice {
+                    case .notSure:
+                        break
+                    default:
+                        appState.updateOwnedRoles(selectedOwnedRoles, source: "beauty_id_owned_step")
+                    }
                 }
             }
             HStack {
@@ -173,6 +186,67 @@ private struct StepCard<Content: View>: View {
             content
         }
         .beautyCard()
+    }
+}
+
+private enum OwnedRolesChoice {
+    case roles, nothing, notSure
+}
+
+private struct OwnedRolesStep: View {
+    @Binding var selectedRoles: Set<RoutineRole>
+    @Binding var ownedChoice: OwnedRolesChoice?
+
+    private let roles: [RoutineRole] = [.cleanser, .moisturizer, .spf, .serum, .foundationTint, .mascara, .lip]
+    private let columns = [GridItem(.adaptive(minimum: 126), spacing: 8)]
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: BeautySpacing.md) {
+            LazyVGrid(columns: columns, alignment: .leading, spacing: 8) {
+                ForEach(roles, id: \.self) { role in
+                    BeautyChip(title: role.displayTitle, isSelected: selectedRoles.contains(role)) {
+                        ownedChoice = .roles
+                        if selectedRoles.contains(role) {
+                            selectedRoles.remove(role)
+                        } else {
+                            selectedRoles.insert(role)
+                        }
+                    }
+                }
+            }
+
+            HStack(spacing: BeautySpacing.sm) {
+                Button {
+                    ownedChoice = .nothing
+                    selectedRoles.removeAll()
+                } label: {
+                    ownedShortcutLabel("Ничего", isSelected: ownedChoice == .nothing)
+                }
+                .buttonStyle(.plain)
+
+                Button {
+                    ownedChoice = .notSure
+                    selectedRoles.removeAll()
+                } label: {
+                    ownedShortcutLabel("Не знаю", isSelected: ownedChoice == .notSure)
+                }
+                .buttonStyle(.plain)
+            }
+
+            Text("Если вы отмечаете категорию, Luma хранит только роль, а не придумывает конкретный продукт.")
+                .font(BeautyFont.caption)
+                .foregroundStyle(BeautyColor.taupe)
+        }
+    }
+
+    private func ownedShortcutLabel(_ title: String, isSelected: Bool) -> some View {
+        Text(title)
+            .font(BeautyFont.callout.weight(isSelected ? .semibold : .regular))
+            .foregroundStyle(BeautyColor.ink)
+            .frame(maxWidth: .infinity)
+            .padding(.vertical, 11)
+            .background(isSelected ? BeautyColor.limeSoft.opacity(0.82) : BeautyColor.milk, in: Capsule())
+            .overlay(Capsule().stroke(isSelected ? BeautyColor.lime.opacity(0.70) : BeautyColor.line.opacity(0.70), lineWidth: 1))
     }
 }
 

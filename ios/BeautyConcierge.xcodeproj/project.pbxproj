@@ -25,6 +25,10 @@
 		AFAA8BF38E998ED449A9F2A9 /* Features/Scan/PhotoScanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF63FF6F54C98E45B4C2EB4D /* Features/Scan/PhotoScanView.swift */; };
 		AFBEDC6D6C55B839DAD78E31 /* Features/Advisor/AdvisorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEC776A83CBA01BA3A1F2D81 /* Features/Advisor/AdvisorView.swift */; };
 		B0B5E2A3C4D54678A901F102 /* Services/Observability.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0A5E2A3C4D54678A901F102 /* Services/Observability.swift */; };
+		B5C000000000000000000001 /* Features/Scan/BeautyScanCameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D000000000000000000001 /* Features/Scan/BeautyScanCameraView.swift */; };
+		B5C000000000000000000002 /* Features/Scan/BeautyScanOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D000000000000000000002 /* Features/Scan/BeautyScanOverlayView.swift */; };
+		B5C000000000000000000003 /* Features/Scan/BeautyScanViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D000000000000000000003 /* Features/Scan/BeautyScanViewModel.swift */; };
+		B5C000000000000000000004 /* Services/BeautyScanCameraController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D000000000000000000004 /* Services/BeautyScanCameraController.swift */; };
 		C079D028A1BE36D2C96C1366 /* Features/Settings/SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A53A2E73E9FB587BD8AFAEC9 /* Features/Settings/SettingsView.swift */; };
 		C10000000000000000000002 /* BeautyConciergeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10000000000000000000001 /* BeautyConciergeTests.swift */; };
 		C256A921E45539638077EB62 /* Models/BeautyModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5E07323116827AE99C7E066A /* Models/BeautyModels.swift */; };
@@ -68,6 +72,10 @@
 		A4A5A97473336B607A8C2843 /* App/LocalFallbackCatalog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App/LocalFallbackCatalog.swift; sourceTree = "<group>"; };
 		A53A2E73E9FB587BD8AFAEC9 /* Features/Settings/SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Features/Settings/SettingsView.swift; sourceTree = "<group>"; };
 		B15A13ACECE86FF5B996CE6C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B5D000000000000000000001 /* Features/Scan/BeautyScanCameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Features/Scan/BeautyScanCameraView.swift; sourceTree = "<group>"; };
+		B5D000000000000000000002 /* Features/Scan/BeautyScanOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Features/Scan/BeautyScanOverlayView.swift; sourceTree = "<group>"; };
+		B5D000000000000000000003 /* Features/Scan/BeautyScanViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Features/Scan/BeautyScanViewModel.swift; sourceTree = "<group>"; };
+		B5D000000000000000000004 /* Services/BeautyScanCameraController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Services/BeautyScanCameraController.swift; sourceTree = "<group>"; };
 		BEC776A83CBA01BA3A1F2D81 /* Features/Advisor/AdvisorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Features/Advisor/AdvisorView.swift; sourceTree = "<group>"; };
 		C10000000000000000000001 /* BeautyConciergeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeautyConciergeTests.swift; sourceTree = "<group>"; };
 		C10000000000000000000004 /* BeautyConciergeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BeautyConciergeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -140,11 +148,15 @@
 				A31B3AE4D479BC274C978ABC /* Features/Profile/ProfileView.swift */,
 				2CAE190AF0BD41C2097B3246 /* Features/Recommendations/RecommendationsView.swift */,
 				DF63FF6F54C98E45B4C2EB4D /* Features/Scan/PhotoScanView.swift */,
+				B5D000000000000000000001 /* Features/Scan/BeautyScanCameraView.swift */,
+				B5D000000000000000000002 /* Features/Scan/BeautyScanOverlayView.swift */,
+				B5D000000000000000000003 /* Features/Scan/BeautyScanViewModel.swift */,
 				A53A2E73E9FB587BD8AFAEC9 /* Features/Settings/SettingsView.swift */,
 				62833413ABF1FBBEA4AD3B03 /* Features/Shared/HomeView.swift */,
 				C169BCE5B342CEA7535AD05D /* Features/Shared/ProductViews.swift */,
 				5E07323116827AE99C7E066A /* Models/BeautyModels.swift */,
 				6AE6DBFF82724B632710C017 /* Services/APIClient.swift */,
+				B5D000000000000000000004 /* Services/BeautyScanCameraController.swift */,
 				83F09FCC8A5A0D626CD95C5A /* Services/CachedRemoteImage.swift */,
 				CDEF15565A902FA6DE8D024B /* Services/CameraCapture.swift */,
 				DD95A07FF1BDD9B0E6C585C1 /* Services/Haptics.swift */,
@@ -279,11 +291,15 @@
 				9281BF33F2FAE691DF4E3E85 /* Features/Profile/ProfileView.swift in Sources */,
 				F05F4EACCAB681C53A1A7AFC /* Features/Recommendations/RecommendationsView.swift in Sources */,
 				AFAA8BF38E998ED449A9F2A9 /* Features/Scan/PhotoScanView.swift in Sources */,
+				B5C000000000000000000001 /* Features/Scan/BeautyScanCameraView.swift in Sources */,
+				B5C000000000000000000002 /* Features/Scan/BeautyScanOverlayView.swift in Sources */,
+				B5C000000000000000000003 /* Features/Scan/BeautyScanViewModel.swift in Sources */,
 				C079D028A1BE36D2C96C1366 /* Features/Settings/SettingsView.swift in Sources */,
 				326AA8BCEB24820D50D09FC8 /* Features/Shared/HomeView.swift in Sources */,
 				DA9A6B442FD0A4210008BD73 /* Features/Shared/ProductViews.swift in Sources */,
 				C256A921E45539638077EB62 /* Models/BeautyModels.swift in Sources */,
 				68A1CFE364068E3BF7E3A8AC /* Services/APIClient.swift in Sources */,
+				B5C000000000000000000004 /* Services/BeautyScanCameraController.swift in Sources */,
 				22C1FDE339015EBE785529B8 /* Services/CachedRemoteImage.swift in Sources */,
 				3DA1BCE7D2A01193C5149AB3 /* Services/CameraCapture.swift in Sources */,
 				F8077FA59D7E56B03DBADE86 /* Services/Haptics.swift in Sources */,

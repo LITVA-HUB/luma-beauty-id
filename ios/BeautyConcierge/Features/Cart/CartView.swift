@@ -11,7 +11,7 @@ struct CartView: View {
                     SectionHeader(title: "Корзина", subtitle: cartSubtitle)
 
                     if appState.cart.items.isEmpty {
-                        EmptyStateView(title: "Корзина пока пустая", subtitle: "Добавьте продукты из рекомендаций или попросите советника собрать рутину.", actionTitle: "Перейти к подбору") {
+                        EmptyStateView(title: "Корзина пока пустая", subtitle: "Добавьте товары из набора, чтобы собрать demo-список к покупке. Checkout Золотого Яблока пока не подключён.", actionTitle: "Перейти к подбору") {
                             appState.selectedTab = .recommendations
                         }
                     } else {
@@ -24,10 +24,11 @@ struct CartView: View {
                     }
 
                     if let message = appState.checkoutMessage {
-                        ErrorBanner(message: message)
+                        StatusBanner(message: message, systemImage: "bookmark.fill")
                     }
                 }
                 .padding(BeautySpacing.md)
+                .padding(.bottom, 88)
             }
         }
         .navigationTitle("Корзина")
@@ -36,15 +37,15 @@ struct CartView: View {
     }
 
     private var cartSubtitle: String {
-        "Сохраните подборку, чтобы вернуться к ней после перезапуска."
+        "Demo-список к покупке. Checkout Золотого Яблока пока не подключён."
     }
 
     private var checkoutNote: String {
-        "В бета-версии заказ и оплата не создаются."
+        "Это demo-список к покупке: заказ и оплата пока не создаются."
     }
 
     private var checkoutButtonTitle: String {
-        "Сохранить подборку"
+        "Сохранить набор"
     }
 
     private var summaryCard: some View {

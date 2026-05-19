@@ -129,6 +129,11 @@ class AppStore:
                     payload TEXT NOT NULL,
                     updated_at TEXT NOT NULL
                 );
+                CREATE TABLE IF NOT EXISTS active_selections(
+                    account_id TEXT PRIMARY KEY,
+                    payload TEXT NOT NULL,
+                    updated_at TEXT NOT NULL
+                );
                 CREATE TABLE IF NOT EXISTS feedback(
                     id TEXT PRIMARY KEY,
                     account_id TEXT NOT NULL,
@@ -146,9 +151,39 @@ class AppStore:
                     status TEXT NOT NULL,
                     created_at TEXT NOT NULL
                 );
+                CREATE TABLE IF NOT EXISTS events(
+                    id TEXT PRIMARY KEY,
+                    account_id TEXT,
+                    event_name TEXT NOT NULL,
+                    payload TEXT NOT NULL,
+                    app_version TEXT,
+                    build TEXT,
+                    platform TEXT,
+                    created_at TEXT NOT NULL
+                );
+                CREATE TABLE IF NOT EXISTS advisor_runs(
+                    id TEXT PRIMARY KEY,
+                    account_id TEXT NOT NULL,
+                    prompt_version TEXT,
+                    provider TEXT,
+                    model TEXT,
+                    latency_ms INTEGER,
+                    fallback_reason TEXT,
+                    invalid_json INTEGER NOT NULL DEFAULT 0,
+                    unknown_sku_count INTEGER NOT NULL DEFAULT 0,
+                    medical_refusal INTEGER NOT NULL DEFAULT 0,
+                    allowed_products_count INTEGER NOT NULL DEFAULT 0,
+                    recommended_skus_count INTEGER NOT NULL DEFAULT 0,
+                    action_count INTEGER NOT NULL DEFAULT 0,
+                    request_id TEXT,
+                    created_at TEXT NOT NULL
+                );
                 CREATE INDEX IF NOT EXISTS idx_histories_account_kind ON histories(account_id, kind, created_at);
                 CREATE INDEX IF NOT EXISTS idx_advisor_messages_account_created ON advisor_messages(account_id, created_at);
                 CREATE INDEX IF NOT EXISTS idx_feedback_account_created ON feedback(account_id, created_at);
+                CREATE INDEX IF NOT EXISTS idx_events_account_created ON events(account_id, created_at);
+                CREATE INDEX IF NOT EXISTS idx_events_name_created ON events(event_name, created_at);
+                CREATE INDEX IF NOT EXISTS idx_advisor_runs_account_created ON advisor_runs(account_id, created_at);
                 """
             )
             columns = {row[1] for row in db.execute("PRAGMA table_info(sessions)").fetchall()}
@@ -312,8 +347,8 @@ class AppStore:
             db.execute("UPDATE sessions SET revoked_at=? WHERE refresh_token=?", (utcnow().isoformat(), refresh_token))
 
     def save_beauty_id(self, account_id: str, beauty_id: BeautyID) -> BeautyID:
-        saved = beauty_id.copy(update={"updated_at": utcnow()})
-        payload = saved.json()
+        saved = beauty_id.model_copy(update={"updated_at": utcnow()})
+        payload = saved.model_dump_json()
         with self._lock, self._connect() as db:
             db.execute(
                 "INSERT INTO beauty_ids(account_id,payload,updated_at) VALUES(?,?,?) ON CONFLICT(account_id) DO UPDATE SET payload=excluded.payload, updated_at=excluded.updated_at",
@@ -324,7 +359,7 @@ class AppStore:
     def get_beauty_id(self, account_id: str) -> BeautyID | None:
         with self._connect() as db:
             row = db.execute("SELECT payload FROM beauty_ids WHERE account_id=?", (account_id,)).fetchone()
-        return BeautyID.parse_raw(row["payload"]) if row else None
+        return BeautyID.model_validate_json(row["payload"]) if row else None
 
     def get_cart_quantities(self, account_id: str) -> dict[str, int]:
         with self._connect() as db:
@@ -365,6 +400,28 @@ class AppStore:
         with self._lock, self._connect() as db:
             db.execute("DELETE FROM saved_routines WHERE account_id=?", (account_id,))
 
+    def save_active_selection(self, account_id: str, items: list[dict[str, Any]]) -> tuple[list[dict[str, Any]], datetime]:
+        updated_at = utcnow()
+        payload = json.dumps(items)
+        with self._lock, self._connect() as db:
+            db.execute(
+                "INSERT INTO active_selections(account_id,payload,updated_at) VALUES(?,?,?) ON CONFLICT(account_id) DO UPDATE SET payload=excluded.payload, updated_at=excluded.updated_at",
+                (account_id, payload, updated_at.isoformat()),
+            )
+        return items, updated_at
+
+    def get_active_selection(self, account_id: str) -> tuple[list[dict[str, Any]], datetime] | None:
+        with self._connect() as db:
+            row = db.execute("SELECT payload,updated_at FROM active_selections WHERE account_id=?", (account_id,)).fetchone()
+        if not row:
+            return None
+        data = json.loads(row["payload"] or "[]")
+        return list(data) if isinstance(data, list) else [], datetime.fromisoformat(row["updated_at"])
+
+    def clear_active_selection(self, account_id: str) -> None:
+        with self._lock, self._connect() as db:
+            db.execute("DELETE FROM active_selections WHERE account_id=?", (account_id,))
+
     def add_feedback(
         self,
         account_id: str,
@@ -382,6 +439,56 @@ class AppStore:
                 (feedback_id, account_id, rating, message.strip(), context, app_version, build, created_at.isoformat()),
             )
         return feedback_id, created_at
+
+    def add_event(
+        self,
+        account_id: str | None,
+        event_name: str,
+        payload: dict[str, Any] | None = None,
+        app_version: str | None = None,
+        build: str | None = None,
+        platform: str | None = None,
+    ) -> tuple[str, datetime]:
+        event_id = str(uuid.uuid4())
+        created_at = utcnow()
+        safe_payload = {key: value for key, value in (payload or {}).items() if key not in {"raw_message", "message", "photo_b64", "raw_photo", "image_bytes", "access_token", "refresh_token"}}
+        with self._lock, self._connect() as db:
+            db.execute(
+                "INSERT INTO events(id,account_id,event_name,payload,app_version,build,platform,created_at) VALUES(?,?,?,?,?,?,?,?)",
+                (event_id, account_id, event_name.strip().lower(), json.dumps(safe_payload), app_version, build, platform, created_at.isoformat()),
+            )
+        return event_id, created_at
+
+    def add_advisor_run(self, account_id: str, payload: dict[str, Any]) -> str:
+        run_id = str(uuid.uuid4())
+        created_at = utcnow()
+        with self._lock, self._connect() as db:
+            db.execute(
+                """
+                INSERT INTO advisor_runs(
+                    id,account_id,prompt_version,provider,model,latency_ms,fallback_reason,invalid_json,unknown_sku_count,
+                    medical_refusal,allowed_products_count,recommended_skus_count,action_count,request_id,created_at
+                ) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+                """,
+                (
+                    run_id,
+                    account_id,
+                    payload.get("prompt_version"),
+                    payload.get("provider"),
+                    payload.get("model"),
+                    int(payload.get("latency_ms") or 0),
+                    payload.get("fallback_reason"),
+                    1 if payload.get("invalid_json") else 0,
+                    int(payload.get("unknown_sku_count") or 0),
+                    1 if payload.get("medical_refusal") else 0,
+                    int(payload.get("allowed_products_count") or 0),
+                    int(payload.get("recommended_skus_count") or 0),
+                    int(payload.get("action_count") or 0),
+                    payload.get("request_id"),
+                    created_at.isoformat(),
+                ),
+            )
+        return run_id
 
     def add_history(self, kind: str, account_id: str, payload: dict[str, Any]) -> None:
         safe_payload = {key: value for key, value in payload.items() if key not in {"photo_b64", "raw_photo", "image_bytes"}}
@@ -446,7 +553,7 @@ class AppStore:
                     message.created_at.isoformat(),
                 ),
             )
-        return message.copy(update={"content": safe_content})
+        return message.model_copy(update={"content": safe_content})
 
     def list_advisor_messages(self, account_id: str, limit: int = 100) -> list[AdvisorHistoryMessage]:
         with self._connect() as db:
@@ -499,7 +606,7 @@ class AppStore:
                 "advisor": self.list_history("advisor_history", account_id),
             },
             "saved_routine": self.get_saved_routine(account_id),
-            "advisor_messages": [message.dict() for message in self.list_advisor_messages(account_id)],
+            "advisor_messages": [message.model_dump() for message in self.list_advisor_messages(account_id)],
         }
 
 
@@ -579,6 +686,11 @@ class PostgresStore:
             payload TEXT NOT NULL,
             updated_at TEXT NOT NULL
         );
+        CREATE TABLE IF NOT EXISTS active_selections(
+            account_id TEXT PRIMARY KEY,
+            payload TEXT NOT NULL,
+            updated_at TEXT NOT NULL
+        );
         CREATE TABLE IF NOT EXISTS feedback(
             id TEXT PRIMARY KEY,
             account_id TEXT NOT NULL,
@@ -596,9 +708,39 @@ class PostgresStore:
             status TEXT NOT NULL,
             created_at TEXT NOT NULL
         );
+        CREATE TABLE IF NOT EXISTS events(
+            id TEXT PRIMARY KEY,
+            account_id TEXT,
+            event_name TEXT NOT NULL,
+            payload TEXT NOT NULL,
+            app_version TEXT,
+            build TEXT,
+            platform TEXT,
+            created_at TEXT NOT NULL
+        );
+        CREATE TABLE IF NOT EXISTS advisor_runs(
+            id TEXT PRIMARY KEY,
+            account_id TEXT NOT NULL,
+            prompt_version TEXT,
+            provider TEXT,
+            model TEXT,
+            latency_ms INTEGER,
+            fallback_reason TEXT,
+            invalid_json INTEGER NOT NULL DEFAULT 0,
+            unknown_sku_count INTEGER NOT NULL DEFAULT 0,
+            medical_refusal INTEGER NOT NULL DEFAULT 0,
+            allowed_products_count INTEGER NOT NULL DEFAULT 0,
+            recommended_skus_count INTEGER NOT NULL DEFAULT 0,
+            action_count INTEGER NOT NULL DEFAULT 0,
+            request_id TEXT,
+            created_at TEXT NOT NULL
+        );
         CREATE INDEX IF NOT EXISTS idx_histories_account_kind ON histories(account_id, kind, created_at);
         CREATE INDEX IF NOT EXISTS idx_advisor_messages_account_created ON advisor_messages(account_id, created_at);
         CREATE INDEX IF NOT EXISTS idx_feedback_account_created ON feedback(account_id, created_at);
+        CREATE INDEX IF NOT EXISTS idx_events_account_created ON events(account_id, created_at);
+        CREATE INDEX IF NOT EXISTS idx_events_name_created ON events(event_name, created_at);
+        CREATE INDEX IF NOT EXISTS idx_advisor_runs_account_created ON advisor_runs(account_id, created_at);
         """
         with self._connect() as db:
             with db.cursor() as cur:
@@ -764,8 +906,8 @@ class PostgresStore:
                 cur.execute("UPDATE sessions SET revoked_at=%s WHERE refresh_token=%s", (utcnow().isoformat(), refresh_token))
 
     def save_beauty_id(self, account_id: str, beauty_id: BeautyID) -> BeautyID:
-        saved = beauty_id.copy(update={"updated_at": utcnow()})
-        payload = saved.json()
+        saved = beauty_id.model_copy(update={"updated_at": utcnow()})
+        payload = saved.model_dump_json()
         with self._lock, self._connect() as db:
             with db.cursor() as cur:
                 cur.execute(
@@ -779,7 +921,7 @@ class PostgresStore:
             with db.cursor() as cur:
                 cur.execute("SELECT payload FROM beauty_ids WHERE account_id=%s", (account_id,))
                 row = cur.fetchone()
-        return BeautyID.parse_raw(row["payload"]) if row else None
+        return BeautyID.model_validate_json(row["payload"]) if row else None
 
     def get_cart_quantities(self, account_id: str) -> dict[str, int]:
         with self._connect() as db:
@@ -827,6 +969,33 @@ class PostgresStore:
             with db.cursor() as cur:
                 cur.execute("DELETE FROM saved_routines WHERE account_id=%s", (account_id,))
 
+    def save_active_selection(self, account_id: str, items: list[dict[str, Any]]) -> tuple[list[dict[str, Any]], datetime]:
+        updated_at = utcnow()
+        payload = json.dumps(items)
+        with self._lock, self._connect() as db:
+            with db.cursor() as cur:
+                cur.execute(
+                    "INSERT INTO active_selections(account_id,payload,updated_at) VALUES(%s,%s,%s) ON CONFLICT(account_id) DO UPDATE SET payload=excluded.payload, updated_at=excluded.updated_at",
+                    (account_id, payload, updated_at.isoformat()),
+                )
+        return items, updated_at
+
+    def get_active_selection(self, account_id: str) -> tuple[list[dict[str, Any]], datetime] | None:
+        with self._connect() as db:
+            with db.cursor() as cur:
+                cur.execute("SELECT payload,updated_at FROM active_selections WHERE account_id=%s", (account_id,))
+                row = cur.fetchone()
+        if not row:
+            return None
+        raw = row["payload"]
+        data = json.loads(raw) if isinstance(raw, str) else raw
+        return list(data) if isinstance(data, list) else [], datetime.fromisoformat(row["updated_at"])
+
+    def clear_active_selection(self, account_id: str) -> None:
+        with self._lock, self._connect() as db:
+            with db.cursor() as cur:
+                cur.execute("DELETE FROM active_selections WHERE account_id=%s", (account_id,))
+
     def add_feedback(
         self,
         account_id: str,
@@ -842,9 +1011,61 @@ class PostgresStore:
             with db.cursor() as cur:
                 cur.execute(
                     "INSERT INTO feedback(id,account_id,rating,message,context,app_version,build,created_at) VALUES(%s,%s,%s,%s,%s,%s,%s,%s)",
-                    (feedback_id, account_id, rating, message.strip(), context, app_version, build, created_at.isoformat()),
-                )
+                        (feedback_id, account_id, rating, message.strip(), context, app_version, build, created_at.isoformat()),
+                    )
         return feedback_id, created_at
+
+    def add_event(
+        self,
+        account_id: str | None,
+        event_name: str,
+        payload: dict[str, Any] | None = None,
+        app_version: str | None = None,
+        build: str | None = None,
+        platform: str | None = None,
+    ) -> tuple[str, datetime]:
+        event_id = str(uuid.uuid4())
+        created_at = utcnow()
+        safe_payload = {key: value for key, value in (payload or {}).items() if key not in {"raw_message", "message", "photo_b64", "raw_photo", "image_bytes", "access_token", "refresh_token"}}
+        with self._lock, self._connect() as db:
+            with db.cursor() as cur:
+                cur.execute(
+                    "INSERT INTO events(id,account_id,event_name,payload,app_version,build,platform,created_at) VALUES(%s,%s,%s,%s,%s,%s,%s,%s)",
+                    (event_id, account_id, event_name.strip().lower(), json.dumps(safe_payload), app_version, build, platform, created_at.isoformat()),
+                )
+        return event_id, created_at
+
+    def add_advisor_run(self, account_id: str, payload: dict[str, Any]) -> str:
+        run_id = str(uuid.uuid4())
+        created_at = utcnow()
+        with self._lock, self._connect() as db:
+            with db.cursor() as cur:
+                cur.execute(
+                    """
+                    INSERT INTO advisor_runs(
+                        id,account_id,prompt_version,provider,model,latency_ms,fallback_reason,invalid_json,unknown_sku_count,
+                        medical_refusal,allowed_products_count,recommended_skus_count,action_count,request_id,created_at
+                    ) VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)
+                    """,
+                    (
+                        run_id,
+                        account_id,
+                        payload.get("prompt_version"),
+                        payload.get("provider"),
+                        payload.get("model"),
+                        int(payload.get("latency_ms") or 0),
+                        payload.get("fallback_reason"),
+                        1 if payload.get("invalid_json") else 0,
+                        int(payload.get("unknown_sku_count") or 0),
+                        1 if payload.get("medical_refusal") else 0,
+                        int(payload.get("allowed_products_count") or 0),
+                        int(payload.get("recommended_skus_count") or 0),
+                        int(payload.get("action_count") or 0),
+                        payload.get("request_id"),
+                        created_at.isoformat(),
+                    ),
+                )
+        return run_id
 
     def add_history(self, kind: str, account_id: str, payload: dict[str, Any]) -> None:
         safe_payload = {key: value for key, value in payload.items() if key not in {"photo_b64", "raw_photo", "image_bytes"}}
@@ -913,7 +1134,7 @@ class PostgresStore:
                         message.created_at.isoformat(),
                     ),
                 )
-        return message.copy(update={"content": safe_content})
+        return message.model_copy(update={"content": safe_content})
 
     def list_advisor_messages(self, account_id: str, limit: int = 100) -> list[AdvisorHistoryMessage]:
         with self._connect() as db:
@@ -970,7 +1191,7 @@ class PostgresStore:
                 "advisor": self.list_history("advisor_history", account_id),
             },
             "saved_routine": self.get_saved_routine(account_id),
-            "advisor_messages": [message.dict() for message in self.list_advisor_messages(account_id)],
+            "advisor_messages": [message.model_dump() for message in self.list_advisor_messages(account_id)],
         }
 
 

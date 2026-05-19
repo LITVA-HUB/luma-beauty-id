@@ -301,6 +301,95 @@ def test_saved_routine_rejects_unknown_and_source_sku():
     assert source_sku.json()["error"]["code"] == "invalid_saved_routine_sku"
 
 
+def test_active_selection_save_merge_remove_and_account_scope():
+    headers = dev_headers()
+    saved = request(
+        "PUT",
+        "/v1/selection/current",
+        headers=headers,
+        json={
+            "items": [
+                {"sku": "LUMA-001", "source": "recommendations", "routine_step": "тон", "reason": "base", "match_score": 82},
+                {"sku": "LUMA-001", "source": "advisor"},
+                {"sku": "LUMA-002", "source": "manual", "locked": True},
+            ]
+        },
+    )
+    assert saved.status_code == 200, saved.text
+    body = saved.json()
+    assert body["skus"] == ["LUMA-001", "LUMA-002"]
+    assert body["count"] == 2
+    assert body["total_price"] > 0
+    assert body["source_summary"]["recommendations"] == 1
+    assert body["items"][0]["product"]["sku"] == "LUMA-001"
+
+    merged = request(
+        "PATCH",
+        "/v1/selection/current/items",
+        headers=headers,
+        json={"items": [{"sku": "LUMA-002", "source": "advisor", "reason": "updated"}, {"sku": "LUMA-003", "source": "advisor"}]},
+    )
+    assert merged.status_code == 200, merged.text
+    assert merged.json()["skus"] == ["LUMA-001", "LUMA-002", "LUMA-003"]
+    assert merged.json()["added_count"] == 1
+    assert merged.json()["already_in_selection_count"] == 1
+    assert merged.json()["items"][1]["reason"] == "updated"
+
+    source_sku = request("PATCH", "/v1/selection/current/items", headers=headers, json={"items": [{"sku": "FD-BUD-01", "source": "manual"}]})
+    assert source_sku.status_code == 400
+    assert source_sku.json()["error"]["code"] == "invalid_active_selection_sku"
+
+    removed = request("DELETE", "/v1/selection/current/items/LUMA-002", headers=headers)
+    assert removed.status_code == 200
+    assert removed.json()["skus"] == ["LUMA-001", "LUMA-003"]
+
+    other_login = request("POST", "/v1/auth/register", json=register_payload("selection-other@example.com"))
+    other_headers = {"Authorization": f"Bearer {other_login.json()['access_token']}"}
+    other = request("GET", "/v1/selection/current", headers=other_headers)
+    assert other.status_code == 200
+    assert other.json()["skus"] == []
+
+
+def test_new_account_starts_with_empty_selection_cart_routine_and_history():
+    first_login = request("POST", "/v1/auth/register", json=register_payload("state-a@example.com"))
+    assert first_login.status_code == 200, first_login.text
+    first_headers = {"Authorization": f"Bearer {first_login.json()['access_token']}"}
+
+    sku = "LUMA-001"
+    saved_selection = request("PUT", "/v1/selection/current", headers=first_headers, json={"items": [{"sku": sku, "source": "manual"}]})
+    assert saved_selection.status_code == 200, saved_selection.text
+    saved_routine = request("PUT", "/v1/routines/current", headers=first_headers, json={"skus": [sku]})
+    assert saved_routine.status_code == 200, saved_routine.text
+    cart = request("POST", "/v1/cart/items", headers=first_headers, json={"sku": sku, "quantity": 1})
+    assert cart.status_code == 200, cart.text
+    advisor = request("POST", "/v1/advisor/message", headers=first_headers, json={"message": "добавь SPF", "current_skus": [sku]})
+    assert advisor.status_code == 200, advisor.text
+
+    second_login = request("POST", "/v1/auth/register", json=register_payload("state-b@example.com"))
+    assert second_login.status_code == 200, second_login.text
+    second_headers = {"Authorization": f"Bearer {second_login.json()['access_token']}"}
+
+    assert request("GET", "/v1/selection/current", headers=second_headers).json()["skus"] == []
+    assert request("GET", "/v1/cart", headers=second_headers).json()["items"] == []
+    assert request("GET", "/v1/routines/current", headers=second_headers).json()["skus"] == []
+    assert request("GET", "/v1/advisor/history", headers=second_headers).json()["messages"] == []
+
+
+def test_events_endpoint_sanitizes_payload_and_requires_auth():
+    unauthenticated = request("POST", "/v1/events", json={"event_name": "advisor_message_sent", "payload": {"message": "secret text"}})
+    assert unauthenticated.status_code == 401
+
+    headers = dev_headers()
+    created = request(
+        "POST",
+        "/v1/events",
+        headers=headers,
+        json={"event_name": "advisor_message_sent", "payload": {"length": "short", "message": "do not store"}, "app_version": "1.0", "build": "1", "platform": "ios"},
+    )
+    assert created.status_code == 200, created.text
+    assert created.json()["id"]
+
+
 def test_feedback_submit_validation_and_auth():
     unauthenticated = request("POST", "/v1/feedback", json={"rating": 5, "message": "Очень удобно"})
     assert unauthenticated.status_code == 401
@@ -501,6 +590,7 @@ def test_openrouter_success_json_response_is_catalog_grounded(monkeypatch):
                             {
                                 "message": "Я бы собрала короткую glow-routine из текущего каталога.",
                                 "quick_actions": ["дешевле", "без отдушек", "SPF"],
+                                "actions": [{"type": "add_products_to_selection", "skus": [sku], "old_sku": None, "new_sku": None, "reason": "добавить SPF", "requires_confirmation": False}],
                                 "recommended_skus": [sku],
                                 "routine_steps": ["увлажнение", "SPF"],
                                 "why_this_works": "Выбор учитывает Beauty ID, финиш и текущий каталог.",
@@ -514,11 +604,43 @@ def test_openrouter_success_json_response_is_catalog_grounded(monkeypatch):
         }
 
     monkeypatch.setattr(OpenRouterAdvisorProvider, "_send_to_openrouter", fake_send)
-    response = request("POST", "/v1/advisor/message", headers=headers, json={"message": "Нужно сияние и SPF", "current_skus": [sku]})
+    response = request(
+        "POST",
+        "/v1/advisor/message",
+        headers=headers,
+        json={
+            "message": "Нужно сияние и SPF",
+            "current_skus": [sku],
+            "current_selection": [
+                {
+                    "sku": sku,
+                    "brand": "Luma",
+                    "name": "Current SPF",
+                    "category": "spf",
+                    "product_type": "spf",
+                    "price_value": 1200,
+                    "currency": "RUB",
+                    "routine_step": "SPF",
+                }
+            ],
+            "current_cart": [
+                {
+                    "sku": sku,
+                    "brand": "Luma",
+                    "name": "Cart SPF",
+                    "category": "spf",
+                    "price_value": 1200,
+                    "currency": "RUB",
+                }
+            ],
+        },
+    )
     assert response.status_code == 200, response.text
     body = response.json()
     assert body["provider"] == "openrouter"
     assert body["recommended_skus"] == [sku]
+    assert body["actions"][0]["type"] == "add_products_to_selection"
+    assert body["actions"][0]["skus"] == [sku]
     assert [item["sku"] for item in body["recommendations"]] == [sku]
     assert body["why_this_works"]
     serialized_payload = json.dumps(captured, ensure_ascii=False).lower()
@@ -529,6 +651,218 @@ def test_openrouter_success_json_response_is_catalog_grounded(monkeypatch):
     assert "access_token" not in serialized_payload
     assert "refresh_token" not in serialized_payload
     assert "email" not in serialized_payload
+    user_context = json.loads(captured["messages"][1]["content"])
+    assert user_context["current_selection"][0]["sku"] == sku
+    assert user_context["current_cart"][0]["sku"] == sku
+    assert user_context["current_skus"] == [sku]
+    selection = request("GET", "/v1/selection/current", headers=headers)
+    assert selection.status_code == 200
+    assert selection.json()["skus"] == []
+
+
+def test_advisor_context_does_not_treat_saved_routine_as_current_selection(monkeypatch):
+    from app.advisor import OpenRouterAdvisorProvider
+
+    configure_openrouter_for_test()
+    headers = dev_headers()
+    request("PUT", "/v1/beauty-id", headers=headers, json=beauty_id_payload())
+    sku = first_available_sku()
+    saved = request("PUT", "/v1/routines/current", headers=headers, json={"skus": [sku]})
+    assert saved.status_code == 200, saved.text
+    captured: dict = {}
+
+    async def fake_send(self, payload):
+        captured.update(payload)
+        return {
+            "choices": [
+                {
+                    "message": {
+                        "content": json.dumps(
+                            {
+                                "message": "Текущая подборка пока пуста.",
+                                "quick_actions": [],
+                                "actions": [],
+                                "recommended_skus": [],
+                                "routine_steps": [],
+                                "why_this_works": "Сохранённая рутина не равна активной подборке.",
+                                "safety_note": None,
+                            },
+                            ensure_ascii=False,
+                        )
+                    }
+                }
+            ]
+        }
+
+    monkeypatch.setattr(OpenRouterAdvisorProvider, "_send_to_openrouter", fake_send)
+    response = request("POST", "/v1/advisor/message", headers=headers, json={"message": "что в текущей подборке?", "current_skus": [], "current_selection": [], "current_cart": []})
+
+    assert response.status_code == 200, response.text
+    user_context = json.loads(captured["messages"][1]["content"])
+    assert user_context["current_selection"] == []
+    assert user_context["current_skus"] == []
+
+
+def test_openrouter_cart_intents_return_executable_actions(monkeypatch):
+    from app.advisor import OpenRouterAdvisorProvider
+
+    configure_openrouter_for_test()
+    headers = dev_headers()
+    request("PUT", "/v1/beauty-id", headers=headers, json=beauty_id_payload())
+    sku = first_available_sku()
+
+    async def fake_send(self, payload):
+        return {
+            "choices": [
+                {
+                    "message": {
+                        "content": json.dumps(
+                            {
+                                "message": "Сейчас добавлю товар в корзину.",
+                                "quick_actions": [],
+                                "actions": [
+                                    {
+                                        "type": "add_products_to_cart",
+                                        "skus": [sku],
+                                        "old_sku": None,
+                                        "new_sku": None,
+                                        "reason": "выбранный товар из текущей подборки",
+                                        "requires_confirmation": False,
+                                    }
+                                ],
+                                "recommended_skus": [],
+                                "routine_steps": [],
+                                "why_this_works": "Команда относится к корзине, а не к подборке.",
+                                "safety_note": None,
+                            },
+                            ensure_ascii=False,
+                        )
+                    }
+                }
+            ]
+        }
+
+    monkeypatch.setattr(OpenRouterAdvisorProvider, "_send_to_openrouter", fake_send)
+    response = request(
+        "POST",
+        "/v1/advisor/message",
+        headers=headers,
+        json={
+            "message": "добавь это в корзину",
+            "current_skus": [sku],
+            "current_selection": [
+                {
+                    "sku": sku,
+                    "brand": "Luma",
+                    "name": "Selected SPF",
+                    "category": "spf",
+                    "price_value": 1200,
+                    "currency": "RUB",
+                    "routine_step": "SPF",
+                }
+            ],
+            "current_cart": [],
+        },
+    )
+    assert response.status_code == 200, response.text
+    body = response.json()
+    assert body["actions"][0]["type"] == "add_products_to_cart"
+    assert body["actions"][0]["skus"] == [sku]
+    assert body["actions"][0]["requires_confirmation"] is False
+    assert "добавил" not in body["answer"].lower()
+    assert request("GET", "/v1/cart", headers=headers).json()["items"] == []
+
+
+def test_openrouter_clear_cart_action_is_valid_but_not_applied_by_advisor_endpoint(monkeypatch):
+    from app.advisor import OpenRouterAdvisorProvider
+
+    configure_openrouter_for_test()
+    headers = dev_headers()
+    sku = first_available_sku()
+    added = request("POST", "/v1/cart/items", headers=headers, json={"sku": sku, "quantity": 1})
+    assert added.status_code == 200, added.text
+
+    async def fake_send(self, payload):
+        return {
+            "choices": [
+                {
+                    "message": {
+                        "content": json.dumps(
+                            {
+                                "message": "Сейчас очищу корзину.",
+                                "quick_actions": [],
+                                "actions": [
+                                    {
+                                        "type": "clear_cart",
+                                        "skus": [],
+                                        "old_sku": None,
+                                        "new_sku": None,
+                                        "reason": "явная команда пользователя",
+                                        "requires_confirmation": False,
+                                    }
+                                ],
+                                "recommended_skus": [],
+                                "routine_steps": [],
+                                "why_this_works": "Корзина очищается отдельным действием приложения.",
+                                "safety_note": None,
+                            },
+                            ensure_ascii=False,
+                        )
+                    }
+                }
+            ]
+        }
+
+    monkeypatch.setattr(OpenRouterAdvisorProvider, "_send_to_openrouter", fake_send)
+    response = request("POST", "/v1/advisor/message", headers=headers, json={"message": "очисти корзину", "current_skus": [], "current_cart": [{"sku": sku, "brand": "Luma", "name": "Cart item", "category": "spf", "price_value": 1200, "currency": "RUB"}]})
+    assert response.status_code == 200, response.text
+    body = response.json()
+    assert body["actions"][0]["type"] == "clear_cart"
+    assert body["actions"][0]["requires_confirmation"] is False
+    assert request("GET", "/v1/cart", headers=headers).json()["total_items"] == 1
+
+
+def test_openrouter_action_source_sku_is_rejected(monkeypatch):
+    from app.advisor import OpenRouterAdvisorProvider
+
+    configure_openrouter_for_test()
+    headers = dev_headers()
+
+    async def fake_send(self, payload):
+        return {
+            "choices": [
+                {
+                    "message": {
+                        "content": json.dumps(
+                            {
+                                "message": "Сейчас добавлю товар в корзину.",
+                                "quick_actions": [],
+                                "actions": [
+                                    {
+                                        "type": "add_products_to_cart",
+                                        "skus": ["FD-BUD-01"],
+                                        "old_sku": None,
+                                        "new_sku": None,
+                                        "reason": "source sku должен быть отброшен",
+                                        "requires_confirmation": False,
+                                    }
+                                ],
+                                "recommended_skus": [],
+                                "routine_steps": [],
+                                "why_this_works": None,
+                                "safety_note": None,
+                            },
+                            ensure_ascii=False,
+                        )
+                    }
+                }
+            ]
+        }
+
+    monkeypatch.setattr(OpenRouterAdvisorProvider, "_send_to_openrouter", fake_send)
+    response = request("POST", "/v1/advisor/message", headers=headers, json={"message": "добавь это в корзину", "current_skus": []})
+    assert response.status_code == 200, response.text
+    assert response.json()["actions"] == []
 
 
 def test_openrouter_invalid_json_falls_back(monkeypatch):

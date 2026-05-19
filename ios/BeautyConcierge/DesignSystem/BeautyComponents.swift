@@ -16,7 +16,10 @@ struct PrimaryButton: View {
             .frame(maxWidth: .infinity)
             .frame(height: 54)
             .foregroundStyle(BeautyColor.limeInk)
-            .background(BeautyColor.lime, in: Capsule())
+            .background(
+                LinearGradient(colors: [BeautyColor.lime, BeautyColor.limeSoft], startPoint: .topLeading, endPoint: .bottomTrailing),
+                in: Capsule()
+            )
             .overlay(Capsule().stroke(BeautyColor.limeInk.opacity(0.08), lineWidth: 1))
         }
         .buttonStyle(.plain)
@@ -62,8 +65,8 @@ struct BeautyChip: View {
             .foregroundStyle(BeautyColor.ink)
             .padding(.horizontal, 14)
             .padding(.vertical, 10)
-            .background(isSelected ? BeautyColor.limeSoft : BeautyColor.milk, in: Capsule())
-            .overlay(Capsule().stroke(isSelected ? BeautyColor.lime : BeautyColor.line.opacity(0.7), lineWidth: 1))
+            .background(isSelected ? BeautyColor.limeSoft.opacity(0.82) : BeautyColor.milk, in: Capsule())
+            .overlay(Capsule().stroke(isSelected ? BeautyColor.lime.opacity(0.7) : BeautyColor.line.opacity(0.7), lineWidth: 1))
         }
         .buttonStyle(.plain)
     }
@@ -95,8 +98,9 @@ struct MatchBadge: View {
         .foregroundStyle(BeautyColor.limeInk)
         .lineLimit(1)
         .minimumScaleFactor(0.9)
-        .frame(width: 56, height: 42)
-        .background(BeautyColor.lime, in: Capsule())
+        .frame(width: 50, height: 36)
+        .background(BeautyColor.limeSoft, in: Capsule())
+        .overlay(Capsule().stroke(BeautyColor.lime.opacity(0.55), lineWidth: 1))
         .accessibilityLabel("Совпадение \(score) процентов")
     }
 }
@@ -167,6 +171,23 @@ struct ErrorBanner: View {
         .foregroundStyle(BeautyColor.danger)
         .padding(BeautySpacing.md)
         .background(BeautyColor.blush.opacity(0.22), in: RoundedRectangle(cornerRadius: BeautyRadius.md, style: .continuous))
+    }
+}
+
+struct StatusBanner: View {
+    let message: String
+    var systemImage: String = "checkmark.seal"
+
+    var body: some View {
+        HStack(alignment: .top, spacing: BeautySpacing.sm) {
+            Image(systemName: systemImage)
+            Text(message).font(BeautyFont.callout)
+            Spacer()
+        }
+        .foregroundStyle(BeautyColor.ink)
+        .padding(BeautySpacing.md)
+        .background(BeautyColor.limeSoft.opacity(0.34), in: RoundedRectangle(cornerRadius: BeautyRadius.md, style: .continuous))
+        .overlay(RoundedRectangle(cornerRadius: BeautyRadius.md, style: .continuous).stroke(BeautyColor.lime.opacity(0.26), lineWidth: 1))
     }
 }
 

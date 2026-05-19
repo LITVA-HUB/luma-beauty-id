@@ -1,21 +1,77 @@
 # Local secrets and runtime state
 .env
+.env.*
+*.env
 .env.save
-*.env.local
+.env.local
 backend/.env
-backend/.data/
+backend/.env.*
+secrets/
+private/
+*.pem
+*.p8
+*.p12
+*.mobileprovision
+*.cer
+*.key
+
+# Keep committed examples public-safe.
+!.env.example
+!.env.staging.example
+!backend/.env.example
+!backend/.env.production.example
+
+# Databases, runtime data, and backups
+*.sqlite
+*.sqlite3
+*.db
 .data/
+data/
+backend/.data/
+backups/
+backup/
+*.dump
+*.sql
+*.sql.gz
+*.tar.gz
 
 # Python
 __pycache__/
 .pytest_cache/
-*.pyc
+.mypy_cache/
+.ruff_cache/
 .venv/
+venv/
+*.pyc
+.coverage
+htmlcov/
+
+# Node/build/cache
+node_modules/
+dist/
+build/
+.next/
+.turbo/
 
 # Apple/Xcode local state
 DerivedData/
+*.xcuserdata/
 *.xcuserstate
-xcuserdata/
+*.xcuserdatad/
+*.moved-aside
+ios/**/xcuserdata/
+ios/**/*.xcuserstate
+
+# macOS/editor
+.DS_Store
+.idea/
+.vscode/
+*.swp
+
+# Docker/local state
+docker-data/
+postgres-data/
+redis-data/
 
 # Archives
 *.zip
