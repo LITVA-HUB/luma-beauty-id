@@ -53,7 +53,7 @@ final class AppState: ObservableObject {
 
     let environment: AppEnvironment
     let api: APIClient
-    private let keychain: KeychainStore
+    private let sessionStore: SessionStore
     private let analytics: AnalyticsService
     private let crashReporter: CrashReporter
     private var lastAdvisorRecommendations: [RecommendationProduct] = []
@@ -66,8 +66,6 @@ final class AppState: ObservableObject {
     }
 
     private enum Keys {
-        static let accessToken = "accessToken"
-        static let refreshToken = "refreshToken"
         static let onboarding = "hasSeenOnboarding"
         static let savedProducts = "savedProducts"
         static let savedRoutineSkus = "savedRoutineSkus"
@@ -85,8 +83,9 @@ final class AppState: ObservableObject {
         crashReporter: CrashReporter = NoOpCrashReporter()
     ) {
         self.environment = environment
-        self.api = APIClient(baseURL: environment.baseURL)
-        self.keychain = keychain
+        let api = APIClient(baseURL: environment.baseURL)
+        self.api = api
+        self.sessionStore = SessionStore(api: api, tokenStore: keychain)
         self.analytics = analytics
         self.crashReporter = crashReporter
         self.hasSeenOnboarding = UserDefaults.standard.bool(forKey: Keys.onboarding)
@@ -141,18 +140,17 @@ final class AppState: ObservableObject {
             isLaunching = false
             return
         }
-        guard let access = keychain.read(Keys.accessToken) else {
+        guard sessionStore.restoreAccessToken() != nil else {
             isLaunching = false
             return
         }
-        api.accessToken = access
         do {
             try await loadProfileAndSessionData()
         } catch {
             var didRefresh = false
-            if let refresh = keychain.read(Keys.refreshToken) {
+            if let refresh = sessionStore.refreshToken {
                 do {
-                    try await refreshSession(refreshToken: refresh)
+                    try await sessionStore.refreshSession(refreshToken: refresh)
                     didRefresh = true
                 } catch {
                     didRefresh = false
@@ -177,11 +175,6 @@ final class AppState: ObservableObject {
         if activeSelection.items.isEmpty {
             await loadRecommendations(focus: nil, silent: true)
         }
-    }
-
-    private func refreshSession(refreshToken: String) async throws {
-        let response: AuthSession = try await api.post("/v1/auth/refresh", body: TokenRefreshRequest(refreshToken: refreshToken))
-        try persist(session: response)
     }
 
     func finishOnboarding() {
@@ -273,28 +266,21 @@ final class AppState: ObservableObject {
 
     private func persist(session: AuthSession) throws {
         resetAccountScopedState(clearAccount: true, clearPersistentCaches: true)
-        account = session.account
-        api.accessToken = session.accessToken
+        account = try sessionStore.persist(session: session)
         usesLocalFallback = false
-        try keychain.save(session.accessToken, for: Keys.accessToken)
-        try keychain.save(session.refreshToken, for: Keys.refreshToken)
     }
 
     func logout() {
-        let refresh = keychain.read(Keys.refreshToken)
-        if api.accessToken != nil {
-            Task {
-                let _: EmptyResponse? = try? await api.post("/v1/auth/logout", body: LogoutRequest(refreshToken: refresh))
-            }
+        let refresh = sessionStore.refreshToken
+        if sessionStore.hasAccessToken {
+            Task { await sessionStore.sendLogout(refreshToken: refresh) }
         }
         clearSession()
         Haptics.tap()
     }
 
     private func clearSession() {
-        keychain.delete(Keys.accessToken)
-        keychain.delete(Keys.refreshToken)
-        api.accessToken = nil
+        sessionStore.clearSession()
         resetAccountScopedState(clearAccount: true, clearPersistentCaches: true)
         selectedTab = .home
         usesLocalFallback = false

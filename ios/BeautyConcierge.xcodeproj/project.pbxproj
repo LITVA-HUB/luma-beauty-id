@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0403BA4774D144F421BF929C /* App/BeautyConciergeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79E60C6710605F989427A737 /* App/BeautyConciergeApp.swift */; };
+		0B5E5510E8E34B7BA1F9D5A1 /* App/SessionStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B5E5510E8E34B7BA1F9D5A0 /* App/SessionStore.swift */; };
 		0FA6AB9B2E9F054186CFE8B1 /* DesignSystem/BeautyDesignSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF23867EB8718C3C4EC54151 /* DesignSystem/BeautyDesignSystem.swift */; };
 		1603F6551FA92A43BDE8002E /* App/AppEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 315CA9F2F4F62984EEBC1B13 /* App/AppEnvironment.swift */; };
 		22C1FDE339015EBE785529B8 /* Services/CachedRemoteImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83F09FCC8A5A0D626CD95C5A /* Services/CachedRemoteImage.swift */; };
@@ -54,6 +55,7 @@
 /* Begin PBXFileReference section */
 		05A10DD59C77C974BDFFAFD6 /* App/AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App/AppState.swift; sourceTree = "<group>"; };
 		065048A1E8B1C15A126F9355 /* Features/Auth/AuthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Features/Auth/AuthView.swift; sourceTree = "<group>"; };
+		0B5E5510E8E34B7BA1F9D5A0 /* App/SessionStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App/SessionStore.swift; sourceTree = "<group>"; };
 		0DB7571B8334F5E7680A9B20 /* Resources/Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Resources/Assets.xcassets; sourceTree = "<group>"; };
 		2756FE0FC152316843CA1A49 /* Features/BeautyID/BeautyIDSetupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Features/BeautyID/BeautyIDSetupView.swift; sourceTree = "<group>"; };
 		2CAE190AF0BD41C2097B3246 /* Features/Recommendations/RecommendationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Features/Recommendations/RecommendationsView.swift; sourceTree = "<group>"; };
@@ -137,6 +139,7 @@
 				79E60C6710605F989427A737 /* App/BeautyConciergeApp.swift */,
 				A4A5A97473336B607A8C2843 /* App/LocalFallbackCatalog.swift */,
 				9740FBDFEAB1CBBE29CF2E18 /* App/RootView.swift */,
+				0B5E5510E8E34B7BA1F9D5A0 /* App/SessionStore.swift */,
 				8321308F66614A39F4EDF5BD /* DesignSystem/BeautyComponents.swift */,
 				DF23867EB8718C3C4EC54151 /* DesignSystem/BeautyDesignSystem.swift */,
 				BEC776A83CBA01BA3A1F2D81 /* Features/Advisor/AdvisorView.swift */,
@@ -280,6 +283,7 @@
 				0403BA4774D144F421BF929C /* App/BeautyConciergeApp.swift in Sources */,
 				52C303F504890143D44C6DB2 /* App/LocalFallbackCatalog.swift in Sources */,
 				E778BEAA207CC8A8B11361D2 /* App/RootView.swift in Sources */,
+				0B5E5510E8E34B7BA1F9D5A1 /* App/SessionStore.swift in Sources */,
 				33896A6A081E1CA3E5961327 /* DesignSystem/BeautyComponents.swift in Sources */,
 				0FA6AB9B2E9F054186CFE8B1 /* DesignSystem/BeautyDesignSystem.swift in Sources */,
 				AFBEDC6D6C55B839DAD78E31 /* Features/Advisor/AdvisorView.swift in Sources */,

@@ -34,6 +34,39 @@ final class BeautyConciergeTests: XCTestCase {
         XCTAssertNotNil(env.configurationError)
     }
 
+    func testSessionStorePersistsRestoresAndClearsTokens() throws {
+        let api = APIClient(baseURL: URL(string: "http://127.0.0.1:8010")!)
+        let tokenStore = InMemorySessionTokenStore()
+        let sessionStore = SessionStore(api: api, tokenStore: tokenStore)
+        let account = Account(accountId: "acct-1", name: "Client", email: "client@example.com", createdAt: nil)
+        let session = AuthSession(
+            accessToken: "access-token",
+            refreshToken: "refresh-token",
+            tokenType: "bearer",
+            expiresAt: nil,
+            refreshExpiresAt: nil,
+            account: account,
+            devMode: false,
+            provider: "local"
+        )
+
+        let persistedAccount = try sessionStore.persist(session: session)
+
+        XCTAssertEqual(persistedAccount, account)
+        XCTAssertEqual(api.accessToken, "access-token")
+        XCTAssertEqual(tokenStore.values["accessToken"], "access-token")
+        XCTAssertEqual(tokenStore.values["refreshToken"], "refresh-token")
+
+        api.accessToken = nil
+        XCTAssertEqual(sessionStore.restoreAccessToken(), "access-token")
+        XCTAssertEqual(api.accessToken, "access-token")
+
+        sessionStore.clearSession()
+        XCTAssertNil(api.accessToken)
+        XCTAssertNil(tokenStore.values["accessToken"])
+        XCTAssertNil(tokenStore.values["refreshToken"])
+    }
+
     func testUnavailableProductState() {
         let product = Product(
             sku: "SKU-TEST",
@@ -659,5 +692,21 @@ final class BeautyConciergeTests: XCTestCase {
             addedCount: nil,
             alreadyInSelectionCount: nil
         )
+    }
+}
+
+private final class InMemorySessionTokenStore: SessionTokenStore {
+    var values: [String: String] = [:]
+
+    func save(_ value: String, for key: String) throws {
+        values[key] = value
+    }
+
+    func read(_ key: String) -> String? {
+        values[key]
+    }
+
+    func delete(_ key: String) {
+        values.removeValue(forKey: key)
     }
 }
