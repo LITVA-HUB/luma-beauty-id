@@ -119,6 +119,18 @@ def test_health_ready_and_environment():
     assert env.json()["release_candidate"] is True
 
 
+def test_storage_layer_keeps_sqlite_aliases_available(tmp_path):
+    from app.storage import AppStore as StorageAppStore
+    from app.storage import SQLiteAppStore, create_app_store
+
+    assert StorageAppStore is SQLiteAppStore
+    explicit = SQLiteAppStore(str(tmp_path / "explicit.sqlite3"))
+    assert explicit.stats()["path"].endswith("explicit.sqlite3")
+    settings.database_url = ""
+    created = create_app_store()
+    assert isinstance(created, SQLiteAppStore)
+
+
 def test_recut_catalog_contract_skus_source_skus_and_images():
     response = request("GET", "/v1/catalog/products", params={"include_unavailable": True})
     assert response.status_code == 200, response.text
@@ -820,6 +832,72 @@ def test_openrouter_clear_cart_action_is_valid_but_not_applied_by_advisor_endpoi
     assert body["actions"][0]["type"] == "clear_cart"
     assert body["actions"][0]["requires_confirmation"] is False
     assert request("GET", "/v1/cart", headers=headers).json()["total_items"] == 1
+
+
+def test_openrouter_shelf_intent_is_not_mapped_to_cart(monkeypatch):
+    from app.advisor import OpenRouterAdvisorProvider
+
+    configure_openrouter_for_test()
+    headers = dev_headers()
+    sku = first_available_sku()
+
+    async def fake_send(self, payload):
+        return {
+            "choices": [
+                {
+                    "message": {
+                        "content": json.dumps(
+                            {
+                                "message": "Сохраню текущую подборку в полку «Хочу попробовать».",
+                                "quick_actions": [],
+                                "actions": [
+                                    {
+                                        "type": "add_current_routine_to_shelf",
+                                        "skus": [sku],
+                                        "old_sku": None,
+                                        "new_sku": None,
+                                        "reason": "пользователь просит полку, а не корзину",
+                                        "requires_confirmation": False,
+                                    }
+                                ],
+                                "recommended_skus": [],
+                                "routine_steps": [],
+                                "why_this_works": "Полка и корзина остаются разными состояниями.",
+                                "safety_note": None,
+                            },
+                            ensure_ascii=False,
+                        )
+                    }
+                }
+            ]
+        }
+
+    monkeypatch.setattr(OpenRouterAdvisorProvider, "_send_to_openrouter", fake_send)
+    response = request(
+        "POST",
+        "/v1/advisor/message",
+        headers=headers,
+        json={
+            "message": "добавь это в полку",
+            "current_skus": [sku],
+            "current_selection": [
+                {
+                    "sku": sku,
+                    "brand": "Luma",
+                    "name": "Selected SPF",
+                    "category": "spf",
+                    "price_value": 1200,
+                    "currency": "RUB",
+                }
+            ],
+            "current_cart": [],
+        },
+    )
+    assert response.status_code == 200, response.text
+    body = response.json()
+    assert body["actions"][0]["type"] == "add_current_routine_to_shelf"
+    assert body["actions"][0]["skus"] == [sku]
+    assert request("GET", "/v1/cart", headers=headers).json()["items"] == []
 
 
 def test_openrouter_action_source_sku_is_rejected(monkeypatch):

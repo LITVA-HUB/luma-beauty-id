@@ -61,7 +61,7 @@ class StoredSession:
         return self.revoked_at is not None
 
 
-class AppStore:
+class SQLiteAppStore:
     def __init__(self, path: str | None = None) -> None:
         self.path = path or settings.store_path
         if self.path != ":memory:":
@@ -608,6 +608,9 @@ class AppStore:
             "saved_routine": self.get_saved_routine(account_id),
             "advisor_messages": [message.model_dump() for message in self.list_advisor_messages(account_id)],
         }
+
+
+AppStore = SQLiteAppStore
 
 
 def cart_response_from_quantities(quantities: dict[str, int], products_by_sku: dict[str, Product], checkout_mode: str = "unavailable") -> CartResponse:
@@ -1195,7 +1198,7 @@ class PostgresStore:
         }
 
 
-def create_app_store() -> AppStore | PostgresStore:
+def create_app_store() -> SQLiteAppStore | PostgresStore:
     if settings.database_url:
         return PostgresStore(settings.database_url)
-    return AppStore()
+    return SQLiteAppStore()
