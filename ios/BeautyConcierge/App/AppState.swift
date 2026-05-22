@@ -9,6 +9,8 @@ final class AppState: ObservableObject {
     @Published var isLaunching = true
     @Published var hasSeenOnboarding: Bool
     @Published var account: Account?
+    /// Гость нажал «Войти» в анкете — показываем экран входа, не заставляя проходить анкету.
+    @Published var wantsAuthDirectly = false
     @Published var beautyID: BeautyID?
     @Published var recommendations: RecommendationsResponse = .empty
     @Published var activeSelection: ActiveSelectionResponse = .empty
@@ -104,6 +106,21 @@ final class AppState: ObservableObject {
         self.replacedProductSkus = []
         self.recentRecommendationActions = []
         if !hasSeenOnboarding { analytics.track(.onboardingStarted, properties: ["runtime": environment.runtime.rawValue]) }
+        api.onUnauthorized = { [weak self] in
+            await self?.refreshExpiredSession() ?? false
+        }
+    }
+
+    /// Вызывается автоматически, когда сервер ответил 401 (access-токен истёк).
+    /// Пробует продлить сессию по refresh-токену. true — сессия продлена, запрос повторится сам.
+    private func refreshExpiredSession() async -> Bool {
+        guard let refresh = sessionStore.refreshToken else { return false }
+        do {
+            try await sessionStore.refreshSession(refreshToken: refresh)
+            return true
+        } catch {
+            return false
+        }
     }
 
     private static func loadRawValue<T: RawRepresentable>(_ type: T.Type, key: String) -> T? where T.RawValue == String {
@@ -186,9 +203,17 @@ final class AppState: ObservableObject {
 
     func register(name: String, email: String, password: String) async {
         analytics.track(.authStarted, properties: ["mode": "register"])
+        // Анкета проходится до регистрации (гостем). Сохраняем её ответы,
+        // чтобы перенести их в новый аккаунт после успешной регистрации.
+        let pendingBeautyID = beautyID
         await authTask {
             let response: AuthSession = try await api.post("/v1/auth/register", body: RegisterRequest(name: name, email: email, password: password, consent: true))
             try persist(session: response)
+            if let pendingBeautyID, pendingBeautyID.isUsable {
+                beautyID = pendingBeautyID
+                let saved: BeautyIDResponse = try await api.put("/v1/beauty-id", body: pendingBeautyID)
+                beautyID = saved.beautyId
+            }
             analytics.track(.authCompleted, properties: ["mode": "register", "provider": response.provider ?? "unknown"])
             await trackBackendEvent("registered", payload: ["provider": JSONValue(response.provider ?? "unknown")])
         }
@@ -196,9 +221,22 @@ final class AppState: ObservableObject {
 
     func login(email: String, password: String) async {
         analytics.track(.authStarted, properties: ["mode": "login"])
+        let pendingBeautyID = beautyID
         await authTask {
             let response: AuthSession = try await api.post("/v1/auth/login", body: LoginRequest(email: email, password: password))
             try persist(session: response)
+            if let pendingBeautyID, pendingBeautyID.isUsable {
+                beautyID = pendingBeautyID
+            }
+            // Если у аккаунта уже есть Beauty ID — берём его с сервера.
+            // Если нет, а гость только что прошёл анкету — переносим её ответы.
+            let profile: ProfileResponse = try await api.get("/v1/profile/me")
+            if let serverBeautyID = profile.beautyId?.beautyId {
+                beautyID = serverBeautyID
+            } else if let pendingBeautyID, pendingBeautyID.isUsable {
+                let saved: BeautyIDResponse = try await api.put("/v1/beauty-id", body: pendingBeautyID)
+                beautyID = saved.beautyId
+            }
             analytics.track(.authCompleted, properties: ["mode": "login", "provider": response.provider ?? "unknown"])
             await trackBackendEvent("logged_in", payload: ["provider": JSONValue(response.provider ?? "unknown")])
         }
@@ -209,6 +247,7 @@ final class AppState: ObservableObject {
             errorMessage = "Вход недоступен в этой сборке."
             return
         }
+        let pendingBeautyID = beautyID
         isBusy = true
         errorMessage = nil
         defer { isBusy = false }
@@ -216,6 +255,12 @@ final class AppState: ObservableObject {
             let response: AuthSession = try await api.post("/v1/auth/dev-login", body: EmptyBody())
             try persist(session: response)
             usesLocalFallback = false
+            if let pendingBeautyID, pendingBeautyID.isUsable {
+                beautyID = pendingBeautyID
+                if let saved: BeautyIDResponse = try? await api.put("/v1/beauty-id", body: pendingBeautyID) {
+                    beautyID = saved.beautyId
+                }
+            }
             await loadCart(silent: true)
             await loadAdvisorHistory(silent: true)
             await loadActiveSelection(silent: true)
@@ -343,13 +388,30 @@ final class AppState: ObservableObject {
         errorMessage = nil
         defer { isBusy = false }
         if usesLocalFallback || api.accessToken == nil {
-            guard environment.runtime == .development else {
+            // Гость проходит анкету до регистрации: Beauty ID держим на устройстве,
+            // на сервер он уедет после регистрации/входа. Вошедшему пользователю без
+            // сети локальное сохранение доступно только в dev-сборке.
+            let isGuest = api.accessToken == nil
+            guard isGuest || environment.runtime == .development else {
                 errorMessage = "Beauty ID не удалось сохранить, потому что API недоступен."
                 return
             }
             beautyID = value
+            if isGuest {
+                // Гость: тянем настоящую подборку с сервера без аккаунта,
+                // чтобы «вау»-экран показывал реальный каталог. Если сервер
+                // недоступен — мягко откатываемся на локальную заглушку.
+                do {
+                    let body = RecommendationsRequest(beautyId: value, focus: nil, limit: 16, filters: [:])
+                    let preview: RecommendationsResponse = try await api.post("/v1/recommendations/preview", body: body)
+                    recommendations = preview
+                } catch {
+                    recommendations = LocalFallbackCatalog.response()
+                }
+            } else {
+                recommendations = LocalFallbackCatalog.response()
+            }
             beautyIDReveal = BeautyIDReveal(beautyID: value)
-            recommendations = LocalFallbackCatalog.response()
             Haptics.success()
             return
         }

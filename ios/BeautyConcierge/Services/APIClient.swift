@@ -50,6 +50,11 @@ final class APIClient {
     let baseURL: URL
     var accessToken: String?
 
+    /// Вызывается, когда сервер ответил 401 (access-токен истёк).
+    /// Должен обновить сессию и вернуть true при успехе — тогда запрос повторится автоматически.
+    var onUnauthorized: (() async -> Bool)?
+
+    private var refreshTask: Task<Bool, Never>?
     private let session: URLSession
     private let encoder: JSONEncoder
     private let decoder: JSONDecoder
@@ -91,7 +96,7 @@ final class APIClient {
         try await request(path: path, method: "DELETE", bodyData: nil)
     }
 
-    func uploadPhotoScan(imageData: Data?, source: String, beautyID: BeautyID?) async throws -> ScanResult {
+    func uploadPhotoScan(imageData: Data?, source: String, beautyID: BeautyID?, isRetry: Bool = false) async throws -> ScanResult {
         let boundary = "Boundary-\(UUID().uuidString)"
         guard let url = URL(string: "/v1/photo/scan", relativeTo: baseURL) else { throw APIClientError(kind: .invalidURL) }
         var request = URLRequest(url: url)
@@ -130,7 +135,12 @@ final class APIClient {
         }
         guard let http = response as? HTTPURLResponse else { throw APIClientError(kind: .transport("Неожиданный ответ сервера.")) }
         guard (200..<300).contains(http.statusCode) else {
-            if http.statusCode == 401 { throw APIClientError(kind: .unauthorized) }
+            if http.statusCode == 401 {
+                if !isRetry, shouldAttemptRefresh(for: "/v1/photo/scan"), await performRefresh() {
+                    return try await uploadPhotoScan(imageData: imageData, source: source, beautyID: beautyID, isRetry: true)
+                }
+                throw APIClientError(kind: .unauthorized)
+            }
             if let envelope = try? decoder.decode(APIErrorEnvelope.self, from: data) { throw APIClientError(kind: .server(envelope.error.message)) }
             throw APIClientError(kind: .server("Сервер вернул \(http.statusCode)."))
         }
@@ -138,7 +148,7 @@ final class APIClient {
         catch { throw APIClientError(kind: .decoding(error.localizedDescription)) }
     }
 
-    private func request<Response: Decodable>(path: String, method: String, bodyData: Data?) async throws -> Response {
+    private func request<Response: Decodable>(path: String, method: String, bodyData: Data?, isRetry: Bool = false) async throws -> Response {
         guard let url = URL(string: path, relativeTo: baseURL) else {
             throw APIClientError(kind: .invalidURL)
         }
@@ -165,7 +175,12 @@ final class APIClient {
         }
 
         guard (200..<300).contains(http.statusCode) else {
-            if http.statusCode == 401 { throw APIClientError(kind: .unauthorized) }
+            if http.statusCode == 401 {
+                if !isRetry, shouldAttemptRefresh(for: path), await performRefresh() {
+                    return try await self.request(path: path, method: method, bodyData: bodyData, isRetry: true)
+                }
+                throw APIClientError(kind: .unauthorized)
+            }
             if let envelope = try? decoder.decode(APIErrorEnvelope.self, from: data) {
                 throw APIClientError(kind: .server(envelope.error.message))
             }
@@ -181,6 +196,23 @@ final class APIClient {
         } catch {
             throw APIClientError(kind: .decoding(error.localizedDescription))
         }
+    }
+
+    /// Запросы к /v1/auth/ (вход, регистрация, обновление токена) не должны вызывать
+    /// повторное обновление сессии — иначе при неверном пароле получился бы бесконечный цикл.
+    private func shouldAttemptRefresh(for path: String) -> Bool {
+        !path.contains("/v1/auth/")
+    }
+
+    /// Обновляет сессию один раз, даже если 401 пришёл сразу от нескольких запросов.
+    private func performRefresh() async -> Bool {
+        guard let onUnauthorized else { return false }
+        if let refreshTask { return await refreshTask.value }
+        let task = Task { await onUnauthorized() }
+        refreshTask = task
+        let success = await task.value
+        refreshTask = nil
+        return success
     }
 }
 

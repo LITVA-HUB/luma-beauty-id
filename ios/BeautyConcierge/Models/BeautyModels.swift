@@ -1246,7 +1246,35 @@ extension ActiveSelectionResponse {
     }
 }
 
+struct BeautyArchetype: Equatable {
+    let name: String
+    let tagline: String
+}
+
 extension BeautyID {
+    /// Короткий «beauty-тип» по ответам анкеты — это и есть герой «вау»-экрана.
+    /// Порядок проверок = приоритет: сначала самые определяющие черты.
+    var archetype: BeautyArchetype {
+        let concernSet = Set(concerns)
+        let finishSet = Set(preferredFinish)
+        if sensitivity == "high" || fragranceSensitivity == "avoid" {
+            return BeautyArchetype(name: "Спокойный комфорт", tagline: "Бережный уход без отдушек и резких формул.")
+        }
+        if budget == "premium" || budget == "luxury" {
+            return BeautyArchetype(name: "Тихий люкс", tagline: "Премиальные текстуры без лишнего шума.")
+        }
+        if finishSet.contains("radiant") || finishSet.contains("glow") || concernSet.contains("dullness") {
+            return BeautyArchetype(name: "Тёплое сияние", tagline: "Свежесть и мягкий свет кожи каждый день.")
+        }
+        if finishSet.contains("matte") || concernSet.contains("shine") {
+            return BeautyArchetype(name: "Свежая матовость", tagline: "Ровный тон и комфорт без пересушивания.")
+        }
+        if routineComplexity == "minimal" || budget == "entry" {
+            return BeautyArchetype(name: "Мягкий минимализм", tagline: "Только нужное — ничего лишнего.")
+        }
+        return BeautyArchetype(name: "Естественная гармония", tagline: "Сбалансированный уход под твой ритм.")
+    }
+
     var dashboardTitle: String {
         if let skinType { return "\(skinType.beautyLabel.capitalized) кожа" }
         if let firstConcern = concerns.first { return "Фокус: \(firstConcern.beautyLabel)" }

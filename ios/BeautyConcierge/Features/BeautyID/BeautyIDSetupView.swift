@@ -8,7 +8,7 @@ struct BeautyIDSetupView: View {
     @State private var selectedOwnedRoles: Set<RoutineRole> = []
     @State private var ownedChoice: OwnedRolesChoice?
 
-    private let steps = ["Ощущения", "Предпочтения", "Бюджет", "Что есть", "Согласие"]
+    private let steps = ["Кожа", "Цели", "Образ", "Бюджет", "Стоп-лист", "Что есть"]
 
     var body: some View {
         ZStack {
@@ -49,9 +49,15 @@ struct BeautyIDSetupView: View {
 
     private var header: some View {
         VStack(alignment: .leading, spacing: BeautySpacing.sm) {
-            Text("Создать Beauty ID")
-                .font(BeautyFont.title)
-                .foregroundStyle(BeautyColor.ink)
+            HStack(alignment: .firstTextBaseline) {
+                Text("Создать Beauty ID")
+                    .font(BeautyFont.title)
+                    .foregroundStyle(BeautyColor.ink)
+                Spacer()
+                Button("Войти") { appState.wantsAuthDirectly = true }
+                    .font(BeautyFont.callout.weight(.semibold))
+                    .foregroundStyle(BeautyColor.taupe)
+            }
             Text("Короткий профиль предпочтений для подбора косметики. Это не медицинская анкета.")
                 .font(BeautyFont.callout)
                 .foregroundStyle(BeautyColor.taupe)
@@ -71,36 +77,41 @@ struct BeautyIDSetupView: View {
     @ViewBuilder private var content: some View {
         switch step {
         case 0:
-            StepCard(title: "Как обычно ощущается кожа?", subtitle: "Выберите ближайший вариант. Идеальная точность не нужна.") {
+            StepCard(title: "Расскажи про свою кожу", subtitle: "Примерно — идеальная точность не нужна. Это не медицинская анкета.") {
+                Text("Тип кожи").font(BeautyFont.headline)
                 ChipGrid(options: ["dry", "oily", "combination", "normal", "sensitive"], selected: draft.skinType.map { [$0] } ?? []) { value in draft.skinType = value }
-                Divider().padding(.vertical, BeautySpacing.sm)
-                Text("Уровень чувствительности").font(BeautyFont.headline)
+                Text("Чувствительность").font(BeautyFont.headline).padding(.top, BeautySpacing.sm)
                 ChipGrid(options: ["low", "medium", "high"], selected: draft.sensitivity.map { [$0] } ?? []) { value in draft.sensitivity = value }
-                Text("Фокус подбора")
-                    .font(BeautyFont.headline)
-                    .padding(.top, BeautySpacing.sm)
-                MultiChipGrid(options: ["dryness", "dullness", "texture", "redness", "pores", "shine", "longwear", "comfort"], selected: $draft.concerns)
             }
         case 1:
-            StepCard(title: "Текстура, финиш и настроение макияжа", subtitle: "Так рекомендации ощущаются личными, а не случайными.") {
-                Text("Желаемый финиш").font(BeautyFont.headline)
-                MultiChipGrid(options: ["natural", "radiant", "matte", "satin", "glow"], selected: $draft.preferredFinish)
-                Text("Предпочтения в макияже").font(BeautyFont.headline).padding(.top, BeautySpacing.sm)
-                MultiChipGrid(options: ["tone", "conceal", "blush", "lips", "longwear", "quick", "editorial"], selected: $draft.makeupPreferences)
-                Text("Отдушка").font(BeautyFont.headline).padding(.top, BeautySpacing.sm)
-                ChipGrid(options: ["avoid", "light_ok", "no_preference"], selected: draft.fragranceSensitivity.map { [$0] } ?? []) { value in draft.fragranceSensitivity = value }
+            StepCard(title: "Что хочется улучшить?", subtitle: "Выбери, что для тебя важно — можно несколько.") {
+                MultiChipGrid(options: ["dryness", "dullness", "texture", "redness", "pores", "shine", "longwear", "comfort"], selected: $draft.concerns)
             }
         case 2:
-            StepCard(title: "Бюджет и формат рутины", subtitle: "Сохраняем премиальное ощущение, но не игнорируем цену.") {
-                Text("Бюджет").font(BeautyFont.headline)
-                ChipGrid(options: ["entry", "mid", "premium", "luxury"], selected: [draft.budget]) { value in draft.budget = value }
-                Text("Сложность рутины").font(BeautyFont.headline).padding(.top, BeautySpacing.sm)
-                ChipGrid(options: ["minimal", "balanced", "extended"], selected: [draft.routineComplexity]) { value in draft.routineComplexity = value }
-                Text("Стиль").font(BeautyFont.headline).padding(.top, BeautySpacing.sm)
-                MultiChipGrid(options: ["soft luxury", "k-beauty", "clean", "glow", "office", "evening", "minimal"], selected: $draft.styleTags)
+            StepCard(title: "Какой результат тебе нравится?", subtitle: "Так подборка будет ощущаться личной, а не случайной.") {
+                Text("Желаемый финиш").font(BeautyFont.headline)
+                MultiChipGrid(options: ["natural", "radiant", "matte", "satin", "glow"], selected: $draft.preferredFinish)
+                Text("Макияж").font(BeautyFont.headline).padding(.top, BeautySpacing.sm)
+                MultiChipGrid(options: ["tone", "conceal", "blush", "lips", "longwear", "quick", "editorial"], selected: $draft.makeupPreferences)
+            }
+        case 3:
+            VStack(alignment: .leading, spacing: BeautySpacing.md) {
+                microRewardBanner
+                StepCard(title: "Сколько готова вкладывать?", subtitle: "И деньгами, и временем — обе шкалы это нормально.") {
+                    Text("Бюджет").font(BeautyFont.headline)
+                    ChipGrid(options: ["entry", "mid", "premium", "luxury"], selected: [draft.budget]) { value in draft.budget = value }
+                    Text("Сложность рутины").font(BeautyFont.headline).padding(.top, BeautySpacing.sm)
+                    ChipGrid(options: ["minimal", "balanced", "extended"], selected: [draft.routineComplexity]) { value in draft.routineComplexity = value }
+                }
+            }
+        case 4:
+            StepCard(title: "Чего лучше избегать?", subtitle: "Чтобы не предлагать тебе лишнего.") {
+                Text("Отдушка").font(BeautyFont.headline)
+                ChipGrid(options: ["avoid", "light_ok", "no_preference"], selected: draft.fragranceSensitivity.map { [$0] } ?? []) { value in draft.fragranceSensitivity = value }
                 VStack(alignment: .leading, spacing: BeautySpacing.xs) {
                     Text("Ингредиенты, которые исключить")
                         .font(BeautyFont.headline)
+                        .padding(.top, BeautySpacing.sm)
                     HStack {
                         TextField("например, alcohol denat", text: $exclusionText)
                             .textInputAutocapitalization(.never)
@@ -117,27 +128,40 @@ struct BeautyIDSetupView: View {
                     MultiChipGrid(options: draft.ingredientExclusions, selected: $draft.ingredientExclusions)
                 }
             }
-        case 3:
-            StepCard(title: "Что у вас уже есть?", subtitle: "Так Luma не будет собирать вас с нуля и не добавит лишний шаг.") {
+        default:
+            StepCard(title: "Что у тебя уже есть?", subtitle: "Чтобы Luma не собирала тебя с нуля и не добавила лишний шаг.") {
                 OwnedRolesStep(selectedRoles: $selectedOwnedRoles, ownedChoice: $ownedChoice)
             }
-        default:
-            StepCard(title: "Приватность и согласие", subtitle: "Beauty ID нужен для подбора продуктов, его можно изменить позже.") {
-                VStack(alignment: .leading, spacing: BeautySpacing.md) {
-                    Toggle(isOn: $draft.consent) {
-                        Text("Сохранить мой Beauty ID для рекомендаций")
-                            .font(BeautyFont.headline)
-                    }
-                    .tint(BeautyColor.lime)
-                    Text("Luma Beauty ID не ставит диагнозы. Фото необязательно, а исходные снимки не сохраняются по умолчанию.")
-                        .font(BeautyFont.callout)
-                        .foregroundStyle(BeautyColor.taupe)
-                    Text("Предпочтения можно обновить, а экспорт или удаление данных запросить в настройках.")
-                        .font(BeautyFont.callout)
-                        .foregroundStyle(BeautyColor.taupe)
-                }
-            }
         }
+    }
+
+    /// Микро-награда: короткая «вспышка радости» в середине анкеты (на 4-м экране).
+    /// Показывает, что ответы уже сложились в направление, — мотивирует дойти до конца.
+    private var microRewardBanner: some View {
+        HStack(alignment: .top, spacing: BeautySpacing.sm) {
+            Image(systemName: "sparkles")
+                .foregroundStyle(BeautyColor.limeInk)
+            VStack(alignment: .leading, spacing: 2) {
+                Text("Уже вижу твоё направление")
+                    .font(BeautyFont.headline)
+                    .foregroundStyle(BeautyColor.ink)
+                Text(microRewardText)
+                    .font(BeautyFont.callout)
+                    .foregroundStyle(BeautyColor.taupe)
+            }
+            Spacer(minLength: 0)
+        }
+        .padding(BeautySpacing.md)
+        .background(BeautyColor.limeSoft.opacity(0.6), in: RoundedRectangle(cornerRadius: BeautyRadius.md, style: .continuous))
+    }
+
+    private var microRewardText: String {
+        var parts: [String] = []
+        if let skin = draft.skinType { parts.append(skin.beautyLabel + " кожа") }
+        if let finish = draft.preferredFinish.first { parts.append(finish.beautyLabel) }
+        if draft.concerns.contains("dullness") { parts.append("сияние") }
+        guard !parts.isEmpty else { return "Собираю твою подборку — осталось пара шагов." }
+        return parts.prefix(3).joined(separator: " · ")
     }
 
     private var footer: some View {
@@ -157,6 +181,12 @@ struct BeautyIDSetupView: View {
                         appState.updateOwnedRoles(selectedOwnedRoles, source: "beauty_id_owned_step")
                     }
                 }
+            }
+            if step == steps.count - 1 {
+                Text("Сохраняя, ты соглашаешься на хранение Beauty ID для подбора. Изменить или удалить — в настройках.")
+                    .font(BeautyFont.caption)
+                    .foregroundStyle(BeautyColor.taupe)
+                    .multilineTextAlignment(.center)
             }
             HStack {
                 if step > 0 {

@@ -462,6 +462,22 @@ def test_recommendations_are_catalog_grounded_and_exclude_unavailable():
     assert "FD-BUD-01" not in returned
 
 
+def test_recommendations_preview_is_public_and_catalog_grounded():
+    response = request(
+        "POST",
+        "/v1/recommendations/preview",
+        json={"beauty_id": beauty_id_payload(), "focus": "сияние", "limit": 12, "filters": {}},
+    )
+    assert response.status_code == 200, response.text
+    body = response.json()
+    known = set(known_skus(False))
+    returned = {item["sku"] for item in body["products"]}
+    assert returned
+    assert returned.issubset(known)
+    assert all(re.fullmatch(r"LUMA-\d{3}", sku) for sku in returned)
+    assert body["hero"]
+
+
 def test_advisor_medical_refusal_unknown_sku_guard_and_provider_fallback():
     headers = dev_headers()
     request("PUT", "/v1/beauty-id", headers=headers, json=beauty_id_payload())

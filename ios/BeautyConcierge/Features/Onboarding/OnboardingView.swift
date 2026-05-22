@@ -5,9 +5,7 @@ struct OnboardingView: View {
     @State private var page = 0
 
     private let pages: [OnboardingPage] = [
-        OnboardingPage(image: "onboarding_visual_1", title: "Beauty ID вместо случайных покупок", subtitle: "Собираем ваши предпочтения по текстурам, финишу, бюджету и уходу без медицинских обещаний."),
-        OnboardingPage(image: "hero_beauty_visual", title: "Советник, который знает каталог", subtitle: "Объясняет, почему продукт подходит, предлагает альтернативы и не придумывает товары вне каталога."),
-        OnboardingPage(image: "scan_guide", title: "Фото только по вашему выбору", subtitle: "Можно пройти анкету без фото. Снимок помогает с косметическим контекстом и не является диагностикой кожи.")
+        OnboardingPage(image: "onboarding_visual_1", title: "Хватит выбирать косметику наугад", subtitle: "Ответь на пару вопросов о себе — и получи личную подборку под твою кожу, бюджет и стиль. Минута, и без случайных покупок.")
     ]
 
     var body: some View {
@@ -42,14 +40,16 @@ struct OnboardingView: View {
                 }
                 .tabViewStyle(.page(indexDisplayMode: .never))
 
-                HStack(spacing: BeautySpacing.xs) {
-                    ForEach(0..<pages.count, id: \.self) { index in
-                        Capsule()
-                            .fill(index == page ? BeautyColor.ink : BeautyColor.line)
-                            .frame(width: index == page ? 26 : 8, height: 8)
+                if pages.count > 1 {
+                    HStack(spacing: BeautySpacing.xs) {
+                        ForEach(0..<pages.count, id: \.self) { index in
+                            Capsule()
+                                .fill(index == page ? BeautyColor.ink : BeautyColor.line)
+                                .frame(width: index == page ? 26 : 8, height: 8)
+                        }
                     }
+                    .accessibilityHidden(true)
                 }
-                .accessibilityHidden(true)
 
                 VStack(spacing: BeautySpacing.sm) {
                     PrimaryButton(title: page == pages.count - 1 ? "Создать Beauty ID" : "Продолжить", systemImage: "sparkles") {
@@ -60,10 +60,6 @@ struct OnboardingView: View {
                             appState.finishOnboarding()
                         }
                     }
-                    Button("У меня уже есть аккаунт") { appState.finishOnboarding() }
-                        .font(BeautyFont.callout.weight(.semibold))
-                        .foregroundStyle(BeautyColor.taupe)
-                        .padding(.vertical, BeautySpacing.sm)
                 }
                 .padding(.horizontal, BeautySpacing.md)
                 .padding(.bottom, BeautySpacing.lg)

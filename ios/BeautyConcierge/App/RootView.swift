@@ -11,10 +11,12 @@ struct RootView: View {
                 ServiceUnavailableView(message: configurationError)
             } else if !appState.hasSeenOnboarding {
                 OnboardingView()
-            } else if appState.account == nil {
+            } else if appState.account == nil && appState.wantsAuthDirectly {
                 AuthView()
             } else if appState.beautyID?.isUsable != true {
                 BeautyIDSetupView()
+            } else if appState.account == nil {
+                AuthView()
             } else {
                 MainTabView()
             }
@@ -122,11 +124,45 @@ private struct BeautyIDRevealView: View {
     let beautyID: BeautyID
     let onRoutine: () -> Void
     let onAdvisor: () -> Void
+    @EnvironmentObject private var appState: AppState
     @Environment(\.dismiss) private var dismiss
     @State private var visibleChipCount = 0
     @State private var cardVisible = false
 
     private var chips: [String] { beautyID.summaryChips }
+
+    private var topProducts: [RecommendationProduct] {
+        Array(appState.recommendations.products.prefix(3))
+    }
+
+    @ViewBuilder private func productRow(_ product: RecommendationProduct) -> some View {
+        HStack(spacing: BeautySpacing.sm) {
+            AsyncImage(url: appState.absoluteURL(for: product.preferredImagePath)) { image in
+                image.resizable().scaledToFill()
+            } placeholder: {
+                BeautyColor.milk
+            }
+            .frame(width: 62, height: 62)
+            .clipShape(RoundedRectangle(cornerRadius: BeautyRadius.md, style: .continuous))
+            VStack(alignment: .leading, spacing: 2) {
+                Text(product.brand)
+                    .font(BeautyFont.caption)
+                    .foregroundStyle(BeautyColor.taupe)
+                Text(product.name)
+                    .font(BeautyFont.headline)
+                    .foregroundStyle(BeautyColor.ink)
+                    .lineLimit(1)
+                Text(product.reason)
+                    .font(BeautyFont.caption)
+                    .foregroundStyle(BeautyColor.taupe)
+                    .lineLimit(2)
+            }
+            Spacer(minLength: 0)
+            Text("\(product.matchScore)%")
+                .font(BeautyFont.headline)
+                .foregroundStyle(BeautyColor.limeInk)
+        }
+    }
 
     var body: some View {
         NavigationStack {
@@ -146,23 +182,45 @@ private struct BeautyIDRevealView: View {
                         }
                         .padding(.top, BeautySpacing.xl)
 
-                        VStack(alignment: .leading, spacing: BeautySpacing.md) {
-                            HStack(alignment: .top) {
-                                VStack(alignment: .leading, spacing: BeautySpacing.xs) {
-                                    Text(beautyID.dashboardTitle)
-                                        .font(BeautyFont.title2)
-                                        .foregroundStyle(BeautyColor.ink)
-                                    Text(beautyID.dashboardSubtitle)
-                                        .font(BeautyFont.callout)
-                                        .foregroundStyle(BeautyColor.taupe)
-                                }
-                                Spacer()
-                                Image(systemName: "sparkles")
-                                    .foregroundStyle(BeautyColor.limeInk)
-                                    .frame(width: 42, height: 42)
-                                    .background(BeautyColor.limeSoft, in: Circle())
-                            }
+                        VStack(spacing: BeautySpacing.sm) {
+                            Text("ТВОЙ BEAUTY-ТИП")
+                                .font(BeautyFont.caption)
+                                .tracking(1.6)
+                                .foregroundStyle(BeautyColor.taupe)
+                            Text(beautyID.archetype.name)
+                                .font(BeautyFont.display)
+                                .foregroundStyle(BeautyColor.ink)
+                                .multilineTextAlignment(.center)
+                            Text(beautyID.archetype.tagline)
+                                .font(BeautyFont.body)
+                                .foregroundStyle(BeautyColor.taupe)
+                                .multilineTextAlignment(.center)
+                        }
+                        .frame(maxWidth: .infinity)
+                        .beautyCard()
+                        .scaleEffect(cardVisible ? 1 : 0.97)
+                        .opacity(cardVisible ? 1 : 0)
 
+                        if !topProducts.isEmpty {
+                            VStack(alignment: .leading, spacing: BeautySpacing.md) {
+                                Text("Подобрали под тебя")
+                                    .font(BeautyFont.title2)
+                                    .foregroundStyle(BeautyColor.ink)
+                                ForEach(topProducts) { product in
+                                    productRow(product)
+                                }
+                                Text("Совпадение посчитано по твоему Beauty ID и каталогу. Это косметический подбор, не диагностика.")
+                                    .font(BeautyFont.caption)
+                                    .foregroundStyle(BeautyColor.warmGray)
+                            }
+                            .beautyCard()
+                            .opacity(cardVisible ? 1 : 0)
+                        }
+
+                        VStack(alignment: .leading, spacing: BeautySpacing.sm) {
+                            Text("Твой профиль")
+                                .font(BeautyFont.headline)
+                                .foregroundStyle(BeautyColor.ink)
                             LazyVGrid(columns: [GridItem(.adaptive(minimum: 116), spacing: 8)], alignment: .leading, spacing: 8) {
                                 ForEach(Array(chips.prefix(visibleChipCount)), id: \.self) { chip in
                                     Text(chip)
@@ -177,18 +235,21 @@ private struct BeautyIDRevealView: View {
                                         .transition(.move(edge: .bottom).combined(with: .opacity))
                                 }
                             }
-
-                            Text("Это косметический профиль предпочтений, не диагностика кожи.")
-                                .font(BeautyFont.caption)
-                                .foregroundStyle(BeautyColor.warmGray)
                         }
                         .beautyCard()
-                        .scaleEffect(cardVisible ? 1 : 0.97)
                         .opacity(cardVisible ? 1 : 0)
 
                         VStack(spacing: BeautySpacing.sm) {
-                            PrimaryButton(title: "Собрать рутину", systemImage: "sparkles", action: onRoutine)
-                            SecondaryButton(title: "Спросить советника", systemImage: "message", action: onAdvisor)
+                            if appState.account == nil {
+                                PrimaryButton(title: "Сохранить мой Beauty ID", systemImage: "checkmark") { dismiss() }
+                                Text("Создай аккаунт, чтобы сохранить свой beauty-тип и подборку и вернуться к ней позже.")
+                                    .font(BeautyFont.caption)
+                                    .foregroundStyle(BeautyColor.taupe)
+                                    .multilineTextAlignment(.center)
+                            } else {
+                                PrimaryButton(title: "Собрать рутину", systemImage: "sparkles", action: onRoutine)
+                                SecondaryButton(title: "Спросить советника", systemImage: "message", action: onAdvisor)
+                            }
                         }
                     }
                     .padding(BeautySpacing.md)
