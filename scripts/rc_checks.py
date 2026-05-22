@@ -17,7 +17,12 @@ SECRET_PATTERNS = [
 
 def text_files():
     for path in ROOT.rglob("*"):
-        if path.is_dir() or ".git" in path.parts or path.suffix.lower() in {".png", ".jpg", ".jpeg", ".zip", ".sqlite3"}:
+        if (
+            path.is_dir()
+            or ".git" in path.parts
+            or "__pycache__" in path.parts
+            or path.suffix.lower() in {".png", ".jpg", ".jpeg", ".zip", ".sqlite3", ".pyc"}
+        ):
             continue
         yield path
 
