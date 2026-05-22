@@ -1037,6 +1037,29 @@ def test_openrouter_medical_request_refuses_without_provider_call(monkeypatch):
     assert not response.json()["recommendations"]
 
 
+def test_advisor_dermatitis_treatment_request_refuses_without_network(monkeypatch):
+    from app.advisor import OpenRouterAdvisorProvider
+
+    configure_openrouter_for_test()
+    settings.openrouter_api_key = ""
+    headers = dev_headers()
+
+    async def should_not_call(self, payload):
+        raise AssertionError("OpenRouter should not be called for medical intent")
+
+    monkeypatch.setattr(OpenRouterAdvisorProvider, "_send_to_openrouter", should_not_call)
+    response = request("POST", "/v1/advisor/message", headers=headers, json={"message": "у меня дерматит, чем лечить?", "current_skus": []})
+    assert response.status_code == 200, response.text
+    body = response.json()
+    assert body["provider"] == "safety_refusal"
+    assert body["safety_note"] == "medical_boundary"
+    assert body["recommendations"] == []
+    assert body["recommended_skus"] == []
+    assert body["actions"] == []
+    assert "обратиться к специалисту" in body["answer"]
+    assert "используйте препарат" not in body["answer"].lower()
+
+
 def test_openrouter_missing_key_in_production_is_clean_error():
     headers = dev_headers()
     settings.app_env = "production"

@@ -56,6 +56,7 @@ The smoke script checks `/v1/advisor/message`, SKU grounding, medical refusal an
 ## Tests
 
 ```bash
+python3 ../scripts/check_backend.py
 python3 -m pytest -q
 python3 -m compileall app
 ```
