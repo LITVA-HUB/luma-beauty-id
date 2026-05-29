@@ -45,7 +45,7 @@ struct ProductDetailView: View {
                             .font(BeautyFont.headline)
                         HStack(spacing: BeautySpacing.sm) {
                             RoutineStepPill(title: product.routineStep)
-                            Text("Отзывы demo-каталога не подключены")
+                            Text("Отзывы каталога не подключены")
                                 .font(BeautyFont.caption)
                                 .foregroundStyle(BeautyColor.taupe)
                         }
@@ -161,6 +161,8 @@ struct ProductDetailView: View {
                 .frame(height: 38)
                 .background(BeautyColor.milk, in: Capsule())
                 .overlay(Capsule().stroke(BeautyColor.line.opacity(0.68), lineWidth: 1))
+                .frame(minHeight: 44)
+                .contentShape(Rectangle())
         }
         .buttonStyle(.plain)
     }

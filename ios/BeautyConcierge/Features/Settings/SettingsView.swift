@@ -48,8 +48,8 @@ struct SettingsView: View {
                         } label: {
                             Label("Оставить отзыв", systemImage: "bubble.left.and.bubble.right")
                         }
-                        Label("support@example.com", systemImage: "envelope")
-                        Label("Версия 1.0 RC", systemImage: "info.circle")
+                        Label("support@lumabeautyid.app", systemImage: "envelope")
+                        Label(versionLabel, systemImage: "info.circle")
                     }
                     if appState.environment.isDebug {
                         Section("Среда") {
@@ -73,6 +73,13 @@ struct SettingsView: View {
                     .environmentObject(appState)
             }
         }
+    }
+
+    private var versionLabel: String {
+        let info = Bundle.main.infoDictionary
+        let version = info?["CFBundleShortVersionString"] as? String ?? "—"
+        let build = info?["CFBundleVersion"] as? String ?? "—"
+        return "Версия \(version) (\(build))"
     }
 
     private func environmentTitle(_ value: String) -> String {

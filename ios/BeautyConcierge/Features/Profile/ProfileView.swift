@@ -48,7 +48,7 @@ struct ProfileView: View {
                             ProfileInfoRowModel(
                                 icon: "bag",
                                 title: "Корзина",
-                                subtitle: appState.cart.totalItems == 0 ? "Список к покупке пока пуст" : "Demo-список к покупке собран",
+                                subtitle: appState.cart.totalItems == 0 ? "Список к покупке пока пуст" : "Список к покупке собран",
                                 value: appState.cart.totalItems == 0 ? "0" : "\(appState.cart.totalItems)"
                             ),
                             ProfileInfoRowModel(

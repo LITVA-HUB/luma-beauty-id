@@ -80,7 +80,7 @@ struct HomeView: View {
                     if !alternativeProducts.isEmpty {
                         HomeProductCarouselSection(
                             title: "Альтернативы для замены",
-                            subtitle: "Товары demo-каталога вне текущего набора.",
+                            subtitle: "Товары каталога вне текущего набора.",
                             products: alternativeProducts,
                             onOpenRecommendations: { appState.selectedTab = .recommendations }
                         )

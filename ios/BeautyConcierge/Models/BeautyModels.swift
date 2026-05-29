@@ -390,9 +390,9 @@ struct AdvisorAction: Codable, Identifiable, Equatable {
         case "mark_product_did_not_fit":
             return "Учесть негативный сигнал"
         case "add_current_routine_to_cart", "add_selection_to_cart", "move_selection_to_cart":
-            return "Перенести текущий набор в demo-список к покупке"
+            return "Перенести текущий набор в список к покупке"
         case "add_products_to_cart":
-            return "Добавить товар в demo-список к покупке"
+            return "Добавить товар в список к покупке"
         case "save_routine_suggestion", "save_selection_as_routine", "save_current_routine":
             return "Вернуться к этому набору позже"
         case "refine_budget":
@@ -1107,7 +1107,7 @@ enum PurchaseBlocker: String, CaseIterable, Identifiable, Codable, Equatable {
         switch self {
         case .tooExpensive: return "Покажем более доступный вариант"
         case .tooManyProducts: return "Оставим только главное"
-        case .wantsReviews: return "В demo-каталоге отзывы не подключены"
+        case .wantsReviews: return "В каталоге отзывы не подключены"
         case .wantsToSeeInStore: return "Наличие в магазине пока не подключено"
         case .nothingBlocking: return "Сохраним сильное намерение купить"
         default: return nil

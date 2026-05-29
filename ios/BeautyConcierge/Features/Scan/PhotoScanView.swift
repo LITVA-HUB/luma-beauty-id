@@ -383,6 +383,8 @@ private struct BeautyScanPreviewCard: View {
                         .foregroundStyle(BeautyColor.ink)
                         .frame(width: 32, height: 32)
                         .background(BeautyColor.milk, in: Circle())
+                        .frame(width: 44, height: 44)
+                        .contentShape(Rectangle())
                 }
                 .buttonStyle(.plain)
                 .accessibilityLabel("Удалить фото")

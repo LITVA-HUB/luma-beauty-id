@@ -554,6 +554,8 @@ private struct AdvisorTrayAction: View {
                 .frame(height: 38)
                 .background(isPrimary ? BeautyColor.lime : BeautyColor.milk.opacity(0.82), in: Capsule())
                 .overlay(Capsule().stroke(isPrimary ? Color.clear : BeautyColor.line.opacity(0.58), lineWidth: 1))
+                .frame(minHeight: 44)
+                .contentShape(Rectangle())
         }
         .buttonStyle(.plain)
     }
@@ -766,6 +768,8 @@ private struct AdvisorMiniProductCard: View {
                 .frame(height: 28)
                 .background(BeautyColor.card.opacity(0.78), in: Capsule())
                 .overlay(Capsule().stroke(BeautyColor.line.opacity(0.45), lineWidth: 1))
+                .frame(minHeight: 44)
+                .contentShape(Rectangle())
         }
         .frame(minWidth: 0)
         .buttonStyle(.plain)

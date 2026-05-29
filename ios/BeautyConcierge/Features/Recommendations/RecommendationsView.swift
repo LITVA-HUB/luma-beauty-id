@@ -194,7 +194,7 @@ struct RecommendationsView: View {
 
     private var productGrid: some View {
         VStack(alignment: .leading, spacing: BeautySpacing.md) {
-            SectionHeader(title: "Альтернативы для замены", subtitle: "Показываем только товары demo-каталога")
+            SectionHeader(title: "Альтернативы для замены", subtitle: "Показываем только товары каталога")
             if appState.recommendations.products.isEmpty {
                 EmptyStateView(title: "Нет уверенных совпадений", subtitle: "Обновите Beauty ID или уберите часть исключённых ингредиентов.")
             } else {
@@ -233,17 +233,17 @@ struct RecommendationsView: View {
         appState.selectPurchaseBlocker(blocker)
         switch blocker {
         case .tooExpensive:
-            blockerNote = "Показала более дешёвый вариант без скидок и промо — только цены demo-каталога."
+            blockerNote = "Показала более дешёвый вариант без скидок и промо — только цены каталога."
         case .tooManyProducts:
             blockerNote = "Показала минимум: меньше шагов, но меньше дополнительных эффектов."
         case .wantsToCompare:
             openComparison()
         case .wantsReviews:
-            blockerNote = "Отзывы пока не подключены в demo-каталоге. Сигнал сохранён как причина сомнения."
+            blockerNote = "Отзывы пока не подключены в каталоге. Сигнал сохранён как причина сомнения."
         case .wantsToSeeInStore:
             blockerNote = "Наличие в магазине пока не подключено. Сигнал сохранён как причина сомнения."
         case .shadeConcern:
-            blockerNote = "В demo-каталоге оттенок нужно проверить отдельно перед покупкой."
+            blockerNote = "В каталоге оттенок нужно проверить отдельно перед покупкой."
         case .notSure:
             blockerNote = "Проверьте роль продукта, оттенок и комфорт текстуры: это косметический подбор, не гарантия результата."
         case .wantsReplacement:
@@ -270,7 +270,7 @@ private struct RoutineVariantSummaryCard: View {
         var values: [String] = []
         if let scenario = variant.scenario { values.append(scenario.displayTitle.lowercased()) }
         if !ownedRoles.isEmpty { values.append("\(ownedRoles.map(\.displayTitle).sorted().joined(separator: ", ")) уже есть") }
-        values.append("demo-каталог")
+        values.append("каталог")
         return values.joined(separator: " · ")
     }
 
@@ -311,7 +311,7 @@ private struct RoutineVariantSummaryCard: View {
                 actionButton("Я бы купила", icon: "handbag", action: onPurchaseIntent)
             }
 
-            Text("Косметический подбор, не медицинская рекомендация. В demo-каталоге нет реальных отзывов, наличия, скидок или оплаты.")
+            Text("Косметический подбор, не медицинская рекомендация. В каталоге нет реальных отзывов, наличия, скидок или оплаты.")
                 .font(BeautyFont.caption2)
                 .foregroundStyle(BeautyColor.warmGray)
         }

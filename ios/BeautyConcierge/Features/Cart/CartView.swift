@@ -11,7 +11,7 @@ struct CartView: View {
                     SectionHeader(title: "Корзина", subtitle: cartSubtitle)
 
                     if appState.cart.items.isEmpty {
-                        EmptyStateView(title: "Корзина пока пустая", subtitle: "Добавьте товары из набора, чтобы собрать demo-список к покупке. Checkout Золотого Яблока пока не подключён.", actionTitle: "Перейти к подбору") {
+                        EmptyStateView(title: "Корзина пока пустая", subtitle: "Добавьте товары из набора, чтобы собрать список к покупке. Оформление заказа пока не подключено.", actionTitle: "Перейти к подбору") {
                             appState.selectedTab = .recommendations
                         }
                     } else {
@@ -37,11 +37,11 @@ struct CartView: View {
     }
 
     private var cartSubtitle: String {
-        "Demo-список к покупке. Checkout Золотого Яблока пока не подключён."
+        "Список к покупке. Оформление заказа пока не подключено."
     }
 
     private var checkoutNote: String {
-        "Это demo-список к покупке: заказ и оплата пока не создаются."
+        "Это список к покупке: заказ и оплата пока не создаются."
     }
 
     private var checkoutButtonTitle: String {
@@ -95,11 +95,15 @@ private struct CartItemRow: View {
             VStack(spacing: BeautySpacing.sm) {
                 Button { Task { await appState.updateCartItem(sku: item.sku, quantity: item.quantity + 1) } } label: {
                     Image(systemName: "plus").frame(width: 32, height: 32).background(BeautyColor.milk, in: Circle())
+                        .frame(width: 44, height: 44).contentShape(Rectangle())
                 }
+                .accessibilityLabel("Добавить ещё один")
                 Text("\(item.quantity)").font(BeautyFont.callout.weight(.semibold))
                 Button { Task { await appState.updateCartItem(sku: item.sku, quantity: item.quantity - 1) } } label: {
                     Image(systemName: "minus").frame(width: 32, height: 32).background(BeautyColor.milk, in: Circle())
+                        .frame(width: 44, height: 44).contentShape(Rectangle())
                 }
+                .accessibilityLabel("Убрать один")
             }
             .buttonStyle(.plain)
         }
