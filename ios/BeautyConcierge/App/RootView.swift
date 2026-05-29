@@ -116,7 +116,7 @@ struct MainTabView: View {
                 .tabItem { Label("Профиль", systemImage: "person") }
                 .tag(AppState.Tab.profile)
         }
-        .tint(BeautyColor.lime)
+        .tint(BeautyColor.limeTint)
     }
 }
 
