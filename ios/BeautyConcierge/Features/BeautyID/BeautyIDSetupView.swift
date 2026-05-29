@@ -49,15 +49,12 @@ struct BeautyIDSetupView: View {
 
     private var header: some View {
         VStack(alignment: .leading, spacing: BeautySpacing.sm) {
-            HStack(alignment: .firstTextBaseline) {
-                Text("Создать Beauty ID")
-                    .font(BeautyFont.title)
-                    .foregroundStyle(BeautyColor.ink)
-                Spacer()
-                Button("Войти") { appState.wantsAuthDirectly = true }
-                    .font(BeautyFont.callout.weight(.semibold))
-                    .foregroundStyle(BeautyColor.taupe)
-            }
+            Text("Создать Beauty ID")
+                .font(BeautyFont.title)
+                .foregroundStyle(BeautyColor.ink)
+                .minimumScaleFactor(0.8)
+                .lineLimit(2)
+                .frame(maxWidth: .infinity, alignment: .leading)
             Text("Короткий профиль предпочтений для подбора косметики. Это не медицинская анкета.")
                 .font(BeautyFont.callout)
                 .foregroundStyle(BeautyColor.taupe)

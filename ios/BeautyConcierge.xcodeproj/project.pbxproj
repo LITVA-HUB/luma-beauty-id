@@ -29,6 +29,7 @@
 		B5C000000000000000000001 /* Features/Scan/BeautyScanCameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D000000000000000000001 /* Features/Scan/BeautyScanCameraView.swift */; };
 		B5C000000000000000000002 /* Features/Scan/BeautyScanOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D000000000000000000002 /* Features/Scan/BeautyScanOverlayView.swift */; };
 		B5C000000000000000000003 /* Features/Scan/BeautyScanViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D000000000000000000003 /* Features/Scan/BeautyScanViewModel.swift */; };
+		B5C000000000000000000005 /* Features/Scan/FaceGateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D000000000000000000005 /* Features/Scan/FaceGateView.swift */; };
 		B5C000000000000000000004 /* Services/BeautyScanCameraController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5D000000000000000000004 /* Services/BeautyScanCameraController.swift */; };
 		C079D028A1BE36D2C96C1366 /* Features/Settings/SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A53A2E73E9FB587BD8AFAEC9 /* Features/Settings/SettingsView.swift */; };
 		C10000000000000000000002 /* BeautyConciergeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C10000000000000000000001 /* BeautyConciergeTests.swift */; };
@@ -77,6 +78,7 @@
 		B5D000000000000000000001 /* Features/Scan/BeautyScanCameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Features/Scan/BeautyScanCameraView.swift; sourceTree = "<group>"; };
 		B5D000000000000000000002 /* Features/Scan/BeautyScanOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Features/Scan/BeautyScanOverlayView.swift; sourceTree = "<group>"; };
 		B5D000000000000000000003 /* Features/Scan/BeautyScanViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Features/Scan/BeautyScanViewModel.swift; sourceTree = "<group>"; };
+		B5D000000000000000000005 /* Features/Scan/FaceGateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Features/Scan/FaceGateView.swift; sourceTree = "<group>"; };
 		B5D000000000000000000004 /* Services/BeautyScanCameraController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Services/BeautyScanCameraController.swift; sourceTree = "<group>"; };
 		BEC776A83CBA01BA3A1F2D81 /* Features/Advisor/AdvisorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Features/Advisor/AdvisorView.swift; sourceTree = "<group>"; };
 		C10000000000000000000001 /* BeautyConciergeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeautyConciergeTests.swift; sourceTree = "<group>"; };
@@ -154,6 +156,7 @@
 				B5D000000000000000000001 /* Features/Scan/BeautyScanCameraView.swift */,
 				B5D000000000000000000002 /* Features/Scan/BeautyScanOverlayView.swift */,
 				B5D000000000000000000003 /* Features/Scan/BeautyScanViewModel.swift */,
+				B5D000000000000000000005 /* Features/Scan/FaceGateView.swift */,
 				A53A2E73E9FB587BD8AFAEC9 /* Features/Settings/SettingsView.swift */,
 				62833413ABF1FBBEA4AD3B03 /* Features/Shared/HomeView.swift */,
 				C169BCE5B342CEA7535AD05D /* Features/Shared/ProductViews.swift */,
@@ -298,6 +301,7 @@
 				B5C000000000000000000001 /* Features/Scan/BeautyScanCameraView.swift in Sources */,
 				B5C000000000000000000002 /* Features/Scan/BeautyScanOverlayView.swift in Sources */,
 				B5C000000000000000000003 /* Features/Scan/BeautyScanViewModel.swift in Sources */,
+				B5C000000000000000000005 /* Features/Scan/FaceGateView.swift in Sources */,
 				C079D028A1BE36D2C96C1366 /* Features/Settings/SettingsView.swift in Sources */,
 				326AA8BCEB24820D50D09FC8 /* Features/Shared/HomeView.swift in Sources */,
 				DA9A6B442FD0A4210008BD73 /* Features/Shared/ProductViews.swift in Sources */,

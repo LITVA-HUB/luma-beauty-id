@@ -8,9 +8,9 @@ final class AppState: ObservableObject {
 
     @Published var isLaunching = true
     @Published var hasSeenOnboarding: Bool
+    /// Account IDs that have completed the mandatory onboarding face photo.
+    @Published var faceScanAccountIds: Set<String>
     @Published var account: Account?
-    /// Гость нажал «Войти» в анкете — показываем экран входа, не заставляя проходить анкету.
-    @Published var wantsAuthDirectly = false
     @Published var beautyID: BeautyID?
     @Published var recommendations: RecommendationsResponse = .empty
     @Published var activeSelection: ActiveSelectionResponse = .empty
@@ -69,6 +69,7 @@ final class AppState: ObservableObject {
 
     private enum Keys {
         static let onboarding = "hasSeenOnboarding"
+        static let faceScanAccounts = "faceScanAccountIds"
         static let savedProducts = "savedProducts"
         static let savedRoutineSkus = "savedRoutineSkus"
         static let appTheme = "appTheme"
@@ -91,6 +92,7 @@ final class AppState: ObservableObject {
         self.analytics = analytics
         self.crashReporter = crashReporter
         self.hasSeenOnboarding = UserDefaults.standard.bool(forKey: Keys.onboarding)
+        self.faceScanAccountIds = Set(UserDefaults.standard.stringArray(forKey: Keys.faceScanAccounts) ?? [])
         self.savedProducts = Set(UserDefaults.standard.stringArray(forKey: Keys.savedProducts) ?? [])
         self.savedRoutineSkus = UserDefaults.standard.stringArray(forKey: Keys.savedRoutineSkus) ?? []
         self.appTheme = AppTheme(rawValue: UserDefaults.standard.string(forKey: Keys.appTheme) ?? "") ?? .system
@@ -184,6 +186,8 @@ final class AppState: ObservableObject {
         account = profile.account
         crashReporter.setUserContext(profile.account.accountId)
         beautyID = profile.beautyId?.beautyId
+        // Аккаунты, заполнившие анкету до появления обязательного фото, не гоняем через гейт повторно.
+        if profile.beautyId?.beautyId.isUsable == true { markFaceScanCompleted() }
         applySavedRoutine(profile.savedRoutines?.first)
         await loadCart(silent: true)
         await loadAdvisorHistory(silent: true)
@@ -199,6 +203,19 @@ final class AppState: ObservableObject {
         UserDefaults.standard.set(true, forKey: Keys.onboarding)
         analytics.track(.onboardingCompleted, properties: ["runtime": environment.runtime.rawValue])
         Haptics.success()
+    }
+
+    /// Регистрация прошла, но обязательное фото профиля ещё не сделано.
+    var needsFaceScan: Bool {
+        guard let id = account?.accountId else { return false }
+        return !faceScanAccountIds.contains(id)
+    }
+
+    /// Отмечает, что текущий аккаунт прошёл обязательное фото профиля, и сохраняет это локально.
+    func markFaceScanCompleted() {
+        guard let id = account?.accountId else { return }
+        guard faceScanAccountIds.insert(id).inserted else { return }
+        UserDefaults.standard.set(Array(faceScanAccountIds), forKey: Keys.faceScanAccounts)
     }
 
     func register(name: String, email: String, password: String) async {
@@ -502,6 +519,7 @@ final class AppState: ObservableObject {
             scanResult = ScanResult(scanId: UUID().uuidString, summary: "Beauty ID собран. Фото не отправлялось.", signals: beautyID?.concerns ?? [], limitations: ["Фото не обрабатывалось."], statuses: scanStatuses, recommendations: response, retentionPolicy: "Фото не загружалось.", deletionUrl: nil, disclaimer: "Косметический подбор, не диагностика кожи.")
             recommendations = response
             activeSelection = Self.localActiveSelectionResponse(from: response.routine)
+            if imageData != nil { markFaceScanCompleted() }
             selectedTab = .advisor
             Haptics.success()
             return
@@ -511,6 +529,7 @@ final class AppState: ObservableObject {
             scanResult = result
             recommendations = result.recommendations
             await replaceActiveSelection(with: result.recommendations.routine, source: "scan", silent: true)
+            if imageData != nil { markFaceScanCompleted() }
             selectedTab = .advisor
             analytics.track(.scanCompleted, properties: ["source": source, "status": "ready"])
             Haptics.success()
@@ -698,7 +717,7 @@ final class AppState: ObservableObject {
         case "add_current_routine_to_shelf":
             return "Добавлю текущий набор в вашу полку как «Хочу попробовать». \(suffix)"
         case "add_current_routine_to_cart":
-            return "Добавлю товары в demo-список к покупке. \(suffix)"
+            return "Добавлю товары в список к покупке. \(suffix)"
         case "save_current_routine":
             return "Сохраню набор, чтобы вы могли вернуться к нему позже. \(suffix)"
         default:
@@ -1550,18 +1569,18 @@ final class AppState: ObservableObject {
         let originalTotal = source.reduce(0) { $0 + $1.priceValue }
         let newTotal = unique.reduce(0) { $0 + $1.priceValue }
         if changes.isEmpty {
-            changes.append("В demo-каталоге не нашлось заметно более дешёвой замены для выбранных ролей.")
+            changes.append("В каталоге не нашлось заметно более дешёвой замены для выбранных ролей.")
         }
         return makeVariant(
             type: .cheaper,
             title: "Дешевле",
-            subtitle: "Сохраняет ключевые роли и снижает сумму, где demo-каталог позволяет.",
+            subtitle: "Сохраняет ключевые роли и снижает сумму, где каталог позволяет.",
             scenario: selectedScenario,
             products: unique,
             whatChanged: changes,
             benefits: ["Цена набора \(newTotal.rub)", "Роли остаются привязанными к сценарию"],
-            tradeoffs: newTotal < originalTotal ? ["Может быть меньше премиальной сенсорности."] : ["Цена не снизилась: demo-каталог ограничен по альтернативам."],
-            explanation: "Вариант «дешевле» не использует скидки или промо: только реальные цены demo-каталога."
+            tradeoffs: newTotal < originalTotal ? ["Может быть меньше премиальной сенсорности."] : ["Цена не снизилась: каталог ограничен по альтернативам."],
+            explanation: "Вариант «дешевле» не использует скидки или промо: только реальные цены каталога."
         )
     }
 
@@ -1623,7 +1642,7 @@ final class AppState: ObservableObject {
             products.append(premium)
         }
         if changes.isEmpty {
-            changes.append("Премиальная альтернатива ограничена текущим demo-каталогом.")
+            changes.append("Премиальная альтернатива ограничена текущим каталогом.")
         }
         return makeVariant(
             type: .premium,
@@ -1632,7 +1651,7 @@ final class AppState: ObservableObject {
             scenario: selectedScenario,
             products: uniqueProducts(products),
             whatChanged: changes,
-            benefits: ["Больше премиальной сенсорности там, где она есть в demo-каталоге"],
+            benefits: ["Больше премиальной сенсорности там, где она есть в каталоге"],
             tradeoffs: ["Дороже базового варианта", "Не использует реальные отзывы, наличие или скидки"],
             explanation: "Премиум выбирает только товары из загруженного каталога и не нарушает сигналы по полке и отдушке."
         )
@@ -1737,9 +1756,9 @@ final class AppState: ObservableObject {
             products.forEach { markProductBuyLater($0, source: "purchase_blocker") }
             checkoutMessage = "Сохранила сигнал «куплю позже» для текущего набора."
         case .shadeConcern:
-            checkoutMessage = "В demo-каталоге оттенок нужно проверить отдельно перед покупкой."
+            checkoutMessage = "В каталоге оттенок нужно проверить отдельно перед покупкой."
         case .wantsReviews:
-            checkoutMessage = "Отзывы пока не подключены в demo-каталоге. Сигнал сохранён как причина сомнения."
+            checkoutMessage = "Отзывы пока не подключены в каталоге. Сигнал сохранён как причина сомнения."
         case .wantsToSeeInStore:
             checkoutMessage = "Наличие в магазине пока не подключено. Сигнал сохранён как причина сомнения."
         case .notSure:
@@ -1843,7 +1862,7 @@ final class AppState: ObservableObject {
     private func buildRoutine(type: RoutineVariantType, scenario: LifeScenario?, maxCount: Int, strategy: RoutineBuildStrategy) -> RoutineBuildResult {
         let candidates = pilotCandidates()
         guard !candidates.isEmpty else {
-            return RoutineBuildResult(products: [], changes: ["Demo-каталог не дал доступных кандидатов."], benefits: [], tradeoffs: ["Нужен подключенный каталог для более точного набора."], explanation: "Нет доступных товаров для варианта.")
+            return RoutineBuildResult(products: [], changes: ["Каталог не дал доступных кандидатов."], benefits: [], tradeoffs: ["Нужен подключенный каталог для более точного набора."], explanation: "Нет доступных товаров для варианта.")
         }
         let scenario = scenario ?? selectedScenario
         let owned = effectiveOwnedRoles
@@ -1872,12 +1891,12 @@ final class AppState: ObservableObject {
             products = Array(candidates.prefix(max(1, min(maxCount, candidates.count))))
         }
         let benefits = [
-            "\(products.count.productWord) из demo-каталога",
+            "\(products.count.productWord) из каталога",
             "Общая сумма \(products.reduce(0) { $0 + $1.priceValue }.rub)",
             scenario.map { "Сценарий: \($0.displayTitle.lowercased())" } ?? "Учитывает текущий Beauty ID"
         ].compactMap { $0 }
         let tradeoffs = changes.isEmpty ? ["Вариант не использует реальные отзывы, скидки или наличие магазина."] : ["Учтены сигналы полки, поэтому некоторые роли могли быть пропущены."]
-        let explanation = scenario.map { "\($0.defaultCopy) Косметический подбор, не медицинская рекомендация." } ?? "Подбор основан на Beauty ID и demo-каталоге."
+        let explanation = scenario.map { "\($0.defaultCopy) Косметический подбор, не медицинская рекомендация." } ?? "Подбор основан на Beauty ID и каталоге."
         return RoutineBuildResult(products: uniqueProducts(products), changes: changes, benefits: benefits, tradeoffs: tradeoffs, explanation: explanation)
     }
 
@@ -1913,9 +1932,9 @@ final class AppState: ObservableObject {
             totalPrice: uniqueProducts.reduce(0) { $0 + $1.priceValue },
             currency: uniqueProducts.first?.currency ?? "RUB",
             productCount: uniqueProducts.count,
-            whatChanged: whatChanged.isEmpty ? ["Собрано из доступных товаров demo-каталога."] : whatChanged,
+            whatChanged: whatChanged.isEmpty ? ["Собрано из доступных товаров каталога."] : whatChanged,
             benefits: benefits.isEmpty ? ["Каталог-grounded подбор без выдуманных товаров."] : benefits,
-            tradeoffs: tradeoffs.isEmpty ? ["Demo-каталог не содержит реальные отзывы, скидки или наличие."] : tradeoffs,
+            tradeoffs: tradeoffs.isEmpty ? ["Каталог не содержит реальные отзывы, скидки или наличие."] : tradeoffs,
             explanation: explanation,
             generatedAt: Date(),
             sourceRoutineId: nil

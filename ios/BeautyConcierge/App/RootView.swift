@@ -11,12 +11,12 @@ struct RootView: View {
                 ServiceUnavailableView(message: configurationError)
             } else if !appState.hasSeenOnboarding {
                 OnboardingView()
-            } else if appState.account == nil && appState.wantsAuthDirectly {
-                AuthView()
-            } else if appState.beautyID?.isUsable != true {
-                BeautyIDSetupView()
             } else if appState.account == nil {
                 AuthView()
+            } else if appState.needsFaceScan {
+                FaceGateView()
+            } else if appState.beautyID?.isUsable != true {
+                BeautyIDSetupView()
             } else {
                 MainTabView()
             }

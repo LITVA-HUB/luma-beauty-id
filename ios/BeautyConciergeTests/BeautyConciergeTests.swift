@@ -583,6 +583,50 @@ final class BeautyConciergeTests: XCTestCase {
         XCTAssertTrue(appState.routineVariants.isEmpty)
     }
 
+    // MARK: Onboarding router (Reg → mandatory face photo → анкета → main)
+
+    @MainActor
+    func testFaceGateNotRequiredWithoutAccount() {
+        let appState = AppState()
+        appState.account = nil
+        // Без аккаунта гейт фото не показываем — сначала регистрация.
+        XCTAssertFalse(appState.needsFaceScan)
+    }
+
+    @MainActor
+    func testFaceGateRequiredForFreshlyRegisteredAccount() {
+        let appState = AppState()
+        let freshID = "acct-\(UUID().uuidString)"
+        appState.account = Account(accountId: freshID, name: "New", email: "new@example.com", createdAt: Date())
+        // Зарегистрирован, фото ещё нет → гейт обязателен.
+        XCTAssertTrue(appState.needsFaceScan)
+    }
+
+    @MainActor
+    func testMarkFaceScanCompletedClearsGateForCurrentAccount() {
+        let appState = AppState()
+        let freshID = "acct-\(UUID().uuidString)"
+        appState.account = Account(accountId: freshID, name: "New", email: "new@example.com", createdAt: Date())
+        XCTAssertTrue(appState.needsFaceScan)
+
+        appState.markFaceScanCompleted()
+        XCTAssertFalse(appState.needsFaceScan)
+    }
+
+    @MainActor
+    func testFaceScanCompletionIsScopedPerAccount() {
+        let appState = AppState()
+        let firstID = "acct-\(UUID().uuidString)"
+        let secondID = "acct-\(UUID().uuidString)"
+        appState.account = Account(accountId: firstID, name: "First", email: "first@example.com", createdAt: Date())
+        appState.markFaceScanCompleted()
+        XCTAssertFalse(appState.needsFaceScan)
+
+        // Другой аккаунт ещё не проходил фото — гейт снова обязателен.
+        appState.account = Account(accountId: secondID, name: "Second", email: "second@example.com", createdAt: Date())
+        XCTAssertTrue(appState.needsFaceScan)
+    }
+
     private func makeRecommendation(
         _ sku: String,
         name: String,
