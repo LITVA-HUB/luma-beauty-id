@@ -39,7 +39,7 @@ struct BeautyScanFaceState: Equatable {
     static let searching = BeautyScanFaceState(
         faceRect: nil,
         confidence: 0,
-        guidance: "Поместите лицо в кадр",
+        guidance: "Расположите лицо в овале",
         detail: "Мягкий свет, взгляд прямо. Это косметический контекст, не диагностика.",
         level: .searching,
         quality: 0

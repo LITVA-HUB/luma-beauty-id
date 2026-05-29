@@ -201,8 +201,8 @@ final class BeautyScanCameraController: NSObject, ObservableObject {
             return BeautyScanFaceState(
                 faceRect: rect,
                 confidence: observation.confidence,
-                guidance: "Поместите лицо в кадр",
-                detail: "Когда лицо будет видно, можно будет зафиксировать фото.",
+                guidance: "Расположите лицо в овале",
+                detail: "Когда лицо будет в овале, можно сделать фото.",
                 level: .searching,
                 quality: 0.18
             )

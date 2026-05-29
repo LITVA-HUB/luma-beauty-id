@@ -33,9 +33,9 @@
         <string>UIInterfaceOrientationPortrait</string>
     </array>
     <key>NSCameraUsageDescription</key>
-    <string>Luma использует камеру только если вы сами добавляете необязательный beauty-контекст. Это не медицинский скан и не диагностика.</string>
+    <string>Luma использует камеру для фото beauty-профиля при настройке. Снимок нужен для косметического подбора — это не медицинский скан и не диагностика.</string>
     <key>NSPhotoLibraryUsageDescription</key>
-    <string>Luma читает только выбранное вами фото для необязательного beauty-контекста. Можно продолжить без фото.</string>
+    <string>Luma читает только выбранное вами фото для beauty-профиля. Снимок используется только для косметического подбора.</string>
     <key>API_BASE_URL</key>
     <string>$(API_BASE_URL)</string>
     <key>APP_ENVIRONMENT</key>
