@@ -179,7 +179,7 @@ private struct HomeScenarioSection: View {
     private let columns = [GridItem(.adaptive(minimum: 154), spacing: 10)]
 
     var body: some View {
-        HomeSurfaceCard {
+        SurfaceCard {
             VStack(alignment: .leading, spacing: BeautySpacing.md) {
                 SectionHeader(
                     title: "Что хотите собрать сегодня?",
@@ -271,7 +271,7 @@ private struct MyShelfEntryCard: View {
     }
 
     var body: some View {
-        HomeSurfaceCard {
+        SurfaceCard {
             HStack(alignment: .center, spacing: BeautySpacing.md) {
                 Image(systemName: "square.stack.3d.up")
                     .foregroundStyle(BeautyColor.limeInk)
@@ -354,7 +354,7 @@ struct MyShelfView: View {
     }
 
     private var roleSignalCard: some View {
-        HomeSurfaceCard {
+        SurfaceCard {
             VStack(alignment: .leading, spacing: BeautySpacing.sm) {
                 Text("Категории, которые уже есть")
                     .font(BeautyFont.headline)
@@ -470,7 +470,7 @@ private struct BeautyIDSummaryCard: View {
     }
 
     var body: some View {
-        HomeSurfaceCard {
+        SurfaceCard {
             VStack(alignment: .leading, spacing: BeautySpacing.md) {
                 HStack(alignment: .top, spacing: BeautySpacing.md) {
                     VStack(alignment: .leading, spacing: BeautySpacing.xs) {
@@ -539,7 +539,7 @@ private struct CurrentRoutineSummaryCard: View {
     }
 
     var body: some View {
-        HomeSurfaceCard(tint: BeautyColor.featuredCard, borderOpacity: 0.42) {
+        SurfaceCard(tint: BeautyColor.featuredCard, borderOpacity: 0.42) {
             VStack(alignment: .leading, spacing: BeautySpacing.md) {
                 HStack(alignment: .top, spacing: BeautySpacing.md) {
                     VStack(alignment: .leading, spacing: BeautySpacing.xs) {
@@ -753,7 +753,7 @@ private struct AdvisorUpdateCard: View {
     let onOpenAdvisor: () -> Void
 
     var body: some View {
-        HomeSurfaceCard {
+        SurfaceCard {
             HStack(alignment: .center, spacing: BeautySpacing.md) {
                 Image(systemName: "sparkles")
                     .font(.system(size: 18, weight: .semibold))
@@ -789,7 +789,7 @@ private struct HomeScanContextCard: View {
     let scan: ScanResult
 
     var body: some View {
-        HomeSurfaceCard {
+        SurfaceCard {
             VStack(alignment: .leading, spacing: BeautySpacing.md) {
                 SectionHeader(title: "Последний beauty-контекст", subtitle: scan.summary)
                 HStack(spacing: BeautySpacing.sm) {
@@ -937,18 +937,3 @@ private struct HomeMetricPill: View {
     }
 }
 
-private struct HomeSurfaceCard<Content: View>: View {
-    var tint: Color = BeautyColor.card
-    var borderOpacity: Double = 0.42
-    @ViewBuilder let content: Content
-
-    var body: some View {
-        content
-            .padding(BeautySpacing.md)
-            .background(tint, in: RoundedRectangle(cornerRadius: BeautyRadius.lg, style: .continuous))
-            .overlay(
-                RoundedRectangle(cornerRadius: BeautyRadius.lg, style: .continuous)
-                    .stroke(BeautyColor.line.opacity(borderOpacity), lineWidth: 1)
-            )
-    }
-}

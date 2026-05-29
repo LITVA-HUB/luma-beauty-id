@@ -62,12 +62,30 @@ struct BeautyShadow: ViewModifier {
     }
 }
 
+/// Single source of truth for the card surface used across the app.
+/// Replaces the former `beautyCard()` / `HomeSurfaceCard` / `ProfileSurfaceCard` trio.
+struct SurfaceCard<Content: View>: View {
+    var tint: Color = BeautyColor.card
+    var borderOpacity: Double = 0.42
+    var cornerRadius: CGFloat = BeautyRadius.lg
+    @ViewBuilder var content: Content
+
+    var body: some View {
+        content
+            .padding(BeautySpacing.md)
+            .background(tint, in: RoundedRectangle(cornerRadius: cornerRadius, style: .continuous))
+            .overlay(
+                RoundedRectangle(cornerRadius: cornerRadius, style: .continuous)
+                    .stroke(BeautyColor.line.opacity(borderOpacity), lineWidth: 1)
+            )
+    }
+}
+
 extension View {
     func beautyShadow() -> some View { modifier(BeautyShadow()) }
-    func beautyCard() -> some View {
-        padding(BeautySpacing.md)
-            .background(BeautyColor.card, in: RoundedRectangle(cornerRadius: BeautyRadius.lg, style: .continuous))
-            .overlay(RoundedRectangle(cornerRadius: BeautyRadius.lg, style: .continuous).stroke(BeautyColor.line.opacity(0.42), lineWidth: 1))
+    /// Convenience wrapper that routes through `SurfaceCard` so card styling stays in one place.
+    func beautyCard(tint: Color = BeautyColor.card, borderOpacity: Double = 0.42) -> some View {
+        SurfaceCard(tint: tint, borderOpacity: borderOpacity) { self }
     }
 }
 

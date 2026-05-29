@@ -119,7 +119,7 @@ private struct ProfileIdentityCard: View {
     let isLocalMode: Bool
 
     var body: some View {
-        ProfileSurfaceCard(tint: BeautyColor.featuredCard) {
+        SurfaceCard(tint: BeautyColor.featuredCard) {
             HStack(alignment: .center, spacing: BeautySpacing.md) {
                 ZStack {
                     RoundedRectangle(cornerRadius: BeautyRadius.lg, style: .continuous)
@@ -179,7 +179,7 @@ private struct ProfileBeautyIDCard: View {
     }
 
     var body: some View {
-        ProfileSurfaceCard {
+        SurfaceCard {
             VStack(alignment: .leading, spacing: BeautySpacing.md) {
                 HStack(alignment: .top, spacing: BeautySpacing.md) {
                     VStack(alignment: .leading, spacing: BeautySpacing.xs) {
@@ -226,7 +226,7 @@ private struct ProfileShelfCard: View {
     let ownedRolesCount: Int
 
     var body: some View {
-        ProfileSurfaceCard {
+        SurfaceCard {
             HStack(spacing: BeautySpacing.md) {
                 Image(systemName: "square.stack.3d.up")
                     .foregroundStyle(BeautyColor.limeInk)
@@ -273,7 +273,7 @@ private struct ProfileSavedRoutineCard: View {
     }
 
     var body: some View {
-        ProfileSurfaceCard {
+        SurfaceCard {
             VStack(alignment: .leading, spacing: BeautySpacing.md) {
                 HStack(alignment: .top, spacing: BeautySpacing.md) {
                     VStack(alignment: .leading, spacing: BeautySpacing.xs) {
@@ -371,7 +371,7 @@ private struct ProfileBusinessPilotCard: View {
     let scenario: LifeScenario?
 
     var body: some View {
-        ProfileSurfaceCard(tint: BeautyColor.featuredCard) {
+        SurfaceCard(tint: BeautyColor.featuredCard) {
             HStack(spacing: BeautySpacing.md) {
                 Image(systemName: "chart.bar.doc.horizontal")
                     .foregroundStyle(BeautyColor.limeInk)
@@ -475,7 +475,7 @@ private struct BusinessAnalyticsView: View {
     }
 
     private func analyticsCard(title: String, rows: [(String, String)]) -> some View {
-        ProfileSurfaceCard {
+        SurfaceCard {
             VStack(alignment: .leading, spacing: BeautySpacing.sm) {
                 Text(title)
                     .font(BeautyFont.headline)
@@ -511,7 +511,7 @@ private struct ProfileInfoListCard: View {
     var action: (() -> Void)? = nil
 
     var body: some View {
-        ProfileSurfaceCard {
+        SurfaceCard {
             VStack(alignment: .leading, spacing: BeautySpacing.md) {
                 SectionHeader(title: title, subtitle: subtitle)
 
@@ -552,7 +552,7 @@ private struct ProfilePrivacyCard: View {
     let onOpenSettings: () -> Void
 
     var body: some View {
-        ProfileSurfaceCard(tint: BeautyColor.featuredCard) {
+        SurfaceCard(tint: BeautyColor.featuredCard) {
             VStack(alignment: .leading, spacing: BeautySpacing.md) {
                 HStack(alignment: .top, spacing: BeautySpacing.md) {
                     Image(systemName: "lock.shield")
@@ -664,20 +664,6 @@ private struct ProfileStatusPill: View {
     }
 }
 
-private struct ProfileSurfaceCard<Content: View>: View {
-    var tint: Color = BeautyColor.card
-    @ViewBuilder let content: Content
-
-    var body: some View {
-        content
-            .padding(BeautySpacing.md)
-            .background(tint, in: RoundedRectangle(cornerRadius: BeautyRadius.lg, style: .continuous))
-            .overlay(
-                RoundedRectangle(cornerRadius: BeautyRadius.lg, style: .continuous)
-                    .stroke(BeautyColor.line.opacity(0.42), lineWidth: 1)
-            )
-    }
-}
 
 private struct ProfileInfoRowModel: Identifiable {
     let id = UUID()
