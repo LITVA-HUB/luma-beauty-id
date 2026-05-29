@@ -17,9 +17,12 @@ struct AuthView: View {
                         Text("Добро пожаловать в Luma")
                             .font(BeautyFont.title)
                             .foregroundStyle(BeautyColor.ink)
-                        Text("Войдите, чтобы сохранить Beauty ID, уходовую рутину и корзину.")
+                            .minimumScaleFactor(0.8)
+                            .lineLimit(2)
+                        Text("Создайте аккаунт, чтобы сохранить Beauty ID, уходовую рутину и корзину.")
                             .font(BeautyFont.body)
                             .foregroundStyle(BeautyColor.taupe)
+                            .fixedSize(horizontal: false, vertical: true)
                     }
                     .frame(maxWidth: .infinity, alignment: .leading)
 

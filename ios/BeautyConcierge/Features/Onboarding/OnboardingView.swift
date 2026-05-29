@@ -9,36 +9,41 @@ struct OnboardingView: View {
     ]
 
     var body: some View {
-        ZStack {
-            PremiumBackground()
-            VStack(spacing: BeautySpacing.lg) {
-                TabView(selection: $page) {
-                    ForEach(Array(pages.enumerated()), id: \.offset) { index, item in
-                        VStack(spacing: BeautySpacing.xl) {
-                            Image(item.image)
-                                .resizable()
-                                .scaledToFill()
-                                .frame(height: 330)
-                                .clipShape(RoundedRectangle(cornerRadius: BeautyRadius.xl, style: .continuous))
-                                .beautyShadow()
-                                .padding(.horizontal, BeautySpacing.md)
-                                .accessibilityHidden(true)
-                            VStack(spacing: BeautySpacing.md) {
-                                Text(item.title)
-                                    .font(BeautyFont.title)
-                                    .foregroundStyle(BeautyColor.ink)
-                                    .multilineTextAlignment(.center)
-                                Text(item.subtitle)
-                                    .font(BeautyFont.body)
-                                    .foregroundStyle(BeautyColor.taupe)
-                                    .multilineTextAlignment(.center)
-                                    .padding(.horizontal, BeautySpacing.lg)
+        GeometryReader { proxy in
+            let imageHeight = min(max(proxy.size.height * 0.42, 220), 360)
+            ZStack {
+                PremiumBackground()
+                VStack(spacing: BeautySpacing.lg) {
+                    TabView(selection: $page) {
+                        ForEach(Array(pages.enumerated()), id: \.offset) { index, item in
+                            VStack(spacing: BeautySpacing.xl) {
+                                Image(item.image)
+                                    .resizable()
+                                    .scaledToFill()
+                                    .frame(height: imageHeight)
+                                    .clipShape(RoundedRectangle(cornerRadius: BeautyRadius.xl, style: .continuous))
+                                    .beautyShadow()
+                                    .padding(.horizontal, BeautySpacing.md)
+                                    .accessibilityHidden(true)
+                                VStack(spacing: BeautySpacing.md) {
+                                    Text(item.title)
+                                        .font(BeautyFont.title)
+                                        .foregroundStyle(BeautyColor.ink)
+                                        .multilineTextAlignment(.center)
+                                        .minimumScaleFactor(0.8)
+                                        .lineLimit(3)
+                                    Text(item.subtitle)
+                                        .font(BeautyFont.body)
+                                        .foregroundStyle(BeautyColor.taupe)
+                                        .multilineTextAlignment(.center)
+                                        .fixedSize(horizontal: false, vertical: true)
+                                        .padding(.horizontal, BeautySpacing.lg)
+                                }
                             }
+                            .tag(index)
                         }
-                        .tag(index)
                     }
-                }
-                .tabViewStyle(.page(indexDisplayMode: .never))
+                    .tabViewStyle(.page(indexDisplayMode: .never))
 
                 if pages.count > 1 {
                     HStack(spacing: BeautySpacing.xs) {
@@ -52,7 +57,7 @@ struct OnboardingView: View {
                 }
 
                 VStack(spacing: BeautySpacing.sm) {
-                    PrimaryButton(title: page == pages.count - 1 ? "Создать Beauty ID" : "Продолжить", systemImage: "sparkles") {
+                    PrimaryButton(title: page == pages.count - 1 ? "Начать" : "Продолжить", systemImage: "sparkles") {
                         if page < pages.count - 1 {
                             withAnimation(.spring()) { page += 1 }
                             Haptics.tap()
@@ -63,6 +68,7 @@ struct OnboardingView: View {
                 }
                 .padding(.horizontal, BeautySpacing.md)
                 .padding(.bottom, BeautySpacing.lg)
+                }
             }
         }
     }
