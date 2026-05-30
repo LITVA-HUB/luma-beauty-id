@@ -22,6 +22,7 @@
 		68A1CFE364068E3BF7E3A8AC /* Services/APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AE6DBFF82724B632710C017 /* Services/APIClient.swift */; };
 		9281BF33F2FAE691DF4E3E85 /* Features/Profile/ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A31B3AE4D479BC274C978ABC /* Features/Profile/ProfileView.swift */; };
 		9E7DBE51CF7A78806DCD8892 /* App/AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05A10DD59C77C974BDFFAFD6 /* App/AppState.swift */; };
+		D2A0000000000000000000001 /* App/AppState+Recommendations.swift in Sources */ = {isa = PBXBuildFile; fileRef = D2A0000000000000000000002 /* App/AppState+Recommendations.swift */; };
 		A99D83CAE7348BC891F3E0DE /* Features/Auth/AuthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 065048A1E8B1C15A126F9355 /* Features/Auth/AuthView.swift */; };
 		AFAA8BF38E998ED449A9F2A9 /* Features/Scan/PhotoScanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF63FF6F54C98E45B4C2EB4D /* Features/Scan/PhotoScanView.swift */; };
 		AFBEDC6D6C55B839DAD78E31 /* Features/Advisor/AdvisorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BEC776A83CBA01BA3A1F2D81 /* Features/Advisor/AdvisorView.swift */; };
@@ -55,6 +56,7 @@
 
 /* Begin PBXFileReference section */
 		05A10DD59C77C974BDFFAFD6 /* App/AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App/AppState.swift; sourceTree = "<group>"; };
+		D2A0000000000000000000002 /* App/AppState+Recommendations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "App/AppState+Recommendations.swift"; sourceTree = "<group>"; };
 		065048A1E8B1C15A126F9355 /* Features/Auth/AuthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Features/Auth/AuthView.swift; sourceTree = "<group>"; };
 		0B5E5510E8E34B7BA1F9D5A0 /* App/SessionStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App/SessionStore.swift; sourceTree = "<group>"; };
 		0DB7571B8334F5E7680A9B20 /* Resources/Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Resources/Assets.xcassets; sourceTree = "<group>"; };
@@ -154,6 +156,7 @@
 			children = (
 				315CA9F2F4F62984EEBC1B13 /* App/AppEnvironment.swift */,
 				05A10DD59C77C974BDFFAFD6 /* App/AppState.swift */,
+				D2A0000000000000000000002 /* App/AppState+Recommendations.swift */,
 				79E60C6710605F989427A737 /* App/BeautyConciergeApp.swift */,
 				A4A5A97473336B607A8C2843 /* App/LocalFallbackCatalog.swift */,
 				9740FBDFEAB1CBBE29CF2E18 /* App/RootView.swift */,
@@ -299,6 +302,7 @@
 			files = (
 				1603F6551FA92A43BDE8002E /* App/AppEnvironment.swift in Sources */,
 				9E7DBE51CF7A78806DCD8892 /* App/AppState.swift in Sources */,
+				D2A0000000000000000000001 /* App/AppState+Recommendations.swift in Sources */,
 				0403BA4774D144F421BF929C /* App/BeautyConciergeApp.swift in Sources */,
 				52C303F504890143D44C6DB2 /* App/LocalFallbackCatalog.swift in Sources */,
 				E778BEAA207CC8A8B11361D2 /* App/RootView.swift in Sources */,
