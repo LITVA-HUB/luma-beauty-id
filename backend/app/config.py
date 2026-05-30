@@ -106,6 +106,8 @@ class Settings:
 
     log_level: str = _str("LOG_LEVEL", "INFO")
 
+    rate_limit_enabled: bool = _bool("RATE_LIMIT_ENABLED", True)
+
     @property
     def is_production(self) -> bool:
         return self.app_env == "production"

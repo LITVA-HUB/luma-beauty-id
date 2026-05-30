@@ -9,6 +9,7 @@ from ..auth_provider import get_auth_provider
 from ..config import settings
 from ..dependencies import bearer_token, current_account, get_store
 from ..provider_errors import ProviderUnavailable
+from ..rate_limit import enforce as enforce_rate_limit
 from ..schemas import (
     AuthLinkPhoneRequest,
     AuthLoginRequest,
@@ -21,11 +22,6 @@ from ..store import StoredAccount, StoredSession
 
 router = APIRouter()
 logger = logging.getLogger("luma.api")
-
-
-def enforce_auth_rate_limit(request: Request, action: str) -> None:
-    """Contract hook for production rate limiting."""
-    logger.debug("auth_rate_limit_checked", extra={"request_id": getattr(request.state, "request_id", None), "action": action})
 
 
 def make_auth_response(account: StoredAccount, session: StoredSession, provider: str) -> AuthSessionResponse:
@@ -42,7 +38,7 @@ def make_auth_response(account: StoredAccount, session: StoredSession, provider:
 
 @router.post("/v1/auth/register", response_model=AuthSessionResponse)
 def register(payload: AuthRegisterRequest, request: Request) -> AuthSessionResponse:
-    enforce_auth_rate_limit(request, "register")
+    enforce_rate_limit(request, "register", phone=payload.phone)
     store = get_store()
     provider = get_auth_provider()
     try:
@@ -59,7 +55,7 @@ def register(payload: AuthRegisterRequest, request: Request) -> AuthSessionRespo
 
 @router.post("/v1/auth/login", response_model=AuthSessionResponse)
 def login(payload: AuthLoginRequest, request: Request) -> AuthSessionResponse:
-    enforce_auth_rate_limit(request, "login")
+    enforce_rate_limit(request, "login", phone=payload.phone)
     store = get_store()
     provider = get_auth_provider()
     try:
@@ -74,7 +70,7 @@ def login(payload: AuthLoginRequest, request: Request) -> AuthSessionResponse:
 
 @router.post("/v1/auth/guest", response_model=AuthSessionResponse)
 def guest(request: Request) -> AuthSessionResponse:
-    enforce_auth_rate_limit(request, "guest")
+    enforce_rate_limit(request, "guest")
     store = get_store()
     account = store.create_guest_account()
     session = store.create_session(account.account_id, dev_mode=False)
@@ -87,7 +83,7 @@ def link_phone(
     account: Annotated[StoredAccount, Depends(current_account)],
     request: Request,
 ) -> AuthSessionResponse:
-    enforce_auth_rate_limit(request, "register")
+    enforce_rate_limit(request, "register", phone=payload.phone, account_id=account.account_id)
     store = get_store()
     try:
         upgraded = store.attach_phone(
@@ -102,9 +98,10 @@ def link_phone(
 
 
 @router.post("/v1/auth/dev-login", response_model=AuthSessionResponse)
-def dev_login() -> AuthSessionResponse:
+def dev_login(request: Request) -> AuthSessionResponse:
     if not (settings.allow_dev_auth and settings.is_non_production):
         raise HTTPException(status_code=403, detail="dev_auth_disabled")
+    enforce_rate_limit(request, "dev_login")
     store = get_store()
     account = store.ensure_dev_account()
     session = store.create_session(account.account_id, dev_mode=True)

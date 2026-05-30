@@ -2,9 +2,10 @@ from __future__ import annotations
 
 from typing import Annotated
 
-from fastapi import APIRouter, Depends, File, Form, UploadFile
+from fastapi import APIRouter, Depends, File, Form, Request, UploadFile
 
 from ..dependencies import current_account, get_store
+from ..rate_limit import enforce as enforce_rate_limit
 from ..scan import UploadedPhoto, get_scan_provider, parse_beauty_id_json, validate_photo
 from ..schemas import BeautyID, PrivacyRequestResponse, ScanResult
 from ..store import StoredAccount
@@ -14,11 +15,13 @@ router = APIRouter()
 
 @router.post("/v1/photo/scan", response_model=ScanResult)
 async def scan(
+    request: Request,
     account: Annotated[StoredAccount, Depends(current_account)],
     source: str = Form("questionnaire"),
     beauty_id_json: str | None = Form(None),
     photo: UploadFile | None = File(None),
 ) -> ScanResult:
+    enforce_rate_limit(request, "scan", account_id=account.account_id)
     store = get_store()
     beauty_id = parse_beauty_id_json(beauty_id_json) if beauty_id_json else None
     beauty_id = beauty_id or store.get_beauty_id(account.account_id) or BeautyID(consent=True)

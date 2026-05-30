@@ -10,6 +10,7 @@ from ..advisor import build_advisor_response, clean_display_message, contains_in
 from ..catalog import load_catalog
 from ..config import settings
 from ..dependencies import current_account, get_store
+from ..rate_limit import enforce as enforce_rate_limit
 from ..route_helpers import advisor_selection_context
 from ..schemas import AdvisorHistoryResponse, AdvisorRequest, AdvisorResponse, BeautyID
 from ..store import StoredAccount
@@ -20,6 +21,7 @@ logger = logging.getLogger("luma.api")
 
 @router.post("/v1/advisor/message", response_model=AdvisorResponse)
 async def advisor(payload: AdvisorRequest, request: Request, account: Annotated[StoredAccount, Depends(current_account)]) -> AdvisorResponse:
+    enforce_rate_limit(request, "advisor", account_id=account.account_id)
     store = get_store()
     beauty_id = payload.beauty_id or store.get_beauty_id(account.account_id) or BeautyID(consent=True)
     clean_message = clean_display_message(payload.message)
