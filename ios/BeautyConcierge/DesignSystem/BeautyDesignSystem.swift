@@ -7,7 +7,11 @@ enum BeautyColor {
     static let ink = dynamic(light: UIColor(red: 0.075, green: 0.070, blue: 0.064, alpha: 1), dark: UIColor(red: 0.965, green: 0.934, blue: 0.865, alpha: 1))
     static let taupe = dynamic(light: UIColor(red: 0.487, green: 0.427, blue: 0.358, alpha: 1), dark: UIColor(red: 0.712, green: 0.652, blue: 0.562, alpha: 1))
     static let warmGray = dynamic(light: UIColor(red: 0.460, green: 0.420, blue: 0.360, alpha: 1), dark: UIColor(red: 0.640, green: 0.590, blue: 0.510, alpha: 1))
-    static let lime = dynamic(light: UIColor(red: 0.755, green: 0.900, blue: 0.145, alpha: 1), dark: UIColor(red: 0.705, green: 0.830, blue: 0.175, alpha: 1))
+    // Goldapple brand lime sampled from the official spring-promo banner
+    // (#E2FE52 = rgb(226,254,82)). Used as a fill (banners, chips); a constant
+    // brand colour in both light and dark. Near-black `ink`/`limeInk` on this
+    // lime measures ~16.7:1, so keep dark text on it (never white).
+    static let lime = dynamic(light: UIColor(red: 0.8863, green: 0.9961, blue: 0.3216, alpha: 1), dark: UIColor(red: 0.8863, green: 0.9961, blue: 0.3216, alpha: 1))
     // Accessible accent for selected/active controls (tab tint): deep chartreuse on light, bright lime on dark.
     static let limeTint = dynamic(light: UIColor(red: 0.360, green: 0.450, blue: 0.060, alpha: 1), dark: UIColor(red: 0.705, green: 0.830, blue: 0.175, alpha: 1))
     static let limeInk = Color(red: 0.080, green: 0.085, blue: 0.050)
