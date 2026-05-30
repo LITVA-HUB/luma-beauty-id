@@ -40,12 +40,27 @@ struct CartView: View {
         "Список к покупке. Оформление заказа пока не подключено."
     }
 
+    // A real ordering/payment flow is only shown when the backend reports a
+    // production checkout provider. The development handoff (and the
+    // unavailable fallback) instead expose an honest "save the set" action so
+    // the app never implies a purchase it cannot fulfil.
+    private var hasRealCheckout: Bool {
+        let mode = appState.cart.checkoutMode
+        return mode != "development_handoff" && mode != "unavailable"
+    }
+
     private var checkoutNote: String {
-        "Это список к покупке: заказ и оплата пока не создаются."
+        hasRealCheckout
+            ? "Перейдём к оформлению у партнёра."
+            : "Это список к покупке: заказ и оплата пока не создаются."
     }
 
     private var checkoutButtonTitle: String {
-        "Сохранить набор"
+        hasRealCheckout ? "Оформить заказ" : "Сохранить набор"
+    }
+
+    private var checkoutButtonIcon: String {
+        hasRealCheckout ? "bag" : "bookmark"
     }
 
     private var summaryCard: some View {
@@ -60,7 +75,7 @@ struct CartView: View {
             Text(checkoutNote)
                 .font(BeautyFont.caption)
                 .foregroundStyle(BeautyColor.taupe)
-            PrimaryButton(title: checkoutButtonTitle, systemImage: "bookmark", isLoading: appState.isBusy) {
+            PrimaryButton(title: checkoutButtonTitle, systemImage: checkoutButtonIcon, isLoading: appState.isBusy) {
                 Task { await appState.checkout() }
             }
         }

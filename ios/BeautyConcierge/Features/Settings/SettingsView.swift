@@ -51,6 +51,23 @@ struct SettingsView: View {
                         Label("support@lumabeautyid.app", systemImage: "envelope")
                         Label(versionLabel, systemImage: "info.circle")
                     }
+                    Section("Документы") {
+                        if let url = AppEnvironment.privacyPolicyURL {
+                            Link(destination: url) {
+                                Label("Политика конфиденциальности", systemImage: "lock.doc")
+                            }
+                        }
+                        if let url = AppEnvironment.supportURL {
+                            Link(destination: url) {
+                                Label("Помощь и поддержка", systemImage: "questionmark.circle")
+                            }
+                        }
+                        if let url = AppEnvironment.accountDeletionURL {
+                            Link(destination: url) {
+                                Label("Удаление аккаунта и данных", systemImage: "trash")
+                            }
+                        }
+                    }
                     if appState.environment.isDebug {
                         Section("Среда") {
                             Label(environmentTitle(appState.environment.runtime.rawValue), systemImage: "server.rack")

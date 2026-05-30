@@ -33,6 +33,21 @@ struct AppEnvironment {
     var usesReleaseAPI: Bool { runtime == .staging || runtime == .production }
     var canUseAPI: Bool { configurationError == nil }
 
+    /// Legal/support links, read from Info.plist placeholders. Surfaced in the
+    /// profile so the privacy policy and account-deletion pages are reachable
+    /// in-app, as required for App Store review.
+    static func infoPlistURL(_ key: String) -> URL? {
+        guard let raw = Bundle.main.object(forInfoDictionaryKey: key) as? String,
+              !raw.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty else {
+            return nil
+        }
+        return URL(string: raw)
+    }
+
+    static var privacyPolicyURL: URL? { infoPlistURL("PrivacyPolicyURL") }
+    static var supportURL: URL? { infoPlistURL("SupportURL") }
+    static var accountDeletionURL: URL? { infoPlistURL("AccountDeletionURL") }
+
     static var current: AppEnvironment {
         let rawURL = Bundle.main.object(forInfoDictionaryKey: "API_BASE_URL") as? String
         let rawEnv = Bundle.main.object(forInfoDictionaryKey: "APP_ENVIRONMENT") as? String

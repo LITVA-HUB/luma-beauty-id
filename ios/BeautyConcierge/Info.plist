@@ -40,5 +40,11 @@
     <string>$(API_BASE_URL)</string>
     <key>APP_ENVIRONMENT</key>
     <string>$(APP_ENVIRONMENT)</string>
+    <key>PrivacyPolicyURL</key>
+    <string>https://lumabeautyid.app/privacy</string>
+    <key>SupportURL</key>
+    <string>https://lumabeautyid.app/support</string>
+    <key>AccountDeletionURL</key>
+    <string>https://lumabeautyid.app/account-deletion</string>
 </dict>
 </plist>
