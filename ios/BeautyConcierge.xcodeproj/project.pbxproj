@@ -81,6 +81,10 @@
 		B5D000000000000000000005 /* Features/Scan/FaceGateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Features/Scan/FaceGateView.swift; sourceTree = "<group>"; };
 		B5D000000000000000000004 /* Services/BeautyScanCameraController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Services/BeautyScanCameraController.swift; sourceTree = "<group>"; };
 		BEC776A83CBA01BA3A1F2D81 /* Features/Advisor/AdvisorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Features/Advisor/AdvisorView.swift; sourceTree = "<group>"; };
+		D1C0000000000000000000001 /* Config/Shared.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config/Shared.xcconfig; sourceTree = "<group>"; };
+		D1C0000000000000000000002 /* Config/Dev.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config/Dev.xcconfig; sourceTree = "<group>"; };
+		D1C0000000000000000000003 /* Config/Staging.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config/Staging.xcconfig; sourceTree = "<group>"; };
+		D1C0000000000000000000004 /* Config/Production.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config/Production.xcconfig; sourceTree = "<group>"; };
 		C10000000000000000000001 /* BeautyConciergeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeautyConciergeTests.swift; sourceTree = "<group>"; };
 		C10000000000000000000004 /* BeautyConciergeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BeautyConciergeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C169BCE5B342CEA7535AD05D /* Features/Shared/ProductViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Features/Shared/ProductViews.swift; sourceTree = "<group>"; };
@@ -127,10 +131,22 @@
 		518DA81DB9B99529C0C0AEBE = {
 			isa = PBXGroup;
 			children = (
+				D1C0000000000000000000000 /* Config */,
 				9BD369E1B3C3E3C32DAA4538 /* BeautyConcierge */,
 				C10000000000000000000003 /* BeautyConciergeTests */,
 				2F3A6B1E78F896718625FF06 /* Products */,
 			);
+			sourceTree = "<group>";
+		};
+		D1C0000000000000000000000 /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				D1C0000000000000000000001 /* Config/Shared.xcconfig */,
+				D1C0000000000000000000002 /* Config/Dev.xcconfig */,
+				D1C0000000000000000000003 /* Config/Staging.xcconfig */,
+				D1C0000000000000000000004 /* Config/Production.xcconfig */,
+			);
+			name = Config;
 			sourceTree = "<group>";
 		};
 		9BD369E1B3C3E3C32DAA4538 /* BeautyConcierge */ = {
@@ -337,45 +353,17 @@
 /* Begin XCBuildConfiguration section */
 		256639833029BCA847F093AE /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D1C0000000000000000000004 /* Config/Production.xcconfig */;
 			buildSettings = {
-				API_BASE_URL = "https://api-staging.lumatestdomen.online";
-				APP_ENVIRONMENT = staging;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "";
-				DEVELOPMENT_TEAM = 2BAP893T5X;
-				ENABLE_PREVIEWS = YES;
-				GENERATE_INFOPLIST_FILE = NO;
-				INFOPLIST_FILE = BeautyConcierge/Info.plist;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.dimalitin.lumabeautyid.dev;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
 		331C5106741EE8E14B752D88 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D1C0000000000000000000002 /* Config/Dev.xcconfig */;
 			buildSettings = {
-				API_BASE_URL = "https://api-staging.lumatestdomen.online";
-				APP_ENVIRONMENT = staging;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "";
-				DEVELOPMENT_TEAM = 2BAP893T5X;
-				ENABLE_PREVIEWS = YES;
-				GENERATE_INFOPLIST_FILE = NO;
-				INFOPLIST_FILE = BeautyConcierge/Info.plist;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.dimalitin.lumabeautyid.dev;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};

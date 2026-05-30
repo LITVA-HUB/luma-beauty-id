@@ -1,0 +1,7 @@
+#include "Shared.xcconfig"
+
+// App Store / production. Replace API_BASE_URL with the real host before release.
+// NOTE: the empty $() splits the "//" so xcconfig does not treat it as a comment.
+API_BASE_URL = https:/$()/api.lumabeautyid.app
+APP_ENVIRONMENT = production
+PRODUCT_BUNDLE_IDENTIFIER = $(PRODUCT_BUNDLE_IDENTIFIER_BASE)

@@ -1,0 +1,7 @@
+#include "Shared.xcconfig"
+
+// Local development against the FastAPI backend on the host machine.
+// NOTE: the empty $() splits the "//" so xcconfig does not treat it as a comment.
+API_BASE_URL = http:/$()/localhost:8010
+APP_ENVIRONMENT = development
+PRODUCT_BUNDLE_IDENTIFIER = $(PRODUCT_BUNDLE_IDENTIFIER_BASE).dev

@@ -1,0 +1,7 @@
+#include "Shared.xcconfig"
+
+// Pre-production environment for QA / TestFlight internal builds.
+// NOTE: the empty $() splits the "//" so xcconfig does not treat it as a comment.
+API_BASE_URL = https:/$()/api-staging.lumatestdomen.online
+APP_ENVIRONMENT = staging
+PRODUCT_BUNDLE_IDENTIFIER = $(PRODUCT_BUNDLE_IDENTIFIER_BASE).staging
