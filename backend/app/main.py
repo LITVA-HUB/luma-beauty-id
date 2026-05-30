@@ -13,6 +13,7 @@ from .api_errors import register_exception_handlers
 from .config import settings
 from .routes import ROUTERS
 from .storage.factory import create_app_store
+from .storage.migrations import run_migrations_if_enabled
 
 logging.basicConfig(level=getattr(logging, settings.log_level.upper(), logging.INFO), format="%(asctime)s %(levelname)s %(name)s %(message)s")
 logger = logging.getLogger("luma.api")
@@ -34,6 +35,7 @@ if settings.cors_allow_origins and settings.is_non_production:
         allow_headers=["Authorization", "Content-Type", "X-Request-ID"],
     )
 
+run_migrations_if_enabled()
 store = create_app_store()
 
 

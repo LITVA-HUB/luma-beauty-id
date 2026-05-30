@@ -108,6 +108,11 @@ class Settings:
 
     rate_limit_enabled: bool = _bool("RATE_LIMIT_ENABLED", True)
 
+    # When true (and DATABASE_URL points at Postgres), the app runs
+    # `alembic upgrade head` on startup. Off by default so local SQLite runs and
+    # the test suite never touch Alembic; turn it on for managed Postgres deploys.
+    run_db_migrations: bool = _bool("RUN_DB_MIGRATIONS", False)
+
     @property
     def is_production(self) -> bool:
         return self.app_env == "production"
