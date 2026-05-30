@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
     <key>CFBundleDisplayName</key>
-    <string>Luma Beauty ID</string>
+    <string>Золотое Яблоко</string>
     <key>CFBundleName</key>
     <string>BeautyConcierge</string>
     <key>CFBundleIdentifier</key>
@@ -46,5 +46,13 @@
     <string>https://lumabeautyid.app/support</string>
     <key>AccountDeletionURL</key>
     <string>https://lumabeautyid.app/account-deletion</string>
+    <key>NSAppTransportSecurity</key>
+    <dict>
+        <!-- Allows http only to local-network hosts (RFC1918 / .local), e.g. the
+             dev backend at http://<mac-ip>:8010 reached from a physical device.
+             Public traffic still requires https. -->
+        <key>NSAllowsLocalNetworking</key>
+        <true/>
+    </dict>
 </dict>
 </plist>
