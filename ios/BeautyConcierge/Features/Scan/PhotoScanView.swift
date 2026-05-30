@@ -68,7 +68,7 @@ struct PhotoScanView: View {
             Task {
                 let status = PHPhotoLibrary.authorizationStatus(for: .readWrite)
                 if status == .limited {
-                    permissionMessage = "Доступ к фото ограничен. Luma использует только выбранный снимок."
+                    permissionMessage = "Доступ к фото ограничен. Золотое Яблоко использует только выбранный снимок."
                 }
                 if let data = try? await newItem?.loadTransferable(type: Data.self) {
                     selectedImageData = data
@@ -134,7 +134,7 @@ struct PhotoScanView: View {
                 }
             }
         case .denied, .restricted:
-            permissionMessage = "Камера выключена для Luma. Выберите фото из галереи или продолжите без него."
+            permissionMessage = "Камера выключена для Золотого Яблока. Выберите фото из галереи или продолжите без него."
         @unknown default:
             permissionMessage = "Камера сейчас недоступна. Можно продолжить без фото."
         }
@@ -273,7 +273,7 @@ private struct BeautyScanConsentCard: View {
             }
 
             Button(action: onPrivacy) {
-                Label("Как Luma использует фото", systemImage: "info.circle")
+                Label("Как Золотое Яблоко использует фото", systemImage: "info.circle")
                     .font(BeautyFont.callout.weight(.semibold))
                     .foregroundStyle(BeautyColor.ink)
                     .frame(maxWidth: .infinity, alignment: .leading)
@@ -474,7 +474,7 @@ private struct BeautyScanPrivacySheet: View {
                 VStack(alignment: .leading, spacing: BeautySpacing.sm) {
                     Text("Приватность фото")
                         .font(BeautyFont.title2)
-                    Text("Фото используется только после вашего согласия и только для косметического подбора. Luma не делает диагнозы и не обещает лечение.")
+                    Text("Фото используется только после вашего согласия и только для косметического подбора. Золотое Яблоко не делает диагнозы и не обещает лечение.")
                         .font(BeautyFont.body)
                         .foregroundStyle(BeautyColor.taupe)
                         .fixedSize(horizontal: false, vertical: true)

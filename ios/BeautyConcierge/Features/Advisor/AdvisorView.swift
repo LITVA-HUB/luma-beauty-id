@@ -634,7 +634,7 @@ private struct AdvisorTypingView: View {
             ProgressView().tint(BeautyColor.lime)
                 .padding(.top, 2)
             VStack(alignment: .leading, spacing: 3) {
-                Text("Luma подбирает текстуры")
+                Text("Золотое Яблоко подбирает текстуры")
                     .font(BeautyFont.callout.weight(.semibold))
                     .foregroundStyle(BeautyColor.ink)
                 Text("Сверяю Beauty ID и каталог.")

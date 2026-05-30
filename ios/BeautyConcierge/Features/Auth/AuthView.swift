@@ -24,7 +24,7 @@ struct AuthView: View {
             ScrollView {
                 VStack(spacing: BeautySpacing.xl) {
                     VStack(alignment: .leading, spacing: BeautySpacing.md) {
-                        Text("Добро пожаловать в Luma")
+                        Text("Добро пожаловать в Золотое Яблоко")
                             .font(BeautyFont.title)
                             .foregroundStyle(BeautyColor.ink)
                             .minimumScaleFactor(0.8)
@@ -61,7 +61,7 @@ struct AuthView: View {
                                 if mode == .login {
                                     await appState.login(phone: e164Phone, password: password)
                                 } else {
-                                    await appState.register(name: trimmedName.isEmpty ? "Клиент Luma" : trimmedName, phone: e164Phone, password: password)
+                                    await appState.register(name: trimmedName.isEmpty ? "Клиент Золотого Яблока" : trimmedName, phone: e164Phone, password: password)
                                 }
                             }
                         }

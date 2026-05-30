@@ -175,7 +175,7 @@ struct FaceGateView: View {
                 }
             }
         case .denied, .restricted:
-            permissionMessage = "Камера выключена для Luma. Откройте «Настройки» и включите камеру — или выберите фото из галереи."
+            permissionMessage = "Камера выключена для Золотого Яблока. Откройте «Настройки» и включите камеру — или выберите фото из галереи."
         @unknown default:
             permissionMessage = "Камера сейчас недоступна. Выберите фото из галереи."
         }

@@ -759,7 +759,7 @@ enum LifeScenario: String, CaseIterable, Identifiable, Codable, Equatable {
     var defaultCopy: String {
         switch self {
         case .morning:
-            return "Luma оставляет быстрые дневные шаги и не дублирует то, что уже есть."
+            return "Золотое Яблоко оставляет быстрые дневные шаги и не дублирует то, что уже есть."
         case .evening:
             return "Фокус на очищении, комфорте и спокойном восстановлении без медицинских обещаний."
         case .underBudget:
@@ -1251,7 +1251,7 @@ extension ActiveSelectionResponse {
             hero: products.first,
             routine: products,
             products: products,
-            explanation: "Текущая активная подборка Luma.",
+            explanation: "Текущая активная подборка Золотого Яблока.",
             disclaimer: disclaimer,
             generatedAt: updatedAt ?? Date()
         )

@@ -80,7 +80,7 @@ struct LaunchView: View {
                     .clipShape(RoundedRectangle(cornerRadius: BeautyRadius.xl, style: .continuous))
                     .accessibilityHidden(true)
                 VStack(spacing: BeautySpacing.xs) {
-                    Text("Luma")
+                    Text("Золотое Яблоко")
                         .font(BeautyFont.display)
                         .foregroundStyle(BeautyColor.ink)
                     Text("Beauty ID")

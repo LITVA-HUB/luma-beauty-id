@@ -93,7 +93,7 @@ struct HomeView: View {
                 .padding(.bottom, BeautySpacing.xl + 88)
             }
         }
-        .navigationTitle("Luma")
+        .navigationTitle("Золотое Яблоко")
         .navigationBarTitleDisplayMode(.inline)
         .task {
             if appState.recommendations.products.isEmpty {
@@ -144,7 +144,7 @@ private struct HomeHeroCard: View {
                     .foregroundStyle(.white)
                     .lineLimit(2)
                     .minimumScaleFactor(0.86)
-                Text("Начните со сценария — Luma сузит выбор под бюджет и то, что уже есть.")
+                Text("Начните со сценария — Золотое Яблоко сузит выбор под бюджет и то, что уже есть.")
                     .font(BeautyFont.callout)
                     .foregroundStyle(.white.opacity(0.86))
                     .lineLimit(2)
@@ -183,7 +183,7 @@ private struct HomeScenarioSection: View {
             VStack(alignment: .leading, spacing: BeautySpacing.md) {
                 SectionHeader(
                     title: "Что хотите собрать сегодня?",
-                    subtitle: selectedScenario?.defaultCopy ?? "Luma начинает не с каталога, а с вашего сценария, Beauty ID и того, что уже есть."
+                    subtitle: selectedScenario?.defaultCopy ?? "Золотое Яблоко начинает не с каталога, а с вашего сценария, Beauty ID и того, что уже есть."
                 )
 
                 LazyVGrid(columns: columns, alignment: .leading, spacing: 10) {
@@ -227,7 +227,7 @@ private struct HomeScenarioSection: View {
                 }
 
                 if ownedRoles.isEmpty {
-                    Label("Укажите, что уже есть — Luma не добавит лишнее.", systemImage: "square.stack.3d.up")
+                    Label("Укажите, что уже есть — Золотое Яблоко не добавит лишнее.", systemImage: "square.stack.3d.up")
                         .font(BeautyFont.caption)
                         .foregroundStyle(BeautyColor.taupe)
                         .fixedSize(horizontal: false, vertical: true)
@@ -307,7 +307,7 @@ struct MyShelfView: View {
                 VStack(alignment: .leading, spacing: BeautySpacing.lg) {
                     SectionHeader(
                         title: "Моя полка",
-                        subtitle: "Luma помнит, что уже есть, что хочется попробовать, что не подошло и что нужно заменить."
+                        subtitle: "Золотое Яблоко помнит, что уже есть, что хочется попробовать, что не подошло и что нужно заменить."
                     )
 
                     if appState.shelfItems.isEmpty && appState.ownedRoles.isEmpty {
@@ -565,7 +565,7 @@ private struct CurrentRoutineSummaryCard: View {
                 }
 
                 if previewProducts.isEmpty {
-                    Text("Luma соберёт короткий набор из каталога и будет дополнять его по вашим уточнениям.")
+                    Text("Золотое Яблоко соберёт короткий набор из каталога и будет дополнять его по вашим уточнениям.")
                         .font(BeautyFont.callout)
                         .foregroundStyle(BeautyColor.taupe)
                         .padding(BeautySpacing.md)

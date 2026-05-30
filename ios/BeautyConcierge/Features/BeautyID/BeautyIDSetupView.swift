@@ -126,7 +126,7 @@ struct BeautyIDSetupView: View {
                 }
             }
         default:
-            StepCard(title: "Что у тебя уже есть?", subtitle: "Чтобы Luma не собирала тебя с нуля и не добавила лишний шаг.") {
+            StepCard(title: "Что у тебя уже есть?", subtitle: "Чтобы Золотое Яблоко не собирало тебя с нуля и не добавило лишний шаг.") {
                 OwnedRolesStep(selectedRoles: $selectedOwnedRoles, ownedChoice: $ownedChoice)
             }
         }
@@ -260,7 +260,7 @@ private struct OwnedRolesStep: View {
                 .buttonStyle(.plain)
             }
 
-            Text("Если вы отмечаете категорию, Luma хранит только роль, а не придумывает конкретный продукт.")
+            Text("Если вы отмечаете категорию, Золотое Яблоко хранит только роль, а не придумывает конкретный продукт.")
                 .font(BeautyFont.caption)
                 .foregroundStyle(BeautyColor.taupe)
         }

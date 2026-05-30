@@ -294,7 +294,7 @@ final class AppState: ObservableObject {
                 return
             }
             usesLocalFallback = true
-            account = Account(accountId: "local-development", name: "Клиент Luma", email: "development@example.com", phoneNumber: nil, isGuest: false, createdAt: Date())
+            account = Account(accountId: "local-development", name: "Клиент Золотого Яблока", email: "development@example.com", phoneNumber: nil, isGuest: false, createdAt: Date())
             beautyID = BeautyID(skinType: "combination", concerns: ["dryness"], sensitivity: "medium", fragranceSensitivity: "avoid", preferredFinish: ["radiant"], makeupPreferences: ["tone"], budget: "mid", ingredientExclusions: [], routineComplexity: "balanced", styleTags: ["soft luxury"], consent: true, updatedAt: Date())
             recommendations = LocalFallbackCatalog.response()
             activeSelection = .empty
@@ -1720,7 +1720,7 @@ final class AppState: ObservableObject {
         case .notSure:
             checkoutMessage = "Проверьте оттенок, текстуру, отдушку и роль каждого товара перед покупкой."
         case .nothingBlocking:
-            checkoutMessage = "Отлично, Luma сохранила сильное намерение купить набор."
+            checkoutMessage = "Отлично, Золотое Яблоко сохранило сильное намерение купить набор."
         }
         analytics.track(.blockerActionCompleted, properties: ["blocker": blocker.analyticsValue, "actionType": blocker.actionType])
     }

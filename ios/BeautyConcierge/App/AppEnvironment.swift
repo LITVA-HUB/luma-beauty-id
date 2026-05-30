@@ -17,7 +17,7 @@ enum RuntimeEnvironment: String, Codable {
 
 struct AppEnvironment {
     let baseURL: URL
-    let appName: String = "Luma Beauty ID"
+    let appName: String = "Золотое Яблоко"
     let runtime: RuntimeEnvironment
     let isDebug: Bool
     let configurationError: String?

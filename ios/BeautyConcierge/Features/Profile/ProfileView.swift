@@ -10,7 +10,7 @@ struct ProfileView: View {
     private var isGuest: Bool { appState.account?.isGuestAccount ?? false }
     private var accountName: String {
         if isGuest { return "Гость" }
-        return appState.account?.name ?? "Клиент Luma"
+        return appState.account?.name ?? "Клиент Золотого Яблока"
     }
     private var accountEmail: String {
         if isGuest { return "Профиль не сохранён без номера" }
