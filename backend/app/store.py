@@ -33,6 +33,22 @@ def _looks_like_internal_prompt(text: str) -> bool:
     return any(marker.lower() in lower for marker in INTERNAL_HISTORY_MARKERS)
 
 
+# Every table keyed by account_id, deleted on hard account removal (152-ФЗ / Apple 5.1.1(v)).
+_ACCOUNT_SCOPED_TABLES = (
+    "sessions",
+    "beauty_ids",
+    "carts",
+    "histories",
+    "advisor_messages",
+    "saved_routines",
+    "active_selections",
+    "feedback",
+    "privacy_requests",
+    "events",
+    "advisor_runs",
+)
+
+
 def normalize_phone_e164(value: str | None) -> str | None:
     """Best-effort E.164 normalization (no carrier lookup / SMS verification)."""
     if value is None:
@@ -745,6 +761,16 @@ class SQLiteAppStore:
             "advisor_messages": [message.model_dump() for message in self.list_advisor_messages(account_id)],
         }
 
+    def delete_account(self, account_id: str) -> bool:
+        with self._lock, self._connect() as db:
+            existing = db.execute("SELECT 1 FROM accounts WHERE account_id=?", (account_id,)).fetchone()
+            if not existing:
+                return False
+            for table in _ACCOUNT_SCOPED_TABLES:
+                db.execute(f"DELETE FROM {table} WHERE account_id=?", (account_id,))
+            db.execute("DELETE FROM accounts WHERE account_id=?", (account_id,))
+        return True
+
 
 AppStore = SQLiteAppStore
 
@@ -1414,6 +1440,17 @@ class PostgresStore:
             "saved_routine": self.get_saved_routine(account_id),
             "advisor_messages": [message.model_dump() for message in self.list_advisor_messages(account_id)],
         }
+
+    def delete_account(self, account_id: str) -> bool:
+        with self._lock, self._connect() as db:
+            with db.cursor() as cur:
+                cur.execute("SELECT 1 FROM accounts WHERE account_id=%s", (account_id,))
+                if not cur.fetchone():
+                    return False
+                for table in _ACCOUNT_SCOPED_TABLES:
+                    cur.execute(f"DELETE FROM {table} WHERE account_id=%s", (account_id,))
+                cur.execute("DELETE FROM accounts WHERE account_id=%s", (account_id,))
+        return True
 
 
 def create_app_store() -> SQLiteAppStore | PostgresStore:

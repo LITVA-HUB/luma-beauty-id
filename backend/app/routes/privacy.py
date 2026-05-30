@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import Annotated
 
-from fastapi import APIRouter, Depends
+from fastapi import APIRouter, Depends, HTTPException, Response, status
 
 from ..dependencies import current_account, get_store
 from ..route_helpers import products_by_sku
@@ -23,3 +23,11 @@ def privacy_export(account: Annotated[StoredAccount, Depends(current_account)]) 
 def privacy_delete(account: Annotated[StoredAccount, Depends(current_account)]) -> PrivacyRequestResponse:
     request_id = get_store().create_privacy_request(account.account_id, "account_delete")
     return PrivacyRequestResponse(request_id=request_id, message="Account deletion request accepted. Connect the production identity/catalog/order data erasure workflow before App Store release.")
+
+
+@router.delete("/v1/account/me", status_code=status.HTTP_204_NO_CONTENT)
+def delete_account(account: Annotated[StoredAccount, Depends(current_account)]) -> Response:
+    deleted = get_store().delete_account(account.account_id)
+    if not deleted:
+        raise HTTPException(status_code=404, detail="not_authenticated")
+    return Response(status_code=status.HTTP_204_NO_CONTENT)

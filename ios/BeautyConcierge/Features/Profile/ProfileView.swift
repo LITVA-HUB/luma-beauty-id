@@ -5,6 +5,7 @@ struct ProfileView: View {
     @State private var showingSettings = false
     @State private var showingBeautyIDEdit = false
     @State private var showingLinkPhone = false
+    @State private var showingDeleteConfirm = false
 
     private var isGuest: Bool { appState.account?.isGuestAccount ?? false }
     private var accountName: String {
@@ -98,6 +99,15 @@ struct ProfileView: View {
                     DestructiveActionButton(title: "Выйти из аккаунта") {
                         appState.logout()
                     }
+                    Button(role: .destructive) {
+                        showingDeleteConfirm = true
+                    } label: {
+                        Text("Удалить аккаунт")
+                            .font(BeautyFont.headline)
+                            .foregroundStyle(BeautyColor.danger)
+                            .frame(maxWidth: .infinity, minHeight: 44)
+                    }
+                    .disabled(appState.isBusy)
                 }
                 .padding(.horizontal, BeautySpacing.md)
                 .padding(.top, BeautySpacing.md)
@@ -109,6 +119,14 @@ struct ProfileView: View {
         .sheet(isPresented: $showingSettings) { SettingsView() }
         .sheet(isPresented: $showingBeautyIDEdit) { NavigationStack { BeautyIDSetupView() } }
         .sheet(isPresented: $showingLinkPhone) { LinkPhoneSheet() }
+        .alert("Удалить аккаунт?", isPresented: $showingDeleteConfirm) {
+            Button("Отмена", role: .cancel) {}
+            Button("Удалить", role: .destructive) {
+                Task { await appState.deleteAccount() }
+            }
+        } message: {
+            Text("Профиль, Beauty ID, история и корзина будут удалены без возможности восстановления.")
+        }
     }
 }
 

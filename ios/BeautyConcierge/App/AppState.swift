@@ -384,6 +384,23 @@ final class AppState: ObservableObject {
         Haptics.tap()
     }
 
+    func deleteAccount() async -> Bool {
+        isBusy = true
+        errorMessage = nil
+        defer { isBusy = false }
+        do {
+            let _: EmptyResponse = try await api.delete("/v1/account/me")
+            clearSession()
+            Haptics.success()
+            return true
+        } catch {
+            errorMessage = userFacing(error)
+            crashReporter.record(error: error, context: ["flow": "delete_account"])
+            Haptics.warning()
+            return false
+        }
+    }
+
     private func clearSession() {
         sessionStore.clearSession()
         resetAccountScopedState(clearAccount: true, clearPersistentCaches: true)

@@ -131,6 +131,32 @@ def test_storage_layer_keeps_sqlite_aliases_available(tmp_path):
     assert isinstance(created, SQLiteAppStore)
 
 
+def test_delete_account_cascades_and_revokes_sessions():
+    registered = request(
+        "POST",
+        "/v1/auth/register",
+        json={"name": "Delete Me", "phone": "+79991234567", "password": "strong-password-123", "consent": True},
+    )
+    assert registered.status_code == 200, registered.text
+    token = registered.json()["access_token"]
+    account_id = registered.json()["account"]["account_id"]
+    headers = {"Authorization": f"Bearer {token}"}
+
+    saved = request("PUT", "/v1/beauty-id", headers=headers, json=beauty_id_payload())
+    assert saved.status_code == 200, saved.text
+    assert main_module.store.get_beauty_id(account_id) is not None
+
+    deleted = request("DELETE", "/v1/account/me", headers=headers)
+    assert deleted.status_code == 204, deleted.text
+
+    assert main_module.store.get_account(account_id) is None
+    assert main_module.store.get_beauty_id(account_id) is None
+    assert request("GET", "/v1/auth/me", headers=headers).status_code == 401
+
+    relogin = request("POST", "/v1/auth/login", json={"phone": "+79991234567", "password": "strong-password-123"})
+    assert relogin.status_code == 401
+
+
 def test_recut_catalog_contract_skus_source_skus_and_images():
     response = request("GET", "/v1/catalog/products", params={"include_unavailable": True})
     assert response.status_code == 200, response.text
