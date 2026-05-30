@@ -218,13 +218,14 @@ final class AppState: ObservableObject {
         UserDefaults.standard.set(Array(faceScanAccountIds), forKey: Keys.faceScanAccounts)
     }
 
-    func register(name: String, email: String, password: String) async {
+    func register(name: String, phone: String, password: String?) async {
         analytics.track(.authStarted, properties: ["mode": "register"])
         // Анкета проходится до регистрации (гостем). Сохраняем её ответы,
         // чтобы перенести их в новый аккаунт после успешной регистрации.
         let pendingBeautyID = beautyID
+        let pass = (password?.isEmpty ?? true) ? nil : password
         await authTask {
-            let response: AuthSession = try await api.post("/v1/auth/register", body: RegisterRequest(name: name, email: email, password: password, consent: true))
+            let response: AuthSession = try await api.post("/v1/auth/register", body: RegisterRequest(name: name, phone: phone, password: pass, consent: true))
             try persist(session: response)
             if let pendingBeautyID, pendingBeautyID.isUsable {
                 beautyID = pendingBeautyID
@@ -236,11 +237,12 @@ final class AppState: ObservableObject {
         }
     }
 
-    func login(email: String, password: String) async {
+    func login(phone: String, password: String?) async {
         analytics.track(.authStarted, properties: ["mode": "login"])
         let pendingBeautyID = beautyID
+        let pass = (password?.isEmpty ?? true) ? nil : password
         await authTask {
-            let response: AuthSession = try await api.post("/v1/auth/login", body: LoginRequest(email: email, password: password))
+            let response: AuthSession = try await api.post("/v1/auth/login", body: LoginRequest(phone: phone, password: pass))
             try persist(session: response)
             if let pendingBeautyID, pendingBeautyID.isUsable {
                 beautyID = pendingBeautyID
@@ -292,11 +294,52 @@ final class AppState: ObservableObject {
                 return
             }
             usesLocalFallback = true
-            account = Account(accountId: "local-development", name: "Клиент Luma", email: "development@example.com", createdAt: Date())
+            account = Account(accountId: "local-development", name: "Клиент Luma", email: "development@example.com", phoneNumber: nil, isGuest: false, createdAt: Date())
             beautyID = BeautyID(skinType: "combination", concerns: ["dryness"], sensitivity: "medium", fragranceSensitivity: "avoid", preferredFinish: ["radiant"], makeupPreferences: ["tone"], budget: "mid", ingredientExclusions: [], routineComplexity: "balanced", styleTags: ["soft luxury"], consent: true, updatedAt: Date())
             recommendations = LocalFallbackCatalog.response()
             activeSelection = .empty
             cart = .empty
+            Haptics.warning()
+        }
+    }
+
+    /// «Продолжить без регистрации»: создаёт временный гостевой аккаунт на сервере
+    /// и проводит пользователя по стандартному потоку (фото → анкета → главная).
+    func continueAsGuest() async {
+        analytics.track(.authStarted, properties: ["mode": "guest"])
+        let pendingBeautyID = beautyID
+        await authTask {
+            let response: AuthSession = try await api.post("/v1/auth/guest", body: EmptyBody())
+            try persist(session: response)
+            if let pendingBeautyID, pendingBeautyID.isUsable {
+                beautyID = pendingBeautyID
+                if let saved: BeautyIDResponse = try? await api.put("/v1/beauty-id", body: pendingBeautyID) {
+                    beautyID = saved.beautyId
+                }
+            }
+            analytics.track(.authCompleted, properties: ["mode": "guest", "provider": response.provider ?? "guest"])
+            await trackBackendEvent("guest_started", payload: [:])
+        }
+    }
+
+    /// Привязывает номер телефона к гостевому аккаунту (апгрейд гостя до полноценного).
+    func linkPhone(phone: String, name: String?, password: String?) async {
+        let pass = (password?.isEmpty ?? true) ? nil : password
+        let trimmedName = name?.trimmingCharacters(in: .whitespacesAndNewlines)
+        isBusy = true
+        errorMessage = nil
+        defer { isBusy = false }
+        do {
+            let response: AuthSession = try await api.post(
+                "/v1/auth/link-phone",
+                body: LinkPhoneRequest(phone: phone, name: (trimmedName?.isEmpty ?? true) ? nil : trimmedName, password: pass)
+            )
+            account = try sessionStore.persist(session: response)
+            await trackBackendEvent("phone_linked", payload: [:])
+            Haptics.success()
+        } catch {
+            errorMessage = userFacing(error)
+            crashReporter.record(error: error, context: ["flow": "link_phone"])
             Haptics.warning()
         }
     }

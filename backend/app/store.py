@@ -33,16 +33,47 @@ def _looks_like_internal_prompt(text: str) -> bool:
     return any(marker.lower() in lower for marker in INTERNAL_HISTORY_MARKERS)
 
 
+def normalize_phone_e164(value: str | None) -> str | None:
+    """Best-effort E.164 normalization (no carrier lookup / SMS verification)."""
+    if value is None:
+        return None
+    raw = value.strip()
+    if not raw:
+        return None
+    digits = "".join(ch for ch in raw if ch.isdigit())
+    if not digits:
+        return None
+    # Russian local "8XXXXXXXXXX" → "+7XXXXXXXXXX".
+    if not raw.startswith("+") and len(digits) == 11 and digits[0] == "8":
+        digits = "7" + digits[1:]
+    if not 8 <= len(digits) <= 15:
+        raise ValueError("invalid_phone")
+    return "+" + digits
+
+
 @dataclass(frozen=True)
 class StoredAccount:
     account_id: str
     name: str
-    email: str
+    email: str | None
     password_hash: str
     created_at: datetime
+    phone_number_e164: str | None = None
+    is_guest: bool = False
+
+    @property
+    def has_password(self) -> bool:
+        return bool(self.password_hash)
 
     def public(self) -> AccountPublic:
-        return AccountPublic(account_id=self.account_id, name=self.name, email=self.email, created_at=self.created_at)
+        return AccountPublic(
+            account_id=self.account_id,
+            name=self.name,
+            email=self.email,
+            phone_number=self.phone_number_e164,
+            is_guest=self.is_guest,
+            created_at=self.created_at,
+        )
 
 
 @dataclass(frozen=True)
@@ -81,8 +112,10 @@ class SQLiteAppStore:
                 CREATE TABLE IF NOT EXISTS accounts(
                     account_id TEXT PRIMARY KEY,
                     name TEXT NOT NULL,
-                    email TEXT NOT NULL UNIQUE,
-                    password_hash TEXT NOT NULL,
+                    email TEXT UNIQUE,
+                    phone_number_e164 TEXT UNIQUE,
+                    password_hash TEXT NOT NULL DEFAULT '',
+                    is_guest INTEGER NOT NULL DEFAULT 0,
                     created_at TEXT NOT NULL
                 );
                 CREATE TABLE IF NOT EXISTS sessions(
@@ -204,6 +237,39 @@ class SQLiteAppStore:
                     );
                     """
                 )
+            self._migrate_accounts(db)
+
+    def _migrate_accounts(self, db: sqlite3.Connection) -> None:
+        info = db.execute("PRAGMA table_info(accounts)").fetchall()
+        columns = {row[1] for row in info}
+        if "phone_number_e164" not in columns:
+            db.execute("ALTER TABLE accounts ADD COLUMN phone_number_e164 TEXT")
+            db.execute("CREATE UNIQUE INDEX IF NOT EXISTS idx_accounts_phone ON accounts(phone_number_e164)")
+        if "is_guest" not in columns:
+            db.execute("ALTER TABLE accounts ADD COLUMN is_guest INTEGER NOT NULL DEFAULT 0")
+        # Relax the legacy NOT NULL on email so phone-only / guest accounts can exist.
+        email_notnull = any(row[1] == "email" and row[3] == 1 for row in info)
+        if email_notnull:
+            db.execute("ALTER TABLE accounts RENAME TO accounts_legacy")
+            db.execute(
+                """
+                CREATE TABLE accounts(
+                    account_id TEXT PRIMARY KEY,
+                    name TEXT NOT NULL,
+                    email TEXT UNIQUE,
+                    phone_number_e164 TEXT UNIQUE,
+                    password_hash TEXT NOT NULL DEFAULT '',
+                    is_guest INTEGER NOT NULL DEFAULT 0,
+                    created_at TEXT NOT NULL
+                )
+                """
+            )
+            db.execute(
+                "INSERT INTO accounts(account_id,name,email,phone_number_e164,password_hash,is_guest,created_at) "
+                "SELECT account_id,name,email,phone_number_e164,password_hash,is_guest,created_at FROM accounts_legacy"
+            )
+            db.execute("DROP TABLE accounts_legacy")
+            db.execute("CREATE UNIQUE INDEX IF NOT EXISTS idx_accounts_phone ON accounts(phone_number_e164)")
 
     def stats(self) -> dict[str, Any]:
         with self._connect() as db:
@@ -211,17 +277,65 @@ class SQLiteAppStore:
             sessions = db.execute("SELECT COUNT(*) FROM sessions WHERE revoked_at IS NULL").fetchone()[0]
         return {"accounts": accounts, "active_sessions": sessions, "path": self.path}
 
-    def create_account(self, name: str, email: str, password: str) -> StoredAccount:
-        account = StoredAccount(str(uuid.uuid4()), name.strip(), email.strip().lower(), hash_password(password), utcnow())
+    def create_account(
+        self,
+        name: str,
+        email: str | None = None,
+        password: str | None = None,
+        *,
+        phone: str | None = None,
+        is_guest: bool = False,
+    ) -> StoredAccount:
+        account = StoredAccount(
+            account_id=("guest_" + uuid.uuid4().hex[:8]) if is_guest else str(uuid.uuid4()),
+            name=name.strip(),
+            email=email.strip().lower() if email else None,
+            password_hash=hash_password(password) if password else "",
+            created_at=utcnow(),
+            phone_number_e164=normalize_phone_e164(phone),
+            is_guest=is_guest,
+        )
         with self._lock, self._connect() as db:
             try:
                 db.execute(
-                    "INSERT INTO accounts(account_id,name,email,password_hash,created_at) VALUES(?,?,?,?,?)",
-                    (account.account_id, account.name, account.email, account.password_hash, account.created_at.isoformat()),
+                    "INSERT INTO accounts(account_id,name,email,phone_number_e164,password_hash,is_guest,created_at) "
+                    "VALUES(?,?,?,?,?,?,?)",
+                    (
+                        account.account_id,
+                        account.name,
+                        account.email,
+                        account.phone_number_e164,
+                        account.password_hash,
+                        1 if account.is_guest else 0,
+                        account.created_at.isoformat(),
+                    ),
                 )
             except sqlite3.IntegrityError as exc:
                 raise ValueError("account_exists") from exc
         return account
+
+    def create_guest_account(self, name: str = "Гость") -> StoredAccount:
+        return self.create_account(name, is_guest=True)
+
+    def attach_phone(
+        self, account_id: str, phone: str, *, name: str | None = None, password: str | None = None
+    ) -> StoredAccount | None:
+        normalized = normalize_phone_e164(phone)
+        with self._lock, self._connect() as db:
+            sets = ["phone_number_e164=?", "is_guest=0"]
+            params: list[Any] = [normalized]
+            if name and name.strip():
+                sets.append("name=?")
+                params.append(name.strip())
+            if password:
+                sets.append("password_hash=?")
+                params.append(hash_password(password))
+            params.append(account_id)
+            try:
+                db.execute(f"UPDATE accounts SET {', '.join(sets)} WHERE account_id=?", params)
+            except sqlite3.IntegrityError as exc:
+                raise ValueError("phone_taken") from exc
+        return self.get_account(account_id)
 
     def ensure_dev_account(self) -> StoredAccount:
         account = self.get_account_by_email("development@luma.local")
@@ -232,6 +346,14 @@ class SQLiteAppStore:
     def get_account_by_email(self, email: str) -> StoredAccount | None:
         with self._connect() as db:
             row = db.execute("SELECT * FROM accounts WHERE email=?", (email.strip().lower(),)).fetchone()
+        return self._row_to_account(row) if row else None
+
+    def get_account_by_phone(self, phone: str) -> StoredAccount | None:
+        normalized = normalize_phone_e164(phone)
+        if not normalized:
+            return None
+        with self._connect() as db:
+            row = db.execute("SELECT * FROM accounts WHERE phone_number_e164=?", (normalized,)).fetchone()
         return self._row_to_account(row) if row else None
 
     def get_account(self, account_id: str) -> StoredAccount | None:
@@ -245,13 +367,27 @@ class SQLiteAppStore:
             return account
         return None
 
+    def authenticate_by_phone(self, phone: str, password: str | None) -> StoredAccount | None:
+        account = self.get_account_by_phone(phone)
+        if not account:
+            return None
+        # Passwordless accounts log in by phone alone; password-protected ones must match.
+        if not account.has_password:
+            return account
+        if password and verify_password(password, account.password_hash):
+            return account
+        return None
+
     def _row_to_account(self, row: sqlite3.Row) -> StoredAccount:
+        keys = row.keys()
         return StoredAccount(
             account_id=row["account_id"],
             name=row["name"],
             email=row["email"],
             password_hash=row["password_hash"],
             created_at=datetime.fromisoformat(row["created_at"]),
+            phone_number_e164=row["phone_number_e164"] if "phone_number_e164" in keys else None,
+            is_guest=bool(row["is_guest"]) if "is_guest" in keys else False,
         )
 
     def create_session(self, account_id: str, dev_mode: bool = False) -> StoredSession:
@@ -641,8 +777,10 @@ class PostgresStore:
         CREATE TABLE IF NOT EXISTS accounts(
             account_id TEXT PRIMARY KEY,
             name TEXT NOT NULL,
-            email TEXT NOT NULL UNIQUE,
-            password_hash TEXT NOT NULL,
+            email TEXT UNIQUE,
+            phone_number_e164 TEXT UNIQUE,
+            password_hash TEXT NOT NULL DEFAULT '',
+            is_guest BOOLEAN NOT NULL DEFAULT FALSE,
             created_at TEXT NOT NULL
         );
         CREATE TABLE IF NOT EXISTS sessions(
@@ -748,6 +886,13 @@ class PostgresStore:
         with self._connect() as db:
             with db.cursor() as cur:
                 cur.execute(schema)
+                cur.execute("ALTER TABLE accounts ADD COLUMN IF NOT EXISTS phone_number_e164 TEXT")
+                cur.execute("ALTER TABLE accounts ADD COLUMN IF NOT EXISTS is_guest BOOLEAN NOT NULL DEFAULT FALSE")
+                cur.execute("ALTER TABLE accounts ALTER COLUMN email DROP NOT NULL")
+                cur.execute("ALTER TABLE accounts ALTER COLUMN password_hash SET DEFAULT ''")
+                cur.execute(
+                    "CREATE UNIQUE INDEX IF NOT EXISTS idx_accounts_phone ON accounts(phone_number_e164)"
+                )
 
     def stats(self) -> dict[str, Any]:
         with self._connect() as db:
@@ -758,20 +903,71 @@ class PostgresStore:
                 sessions = cur.fetchone()["count"]
         return {"accounts": accounts, "active_sessions": sessions, "driver": "postgresql"}
 
-    def create_account(self, name: str, email: str, password: str) -> StoredAccount:
-        account = StoredAccount(str(uuid.uuid4()), name.strip(), email.strip().lower(), hash_password(password), utcnow())
+    def create_account(
+        self,
+        name: str,
+        email: str | None = None,
+        password: str | None = None,
+        *,
+        phone: str | None = None,
+        is_guest: bool = False,
+    ) -> StoredAccount:
+        account = StoredAccount(
+            account_id=("guest_" + uuid.uuid4().hex[:8]) if is_guest else str(uuid.uuid4()),
+            name=name.strip(),
+            email=email.strip().lower() if email else None,
+            password_hash=hash_password(password) if password else "",
+            created_at=utcnow(),
+            phone_number_e164=normalize_phone_e164(phone),
+            is_guest=is_guest,
+        )
         with self._lock, self._connect() as db:
             try:
                 with db.cursor() as cur:
                     cur.execute(
-                        "INSERT INTO accounts(account_id,name,email,password_hash,created_at) VALUES(%s,%s,%s,%s,%s)",
-                        (account.account_id, account.name, account.email, account.password_hash, account.created_at.isoformat()),
+                        "INSERT INTO accounts(account_id,name,email,phone_number_e164,password_hash,is_guest,created_at) "
+                        "VALUES(%s,%s,%s,%s,%s,%s,%s)",
+                        (
+                            account.account_id,
+                            account.name,
+                            account.email,
+                            account.phone_number_e164,
+                            account.password_hash,
+                            account.is_guest,
+                            account.created_at.isoformat(),
+                        ),
                     )
             except Exception as exc:
                 if getattr(exc, "sqlstate", "") == "23505":
                     raise ValueError("account_exists") from exc
                 raise
         return account
+
+    def create_guest_account(self, name: str = "Гость") -> StoredAccount:
+        return self.create_account(name, is_guest=True)
+
+    def attach_phone(
+        self, account_id: str, phone: str, *, name: str | None = None, password: str | None = None
+    ) -> StoredAccount | None:
+        normalized = normalize_phone_e164(phone)
+        sets = ["phone_number_e164=%s", "is_guest=FALSE"]
+        params: list[Any] = [normalized]
+        if name and name.strip():
+            sets.append("name=%s")
+            params.append(name.strip())
+        if password:
+            sets.append("password_hash=%s")
+            params.append(hash_password(password))
+        params.append(account_id)
+        with self._lock, self._connect() as db:
+            try:
+                with db.cursor() as cur:
+                    cur.execute(f"UPDATE accounts SET {', '.join(sets)} WHERE account_id=%s", params)
+            except Exception as exc:
+                if getattr(exc, "sqlstate", "") == "23505":
+                    raise ValueError("phone_taken") from exc
+                raise
+        return self.get_account(account_id)
 
     def ensure_dev_account(self) -> StoredAccount:
         account = self.get_account_by_email("development@luma.local")
@@ -783,6 +979,16 @@ class PostgresStore:
         with self._connect() as db:
             with db.cursor() as cur:
                 cur.execute("SELECT * FROM accounts WHERE email=%s", (email.strip().lower(),))
+                row = cur.fetchone()
+        return self._row_to_account(row) if row else None
+
+    def get_account_by_phone(self, phone: str) -> StoredAccount | None:
+        normalized = normalize_phone_e164(phone)
+        if not normalized:
+            return None
+        with self._connect() as db:
+            with db.cursor() as cur:
+                cur.execute("SELECT * FROM accounts WHERE phone_number_e164=%s", (normalized,))
                 row = cur.fetchone()
         return self._row_to_account(row) if row else None
 
@@ -799,13 +1005,25 @@ class PostgresStore:
             return account
         return None
 
+    def authenticate_by_phone(self, phone: str, password: str | None) -> StoredAccount | None:
+        account = self.get_account_by_phone(phone)
+        if not account:
+            return None
+        if not account.has_password:
+            return account
+        if password and verify_password(password, account.password_hash):
+            return account
+        return None
+
     def _row_to_account(self, row: dict[str, Any]) -> StoredAccount:
         return StoredAccount(
             account_id=row["account_id"],
             name=row["name"],
-            email=row["email"],
+            email=row.get("email"),
             password_hash=row["password_hash"],
             created_at=datetime.fromisoformat(row["created_at"]),
+            phone_number_e164=row.get("phone_number_e164"),
+            is_guest=bool(row.get("is_guest", False)),
         )
 
     def create_session(self, account_id: str, dev_mode: bool = False) -> StoredSession:

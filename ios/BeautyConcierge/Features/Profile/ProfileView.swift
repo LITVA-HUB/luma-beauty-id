@@ -4,9 +4,17 @@ struct ProfileView: View {
     @EnvironmentObject private var appState: AppState
     @State private var showingSettings = false
     @State private var showingBeautyIDEdit = false
+    @State private var showingLinkPhone = false
 
-    private var accountName: String { appState.account?.name ?? "Клиент Luma" }
-    private var accountEmail: String { appState.account?.email ?? "вход не выполнен" }
+    private var isGuest: Bool { appState.account?.isGuestAccount ?? false }
+    private var accountName: String {
+        if isGuest { return "Гость" }
+        return appState.account?.name ?? "Клиент Luma"
+    }
+    private var accountEmail: String {
+        if isGuest { return "Профиль не сохранён без номера" }
+        return appState.account?.phoneNumber ?? appState.account?.email ?? "вход не выполнен"
+    }
 
     var body: some View {
         ZStack {
@@ -17,9 +25,15 @@ struct ProfileView: View {
                     ProfileIdentityCard(
                         name: accountName,
                         email: accountEmail,
+                        isGuest: isGuest,
                         isBeautyIDReady: appState.beautyID?.isUsable == true,
                         isLocalMode: appState.usesLocalFallback && appState.environment.runtime == .development
                     )
+                    if isGuest {
+                        PrimaryButton(title: "Привязать номер телефона", systemImage: "phone.badge.plus") {
+                            showingLinkPhone = true
+                        }
+                    }
                     ProfileBeautyIDCard(
                         beautyID: appState.beautyID,
                         onEdit: { showingBeautyIDEdit = true }
@@ -94,6 +108,7 @@ struct ProfileView: View {
         .navigationBarTitleDisplayMode(.inline)
         .sheet(isPresented: $showingSettings) { SettingsView() }
         .sheet(isPresented: $showingBeautyIDEdit) { NavigationStack { BeautyIDSetupView() } }
+        .sheet(isPresented: $showingLinkPhone) { LinkPhoneSheet() }
     }
 }
 
@@ -115,6 +130,7 @@ private struct ProfileHeader: View {
 private struct ProfileIdentityCard: View {
     let name: String
     let email: String
+    var isGuest: Bool = false
     let isBeautyIDReady: Bool
     let isLocalMode: Bool
 
@@ -147,6 +163,9 @@ private struct ProfileIdentityCard: View {
                         .minimumScaleFactor(0.76)
 
                     HStack(spacing: BeautySpacing.xs) {
+                        if isGuest {
+                            ProfileStatusPill(title: "Гость", icon: "person.crop.circle.badge.questionmark", tint: BeautyColor.orange.opacity(0.14))
+                        }
                         ProfileStatusPill(
                             title: isBeautyIDReady ? "Beauty ID настроен" : "Beauty ID нужно заполнить",
                             icon: isBeautyIDReady ? "checkmark.seal.fill" : "person.text.rectangle"
@@ -671,4 +690,108 @@ private struct ProfileInfoRowModel: Identifiable {
     let title: String
     let subtitle: String
     let value: String?
+}
+
+private struct LinkPhoneSheet: View {
+    @EnvironmentObject private var appState: AppState
+    @Environment(\.dismiss) private var dismiss
+    @State private var country: PhoneCountry = .defaults.first!
+    @State private var nationalDigits = ""
+    @State private var name = ""
+    @State private var password = ""
+
+    private var e164Phone: String { country.dialCode + nationalDigits }
+    private var canSubmit: Bool { nationalDigits.count >= country.minDigits }
+
+    var body: some View {
+        NavigationStack {
+            ZStack {
+                PremiumBackground()
+                ScrollView {
+                    VStack(spacing: BeautySpacing.lg) {
+                        VStack(alignment: .leading, spacing: BeautySpacing.sm) {
+                            Text("Привязать номер")
+                                .font(BeautyFont.title2)
+                                .foregroundStyle(BeautyColor.ink)
+                            Text("Сохраним Beauty ID, рутину и корзину за вашим номером. SMS-код не нужен.")
+                                .font(BeautyFont.callout)
+                                .foregroundStyle(BeautyColor.taupe)
+                                .fixedSize(horizontal: false, vertical: true)
+                        }
+                        .frame(maxWidth: .infinity, alignment: .leading)
+
+                        VStack(spacing: BeautySpacing.md) {
+                            VStack(alignment: .leading, spacing: BeautySpacing.xs) {
+                                Text("Телефон").font(BeautyFont.caption).foregroundStyle(BeautyColor.taupe)
+                                HStack(spacing: BeautySpacing.sm) {
+                                    Menu {
+                                        ForEach(PhoneCountry.defaults) { item in
+                                            Button("\(item.flag)  \(item.id)  \(item.dialCode)") {
+                                                country = item
+                                                nationalDigits = String(nationalDigits.prefix(item.maxDigits))
+                                            }
+                                        }
+                                    } label: {
+                                        HStack(spacing: 4) {
+                                            Text(country.flag)
+                                            Text(country.dialCode).font(BeautyFont.body).foregroundStyle(BeautyColor.ink)
+                                            Image(systemName: "chevron.down").font(.system(size: 11, weight: .semibold)).foregroundStyle(BeautyColor.taupe)
+                                        }
+                                        .padding(.horizontal, BeautySpacing.md)
+                                        .frame(height: 52)
+                                        .background(BeautyColor.milk, in: RoundedRectangle(cornerRadius: BeautyRadius.md, style: .continuous))
+                                        .overlay(RoundedRectangle(cornerRadius: BeautyRadius.md, style: .continuous).stroke(BeautyColor.line.opacity(0.6), lineWidth: 1))
+                                    }
+                                    TextField("000 000-00-00", text: Binding(
+                                        get: { country.formatted(nationalDigits) },
+                                        set: { nationalDigits = String($0.filter(\.isNumber).prefix(country.maxDigits)) }
+                                    ))
+                                    .keyboardType(.phonePad)
+                                    .textContentType(.telephoneNumber)
+                                    .padding(.horizontal, BeautySpacing.md)
+                                    .frame(height: 52)
+                                    .frame(maxWidth: .infinity)
+                                    .background(BeautyColor.milk, in: RoundedRectangle(cornerRadius: BeautyRadius.md, style: .continuous))
+                                    .overlay(RoundedRectangle(cornerRadius: BeautyRadius.md, style: .continuous).stroke(BeautyColor.line.opacity(0.6), lineWidth: 1))
+                                }
+                            }
+                            simpleField(title: "Имя (необязательно)", text: $name, secure: false)
+                            simpleField(title: "Пароль (необязательно)", text: $password, secure: true)
+
+                            PrimaryButton(title: "Сохранить номер", isLoading: appState.isBusy) {
+                                Task {
+                                    await appState.linkPhone(phone: e164Phone, name: name, password: password)
+                                    if appState.errorMessage == nil { dismiss() }
+                                }
+                            }
+                            .disabled(!canSubmit || appState.isBusy)
+                            .opacity(canSubmit ? 1 : 0.55)
+                        }
+                        .beautyCard()
+                    }
+                    .padding(BeautySpacing.md)
+                }
+            }
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) { Button("Закрыть") { dismiss() } }
+            }
+        }
+    }
+
+    @ViewBuilder
+    private func simpleField(title: String, text: Binding<String>, secure: Bool) -> some View {
+        VStack(alignment: .leading, spacing: BeautySpacing.xs) {
+            Text(title).font(BeautyFont.caption).foregroundStyle(BeautyColor.taupe)
+            Group {
+                if secure { SecureField(title, text: text) } else { TextField(title, text: text) }
+            }
+            .textInputAutocapitalization(secure ? .never : .words)
+            .autocorrectionDisabled()
+            .padding(.horizontal, BeautySpacing.md)
+            .frame(height: 52)
+            .background(BeautyColor.milk, in: RoundedRectangle(cornerRadius: BeautyRadius.md, style: .continuous))
+            .overlay(RoundedRectangle(cornerRadius: BeautyRadius.md, style: .continuous).stroke(BeautyColor.line.opacity(0.6), lineWidth: 1))
+        }
+    }
 }

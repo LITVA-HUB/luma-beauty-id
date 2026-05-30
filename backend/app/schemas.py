@@ -30,33 +30,68 @@ class ErrorResponse(BaseModel):
 class AccountPublic(BaseModel):
     account_id: str
     name: str
-    email: str
+    email: str | None = None
+    phone_number: str | None = None
+    is_guest: bool = False
     created_at: datetime
+
+
+def _normalize_optional_email(value: str | None) -> str | None:
+    if value is None:
+        return None
+    email = value.strip().lower()
+    if not email:
+        return None
+    if "@" not in email or "." not in email.split("@")[-1]:
+        raise ValueError("invalid_email")
+    return email
 
 
 class AuthRegisterRequest(BaseModel):
     name: str = Field(min_length=2, max_length=80)
-    email: str = Field(min_length=5, max_length=160)
-    password: str = Field(min_length=8, max_length=128)
+    phone: str | None = Field(default=None, max_length=32)
+    email: str | None = Field(default=None, max_length=160)
+    # Password is optional: a phone-only account can sign in by number alone.
+    password: str | None = Field(default=None, min_length=8, max_length=128)
     consent: bool = True
 
     @field_validator("email")
     @classmethod
-    def email_shape(cls, value: str) -> str:
-        email = value.strip().lower()
-        if "@" not in email or "." not in email.split("@")[-1]:
-            raise ValueError("invalid_email")
-        return email
+    def email_shape(cls, value: str | None) -> str | None:
+        return _normalize_optional_email(value)
+
+    @model_validator(mode="after")
+    def require_identifier(self) -> "AuthRegisterRequest":
+        if not self.phone and not self.email:
+            raise ValueError("phone_or_email_required")
+        return self
 
 
 class AuthLoginRequest(BaseModel):
-    email: str = Field(min_length=3, max_length=160)
-    password: str = Field(min_length=1, max_length=128)
+    phone: str | None = Field(default=None, max_length=32)
+    email: str | None = Field(default=None, max_length=160)
+    password: str | None = Field(default=None, max_length=128)
 
     @field_validator("email")
     @classmethod
-    def email_shape(cls, value: str) -> str:
-        return value.strip().lower()
+    def email_shape(cls, value: str | None) -> str | None:
+        if value is None:
+            return None
+        return value.strip().lower() or None
+
+    @model_validator(mode="after")
+    def require_identifier(self) -> "AuthLoginRequest":
+        if not self.phone and not self.email:
+            raise ValueError("phone_or_email_required")
+        if self.email and not self.password:
+            raise ValueError("password_required")
+        return self
+
+
+class AuthLinkPhoneRequest(BaseModel):
+    phone: str = Field(min_length=3, max_length=32)
+    name: str | None = Field(default=None, max_length=80)
+    password: str | None = Field(default=None, min_length=8, max_length=128)
 
 
 class TokenRefreshRequest(BaseModel):

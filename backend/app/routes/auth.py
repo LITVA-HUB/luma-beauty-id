@@ -8,7 +8,15 @@ from fastapi import APIRouter, Depends, HTTPException, Request
 from ..auth_provider import get_auth_provider
 from ..config import settings
 from ..dependencies import bearer_token, current_account, get_store
-from ..schemas import AuthLoginRequest, AuthRegisterRequest, AuthSessionResponse, LogoutRequest, TokenRefreshRequest
+from ..provider_errors import ProviderUnavailable
+from ..schemas import (
+    AuthLinkPhoneRequest,
+    AuthLoginRequest,
+    AuthRegisterRequest,
+    AuthSessionResponse,
+    LogoutRequest,
+    TokenRefreshRequest,
+)
 from ..store import StoredAccount, StoredSession
 
 router = APIRouter()
@@ -38,9 +46,13 @@ def register(payload: AuthRegisterRequest, request: Request) -> AuthSessionRespo
     store = get_store()
     provider = get_auth_provider()
     try:
-        account = provider.register(store, payload.name, payload.email, payload.password)
-    except ValueError:
-        raise HTTPException(status_code=400, detail="account_exists") from None
+        account = provider.register(
+            store, payload.name, email=payload.email, phone=payload.phone, password=payload.password
+        )
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc) or "account_exists") from None
+    except ProviderUnavailable as exc:
+        raise HTTPException(status_code=503, detail=exc.code) from None
     session = store.create_session(account.account_id, dev_mode=False)
     return make_auth_response(account, session, provider.name)
 
@@ -50,11 +62,43 @@ def login(payload: AuthLoginRequest, request: Request) -> AuthSessionResponse:
     enforce_auth_rate_limit(request, "login")
     store = get_store()
     provider = get_auth_provider()
-    account = provider.login(store, payload.email, payload.password)
+    try:
+        account = provider.login(store, email=payload.email, phone=payload.phone, password=payload.password)
+    except ProviderUnavailable as exc:
+        raise HTTPException(status_code=503, detail=exc.code) from None
     if not account:
         raise HTTPException(status_code=401, detail="invalid_credentials")
     session = store.create_session(account.account_id, dev_mode=False)
     return make_auth_response(account, session, provider.name)
+
+
+@router.post("/v1/auth/guest", response_model=AuthSessionResponse)
+def guest(request: Request) -> AuthSessionResponse:
+    enforce_auth_rate_limit(request, "guest")
+    store = get_store()
+    account = store.create_guest_account()
+    session = store.create_session(account.account_id, dev_mode=False)
+    return make_auth_response(account, session, "guest")
+
+
+@router.post("/v1/auth/link-phone", response_model=AuthSessionResponse)
+def link_phone(
+    payload: AuthLinkPhoneRequest,
+    account: Annotated[StoredAccount, Depends(current_account)],
+    request: Request,
+) -> AuthSessionResponse:
+    enforce_auth_rate_limit(request, "register")
+    store = get_store()
+    try:
+        upgraded = store.attach_phone(
+            account.account_id, payload.phone, name=payload.name, password=payload.password
+        )
+    except ValueError as exc:
+        raise HTTPException(status_code=400, detail=str(exc) or "phone_taken") from None
+    if not upgraded:
+        raise HTTPException(status_code=404, detail="not_authenticated")
+    session = store.create_session(upgraded.account_id, dev_mode=False)
+    return make_auth_response(upgraded, session, "local")
 
 
 @router.post("/v1/auth/dev-login", response_model=AuthSessionResponse)

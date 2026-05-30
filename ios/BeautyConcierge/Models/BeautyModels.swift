@@ -28,8 +28,12 @@ enum AppTheme: String, CaseIterable, Identifiable, Codable {
 struct Account: Codable, Equatable {
     let accountId: String
     let name: String
-    let email: String
+    let email: String?
+    var phoneNumber: String? = nil
+    var isGuest: Bool? = nil
     let createdAt: Date?
+
+    var isGuestAccount: Bool { isGuest ?? false }
 }
 
 struct AuthSession: Codable, Equatable {
@@ -52,15 +56,23 @@ struct LogoutRequest: Codable {
 }
 
 struct LoginRequest: Codable {
-    let email: String
-    let password: String
+    var phone: String? = nil
+    var email: String? = nil
+    var password: String? = nil
 }
 
 struct RegisterRequest: Codable {
     let name: String
-    let email: String
-    let password: String
+    var phone: String? = nil
+    var email: String? = nil
+    var password: String? = nil
     let consent: Bool
+}
+
+struct LinkPhoneRequest: Codable {
+    let phone: String
+    var name: String? = nil
+    var password: String? = nil
 }
 
 struct BeautyID: Codable, Equatable {

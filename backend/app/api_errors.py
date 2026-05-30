@@ -3,6 +3,7 @@ from __future__ import annotations
 import logging
 
 from fastapi import FastAPI, HTTPException, Request, status
+from fastapi.encoders import jsonable_encoder
 from fastapi.exceptions import RequestValidationError
 from fastapi.responses import JSONResponse
 
@@ -59,7 +60,7 @@ def register_exception_handlers(app: FastAPI, logger: logging.Logger) -> None:
                     "code": "validation_error",
                     "message": "Request validation failed.",
                     "request_id": getattr(request.state, "request_id", None),
-                    "details": {"errors": exc.errors()},
+                    "details": {"errors": jsonable_encoder(exc.errors())},
                 }
             },
         )

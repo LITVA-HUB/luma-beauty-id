@@ -231,6 +231,50 @@ def test_register_login_refresh_logout_and_protected_routes():
     assert after_logout.status_code == 401
 
 
+def test_register_and_login_by_phone_without_password():
+    registered = request(
+        "POST", "/v1/auth/register", json={"name": "Phone Client", "phone": "+7 (905) 123-45-67", "consent": True}
+    )
+    assert registered.status_code == 200, registered.text
+    account = registered.json()["account"]
+    assert account["phone_number"] == "+79051234567"
+    assert account["email"] is None
+    assert account["is_guest"] is False
+
+    # No password was set, so the number alone authenticates.
+    login = request("POST", "/v1/auth/login", json={"phone": "89051234567"})
+    assert login.status_code == 200, login.text
+    assert login.json()["account"]["account_id"] == account["account_id"]
+
+
+def test_login_requires_password_for_email_accounts():
+    request("POST", "/v1/auth/register", json=register_payload("needs-pass@example.com"))
+    missing = request("POST", "/v1/auth/login", json={"email": "needs-pass@example.com"})
+    assert missing.status_code == 422
+
+
+def test_guest_account_and_phone_upgrade():
+    guest = request("POST", "/v1/auth/guest")
+    assert guest.status_code == 200, guest.text
+    guest_body = guest.json()
+    assert guest_body["account"]["is_guest"] is True
+    assert guest_body["account"]["account_id"].startswith("guest_")
+
+    token = guest_body["access_token"]
+    upgraded = request(
+        "POST",
+        "/v1/auth/link-phone",
+        headers={"Authorization": f"Bearer {token}"},
+        json={"phone": "+79161112233", "name": "Real Client"},
+    )
+    assert upgraded.status_code == 200, upgraded.text
+    upgraded_account = upgraded.json()["account"]
+    assert upgraded_account["is_guest"] is False
+    assert upgraded_account["phone_number"] == "+79161112233"
+    assert upgraded_account["name"] == "Real Client"
+    assert upgraded_account["account_id"] == guest_body["account"]["account_id"]
+
+
 def test_protected_route_without_token_and_expired_token():
     assert request("GET", "/v1/profile/me").status_code == 401
     settings.access_token_ttl_minutes = -1
