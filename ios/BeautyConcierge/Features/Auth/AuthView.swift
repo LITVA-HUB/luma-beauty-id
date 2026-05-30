@@ -177,7 +177,7 @@ private struct PhoneField: View {
                     HStack(spacing: 4) {
                         Text(country.flag)
                         Text(country.dialCode).font(BeautyFont.body).foregroundStyle(BeautyColor.ink)
-                        Image(systemName: "chevron.down").font(.system(size: 11, weight: .semibold)).foregroundStyle(BeautyColor.taupe)
+                        Image(systemName: "chevron.down").font(BeautyFont.sized(11, .semibold)).foregroundStyle(BeautyColor.taupe)
                     }
                     .padding(.horizontal, BeautySpacing.md)
                     .frame(height: 52)

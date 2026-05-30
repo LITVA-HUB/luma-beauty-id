@@ -46,6 +46,12 @@
     <string>https://lumabeautyid.app/support</string>
     <key>AccountDeletionURL</key>
     <string>https://lumabeautyid.app/account-deletion</string>
+    <key>UIAppFonts</key>
+    <array>
+        <string>Onest-Regular.ttf</string>
+        <string>Onest-Medium.ttf</string>
+        <string>Onest-Bold.ttf</string>
+    </array>
     <key>NSAppTransportSecurity</key>
     <dict>
         <!-- Allows http only to local-network hosts (RFC1918 / .local), e.g. the

@@ -19,7 +19,7 @@ struct ProductVisual: View {
             RoundedRectangle(cornerRadius: compact ? 18 : 26, style: .continuous)
                 .fill(LinearGradient(colors: [BeautyColor.milk, accent.opacity(0.55)], startPoint: .topLeading, endPoint: .bottomTrailing))
             Image(systemName: "photo")
-                .font(.system(size: compact ? 22 : 34, weight: .semibold))
+                .font(BeautyFont.sized(compact ? 22 : 34, .semibold))
                 .foregroundStyle(BeautyColor.taupe)
             Text("Фото")
                 .font(BeautyFont.caption2)
@@ -69,7 +69,7 @@ struct ProductCard: View {
                     .lineLimit(2)
                     .minimumScaleFactor(0.88)
                 HStack(spacing: 8) {
-                    Text(product.priceValue.rub).font(.system(size: 16, weight: .bold))
+                    Text(product.priceValue.rub).font(BeautyFont.sized(16, .bold))
                     RoutineStepPill(title: role.displayTitle)
                 }
                 if showsReason {

@@ -51,7 +51,7 @@ struct ServiceUnavailableView: View {
             PremiumBackground()
             VStack(spacing: BeautySpacing.md) {
                 Image(systemName: "wifi.exclamationmark")
-                    .font(.system(size: 34, weight: .semibold))
+                    .font(BeautyFont.sized(34, .semibold))
                     .foregroundStyle(BeautyColor.taupe)
                     .frame(width: 72, height: 72)
                     .background(BeautyColor.milk, in: Circle())

@@ -159,7 +159,7 @@ private struct ProfileIdentityCard: View {
                     RoundedRectangle(cornerRadius: BeautyRadius.lg, style: .continuous)
                         .fill(LinearGradient(colors: [BeautyColor.limeSoft, BeautyColor.champagne.opacity(0.58)], startPoint: .topLeading, endPoint: .bottomTrailing))
                     Text(monogram)
-                        .font(.system(size: 25, weight: .semibold, design: .serif))
+                        .font(BeautyFont.sized(25, .semibold))
                         .foregroundStyle(BeautyColor.limeInk)
                 }
                 .frame(width: 76, height: 82)
@@ -323,7 +323,7 @@ private struct ProfileSavedRoutineCard: View {
                     }
                     Spacer()
                     Text(stepCount == 0 ? "нет" : "\(stepCount)")
-                        .font(.system(size: 15, weight: .bold))
+                        .font(BeautyFont.sized(15, .bold))
                         .foregroundStyle(BeautyColor.limeInk)
                         .frame(width: 46, height: 36)
                         .background(BeautyColor.limeSoft, in: Capsule())
@@ -593,7 +593,7 @@ private struct ProfilePrivacyCard: View {
             VStack(alignment: .leading, spacing: BeautySpacing.md) {
                 HStack(alignment: .top, spacing: BeautySpacing.md) {
                     Image(systemName: "lock.shield")
-                        .font(.system(size: 19, weight: .semibold))
+                        .font(BeautyFont.sized(19, .semibold))
                         .foregroundStyle(BeautyColor.limeInk)
                         .frame(width: 42, height: 42)
                         .background(BeautyColor.limeSoft, in: Circle())
@@ -628,7 +628,7 @@ private struct ProfileActionRow: View {
     var body: some View {
         HStack(alignment: .center, spacing: BeautySpacing.sm) {
             Image(systemName: model.icon)
-                .font(.system(size: 15, weight: .semibold))
+                .font(BeautyFont.sized(15, .semibold))
                 .foregroundStyle(BeautyColor.ink)
                 .frame(width: 34, height: 34)
                 .background(BeautyColor.card, in: Circle())
@@ -753,7 +753,7 @@ private struct LinkPhoneSheet: View {
                                         HStack(spacing: 4) {
                                             Text(country.flag)
                                             Text(country.dialCode).font(BeautyFont.body).foregroundStyle(BeautyColor.ink)
-                                            Image(systemName: "chevron.down").font(.system(size: 11, weight: .semibold)).foregroundStyle(BeautyColor.taupe)
+                                            Image(systemName: "chevron.down").font(BeautyFont.sized(11, .semibold)).foregroundStyle(BeautyColor.taupe)
                                         }
                                         .padding(.horizontal, BeautySpacing.md)
                                         .frame(height: 52)

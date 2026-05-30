@@ -76,7 +76,7 @@ struct FaceGateView: View {
                 .stroke(BeautyColor.lime, style: StrokeStyle(lineWidth: 3, lineCap: .round))
                 .frame(width: height * 0.42, height: height * 0.56)
             Image(systemName: "face.smiling")
-                .font(.system(size: height * 0.2, weight: .light))
+                .font(BeautyFont.sized(height * 0.2, .light))
                 .foregroundStyle(BeautyColor.taupe)
             Circle()
                 .fill(BeautyColor.lime.opacity(0.22))

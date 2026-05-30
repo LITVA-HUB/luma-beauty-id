@@ -46,14 +46,35 @@ enum BeautyRadius {
 }
 
 enum BeautyFont {
-    static let display = Font.system(size: 42, weight: .semibold, design: .serif)
-    static let title = Font.system(size: 30, weight: .semibold, design: .serif)
-    static let title2 = Font.system(size: 24, weight: .semibold, design: .serif)
-    static let headline = Font.system(size: 18, weight: .semibold, design: .default)
-    static let body = Font.system(size: 16, weight: .regular, design: .default)
-    static let callout = Font.system(size: 14, weight: .regular, design: .default)
-    static let caption = Font.system(size: 12, weight: .semibold, design: .default)
-    static let caption2 = Font.system(size: 10, weight: .semibold, design: .default)
+    // Brand typeface: Onest (SIL OFL 1.1, bundled in Resources/Fonts). A clean
+    // grotesque with first-class Cyrillic, standing in for Goldapple's
+    // proprietary GA Sans. Sizes match the previous system-font scale 1:1 so the
+    // hierarchy is preserved; only the family/weight change. `.weight()`/`.bold()`
+    // at call sites resolve within the Onest typographic family.
+    static let regularName = "Onest-Regular"
+    static let mediumName = "Onest-Medium"
+    static let boldName = "Onest-Bold"
+
+    static let display = Font.custom(boldName, size: 42)
+    static let title = Font.custom(boldName, size: 30)
+    static let title2 = Font.custom(boldName, size: 24)
+    static let headline = Font.custom(boldName, size: 18)
+    static let body = Font.custom(regularName, size: 16)
+    static let callout = Font.custom(regularName, size: 14)
+    static let caption = Font.custom(mediumName, size: 12)
+    static let caption2 = Font.custom(mediumName, size: 10)
+
+    /// Brand-font replacement for one-off `.system(size:weight:)` call sites.
+    /// Maps the requested weight onto the nearest bundled Onest face.
+    static func sized(_ size: CGFloat, _ weight: Font.Weight = .regular) -> Font {
+        let name: String
+        switch weight {
+        case .bold, .heavy, .black, .semibold: name = boldName
+        case .medium: name = mediumName
+        default: name = regularName
+        }
+        return Font.custom(name, size: size)
+    }
 }
 
 struct BeautyShadow: ViewModifier {

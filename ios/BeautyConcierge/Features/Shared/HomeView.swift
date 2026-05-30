@@ -194,7 +194,7 @@ private struct HomeScenarioSection: View {
                             VStack(alignment: .leading, spacing: 8) {
                                 HStack {
                                     Image(systemName: icon(for: scenario))
-                                        .font(.system(size: 15, weight: .semibold))
+                                        .font(BeautyFont.sized(15, .semibold))
                                         .foregroundStyle(BeautyColor.limeInk)
                                         .frame(width: 30, height: 30)
                                         .background(BeautyColor.limeSoft, in: Circle())
@@ -592,7 +592,7 @@ private struct CurrentRoutineSummaryCard: View {
 
                     Button(action: onAdvisor) {
                         Image(systemName: "message")
-                            .font(.system(size: 15, weight: .semibold))
+                            .font(BeautyFont.sized(15, .semibold))
                             .foregroundStyle(BeautyColor.ink)
                             .frame(width: 42, height: 42)
                             .background(BeautyColor.quietCard, in: Circle())
@@ -603,7 +603,7 @@ private struct CurrentRoutineSummaryCard: View {
 
                     Button(action: onSave) {
                         Image(systemName: isSaved ? "checkmark" : "bookmark")
-                            .font(.system(size: 15, weight: .semibold))
+                            .font(BeautyFont.sized(15, .semibold))
                             .foregroundStyle(BeautyColor.ink)
                             .frame(width: 42, height: 42)
                             .background(BeautyColor.quietCard, in: Circle())
@@ -722,7 +722,7 @@ private struct HomeQuickActionTile: View {
     var body: some View {
         VStack(alignment: .leading, spacing: BeautySpacing.sm) {
             Image(systemName: icon)
-                .font(.system(size: 18, weight: .semibold))
+                .font(BeautyFont.sized(18, .semibold))
                 .foregroundStyle(BeautyColor.limeInk)
                 .frame(width: 38, height: 38)
                 .background(BeautyColor.limeSoft, in: Circle())
@@ -756,7 +756,7 @@ private struct AdvisorUpdateCard: View {
         SurfaceCard {
             HStack(alignment: .center, spacing: BeautySpacing.md) {
                 Image(systemName: "sparkles")
-                    .font(.system(size: 18, weight: .semibold))
+                    .font(BeautyFont.sized(18, .semibold))
                     .foregroundStyle(BeautyColor.limeInk)
                     .frame(width: 42, height: 42)
                     .background(BeautyColor.limeSoft, in: Circle())
@@ -773,7 +773,7 @@ private struct AdvisorUpdateCard: View {
                 Spacer(minLength: 8)
                 Button(action: onOpenAdvisor) {
                     Image(systemName: "arrow.right")
-                        .font(.system(size: 15, weight: .bold))
+                        .font(BeautyFont.sized(15, .bold))
                         .foregroundStyle(BeautyColor.limeInk)
                         .frame(width: 36, height: 36)
                         .background(BeautyColor.lime, in: Circle())
@@ -908,10 +908,10 @@ private struct HomeTrustFooter: View {
     var body: some View {
         HStack(alignment: .top, spacing: BeautySpacing.sm) {
             Image(systemName: "checkmark.seal")
-                .font(.system(size: 16, weight: .semibold))
+                .font(BeautyFont.sized(16, .semibold))
                 .foregroundStyle(BeautyColor.taupe)
                 .frame(width: 28, height: 28)
-            Text("Luma помогает с предпочтениями, текстурами, финишем и подбором продуктов. Это не медицинская диагностика.")
+            Text("Золотое Яблоко помогает с предпочтениями, текстурами, финишем и подбором продуктов. Это не медицинская диагностика.")
                 .font(BeautyFont.caption)
                 .foregroundStyle(BeautyColor.taupe)
                 .fixedSize(horizontal: false, vertical: true)
@@ -927,7 +927,7 @@ private struct HomeMetricPill: View {
     var body: some View {
         VStack(spacing: 0) {
             Text(value)
-                .font(.system(size: 15, weight: .bold))
+                .font(BeautyFont.sized(15, .bold))
             Text(label)
                 .font(BeautyFont.caption2)
         }

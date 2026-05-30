@@ -19,6 +19,9 @@
 		3F0E0A07488B2CD9289650DC /* Features/Product/ProductDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED17244D2F46A0FEB3752833 /* Features/Product/ProductDetailView.swift */; };
 		52C303F504890143D44C6DB2 /* App/LocalFallbackCatalog.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A5A97473336B607A8C2843 /* App/LocalFallbackCatalog.swift */; };
 		5DDBF56ADE2A3FA417AF0D28 /* Resources/Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0DB7571B8334F5E7680A9B20 /* Resources/Assets.xcassets */; };
+		F09E570000000000000B0001 /* Resources/Fonts/Onest-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F09E570000000000000F0001 /* Resources/Fonts/Onest-Regular.ttf */; };
+		F09E570000000000000B0002 /* Resources/Fonts/Onest-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F09E570000000000000F0002 /* Resources/Fonts/Onest-Medium.ttf */; };
+		F09E570000000000000B0003 /* Resources/Fonts/Onest-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F09E570000000000000F0003 /* Resources/Fonts/Onest-Bold.ttf */; };
 		68A1CFE364068E3BF7E3A8AC /* Services/APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AE6DBFF82724B632710C017 /* Services/APIClient.swift */; };
 		9281BF33F2FAE691DF4E3E85 /* Features/Profile/ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A31B3AE4D479BC274C978ABC /* Features/Profile/ProfileView.swift */; };
 		9E7DBE51CF7A78806DCD8892 /* App/AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05A10DD59C77C974BDFFAFD6 /* App/AppState.swift */; };
@@ -60,6 +63,9 @@
 		065048A1E8B1C15A126F9355 /* Features/Auth/AuthView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Features/Auth/AuthView.swift; sourceTree = "<group>"; };
 		0B5E5510E8E34B7BA1F9D5A0 /* App/SessionStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App/SessionStore.swift; sourceTree = "<group>"; };
 		0DB7571B8334F5E7680A9B20 /* Resources/Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Resources/Assets.xcassets; sourceTree = "<group>"; };
+		F09E570000000000000F0001 /* Resources/Fonts/Onest-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Resources/Fonts/Onest-Regular.ttf; sourceTree = "<group>"; };
+		F09E570000000000000F0002 /* Resources/Fonts/Onest-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Resources/Fonts/Onest-Medium.ttf; sourceTree = "<group>"; };
+		F09E570000000000000F0003 /* Resources/Fonts/Onest-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Resources/Fonts/Onest-Bold.ttf; sourceTree = "<group>"; };
 		2756FE0FC152316843CA1A49 /* Features/BeautyID/BeautyIDSetupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Features/BeautyID/BeautyIDSetupView.swift; sourceTree = "<group>"; };
 		2CAE190AF0BD41C2097B3246 /* Features/Recommendations/RecommendationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Features/Recommendations/RecommendationsView.swift; sourceTree = "<group>"; };
 		315CA9F2F4F62984EEBC1B13 /* App/AppEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App/AppEnvironment.swift; sourceTree = "<group>"; };
@@ -188,6 +194,9 @@
 				402B7AD958CEB31691142983 /* Services/KeychainStore.swift */,
 				A0A5E2A3C4D54678A901F102 /* Services/Observability.swift */,
 				0DB7571B8334F5E7680A9B20 /* Resources/Assets.xcassets */,
+				F09E570000000000000F0001 /* Resources/Fonts/Onest-Regular.ttf */,
+				F09E570000000000000F0002 /* Resources/Fonts/Onest-Medium.ttf */,
+				F09E570000000000000F0003 /* Resources/Fonts/Onest-Bold.ttf */,
 				B15A13ACECE86FF5B996CE6C /* Info.plist */,
 				83F829232FABB8CA00A8200D /* New Folder */,
 			);
@@ -283,6 +292,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				5DDBF56ADE2A3FA417AF0D28 /* Resources/Assets.xcassets in Resources */,
+				F09E570000000000000B0001 /* Resources/Fonts/Onest-Regular.ttf in Resources */,
+				F09E570000000000000B0002 /* Resources/Fonts/Onest-Medium.ttf in Resources */,
+				F09E570000000000000B0003 /* Resources/Fonts/Onest-Bold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

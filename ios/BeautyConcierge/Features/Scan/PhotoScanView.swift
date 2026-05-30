@@ -228,7 +228,7 @@ private struct BeautyScanHeroMetric: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 7) {
             Image(systemName: icon)
-                .font(.system(size: 16, weight: .semibold))
+                .font(BeautyFont.sized(16, .semibold))
                 .foregroundStyle(BeautyColor.limeInk)
                 .frame(width: 34, height: 34)
                 .background(BeautyColor.lime.opacity(0.92), in: Circle())
@@ -254,7 +254,7 @@ private struct BeautyScanConsentCard: View {
         VStack(alignment: .leading, spacing: BeautySpacing.md) {
             HStack(alignment: .top, spacing: BeautySpacing.sm) {
                 Image(systemName: "checkmark.shield")
-                    .font(.system(size: 18, weight: .semibold))
+                    .font(BeautyFont.sized(18, .semibold))
                     .foregroundStyle(BeautyColor.limeInk)
                     .frame(width: 40, height: 40)
                     .background(BeautyColor.lime.opacity(0.92), in: Circle())
@@ -345,7 +345,7 @@ private struct BeautyScanSourceButton: View {
     var body: some View {
         VStack(alignment: .leading, spacing: BeautySpacing.sm) {
             Image(systemName: icon)
-                .font(.system(size: 20, weight: .semibold))
+                .font(BeautyFont.sized(20, .semibold))
                 .foregroundStyle(isEnabled ? BeautyColor.limeInk : BeautyColor.warmGray)
                 .frame(width: 44, height: 44)
                 .background(isEnabled ? BeautyColor.lime : BeautyColor.line.opacity(0.25), in: Circle())
@@ -379,7 +379,7 @@ private struct BeautyScanPreviewCard: View {
                 Spacer()
                 Button(action: onRemove) {
                     Image(systemName: "xmark")
-                        .font(.system(size: 13, weight: .bold))
+                        .font(BeautyFont.sized(13, .bold))
                         .foregroundStyle(BeautyColor.ink)
                         .frame(width: 32, height: 32)
                         .background(BeautyColor.milk, in: Circle())

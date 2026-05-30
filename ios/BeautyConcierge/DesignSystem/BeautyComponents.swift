@@ -11,7 +11,7 @@ struct PrimaryButton: View {
             HStack(spacing: BeautySpacing.sm) {
                 if isLoading { ProgressView().tint(BeautyColor.limeInk) }
                 if let systemImage { Image(systemName: systemImage) }
-                Text(title).font(.system(size: 16, weight: .semibold))
+                Text(title).font(BeautyFont.sized(16, .semibold))
             }
             .frame(maxWidth: .infinity)
             .frame(height: 54)
@@ -37,7 +37,7 @@ struct SecondaryButton: View {
         Button(action: action) {
             HStack(spacing: BeautySpacing.sm) {
                 if let systemImage { Image(systemName: systemImage) }
-                Text(title).font(.system(size: 16, weight: .semibold))
+                Text(title).font(BeautyFont.sized(16, .semibold))
             }
             .frame(maxWidth: .infinity)
             .frame(height: 52)
@@ -91,7 +91,7 @@ struct MatchBadge: View {
     var body: some View {
         VStack(spacing: 0) {
             Text("\(score)%")
-                .font(.system(size: 14, weight: .bold))
+                .font(BeautyFont.sized(14, .bold))
             Text("совп.")
                 .font(BeautyFont.caption2)
         }

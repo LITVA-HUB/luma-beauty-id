@@ -70,7 +70,7 @@ struct BeautyScanCameraView: View {
                 dismiss()
             } label: {
                 Image(systemName: "xmark")
-                    .font(.system(size: 15, weight: .bold))
+                    .font(BeautyFont.sized(15, .bold))
                     .foregroundStyle(.white)
                     .frame(width: 44, height: 44)
                     .background(.black.opacity(0.30), in: Circle())
@@ -83,7 +83,7 @@ struct BeautyScanCameraView: View {
             Spacer()
 
             Text("Фото профиля")
-                .font(.system(size: 15, weight: .semibold))
+                .font(BeautyFont.sized(15, .semibold))
                 .foregroundStyle(.white.opacity(0.92))
                 .padding(.horizontal, 14)
                 .frame(height: 34)
@@ -103,13 +103,13 @@ struct BeautyScanCameraView: View {
                 HStack(spacing: BeautySpacing.sm) {
                     BeautyScanLiveDot(isActive: viewModel.stage == .aligned || viewModel.stage == .capturing)
                     Text(viewModel.guidanceTitle)
-                        .font(.system(size: 19, weight: .semibold))
+                        .font(BeautyFont.sized(19, .semibold))
                         .foregroundStyle(.white)
                         .minimumScaleFactor(0.85)
                         .lineLimit(1)
                     if viewModel.stage == .aligned || viewModel.stage == .capturing {
                         Image(systemName: "checkmark.seal.fill")
-                            .font(.system(size: 18, weight: .semibold))
+                            .font(BeautyFont.sized(18, .semibold))
                             .foregroundStyle(BeautyColor.lime)
                     }
                 }
@@ -208,7 +208,7 @@ struct BeautyScanCameraView: View {
                         .tint(BeautyColor.limeInk)
                 } else {
                     Image(systemName: "camera.fill")
-                        .font(.system(size: 22, weight: .semibold))
+                        .font(BeautyFont.sized(22, .semibold))
                         .foregroundStyle(canTapCapture ? BeautyColor.limeInk : .white.opacity(0.7))
                 }
             }
@@ -242,7 +242,7 @@ private struct BeautyScanHintChip: View {
     var body: some View {
         HStack(spacing: 6) {
             Image(systemName: icon)
-                .font(.system(size: 12, weight: .semibold))
+                .font(BeautyFont.sized(12, .semibold))
             Text(text)
                 .font(BeautyFont.caption2)
                 .minimumScaleFactor(0.8)
@@ -290,7 +290,7 @@ private struct BeautyScanConfirmationView: View {
                 VStack(spacing: BeautySpacing.lg) {
                     VStack(spacing: BeautySpacing.xs) {
                         Text("Проверьте снимок")
-                            .font(.system(size: 26, weight: .semibold))
+                            .font(BeautyFont.sized(26, .semibold))
                             .foregroundStyle(.white)
                             .minimumScaleFactor(0.8)
                             .lineLimit(1)

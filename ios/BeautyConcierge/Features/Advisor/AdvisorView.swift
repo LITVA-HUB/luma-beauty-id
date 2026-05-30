@@ -95,7 +95,7 @@ private struct AdvisorHeader: View {
         HStack(alignment: .center) {
             VStack(alignment: .leading, spacing: 3) {
                 Text("Советник")
-                    .font(.system(size: 28, weight: .semibold, design: .serif))
+                    .font(BeautyFont.sized(28, .semibold))
                     .foregroundStyle(BeautyColor.ink)
                 Text(statusText)
                     .font(BeautyFont.caption)
@@ -151,7 +151,7 @@ private struct AdvisorQuickRefinementChips: View {
                         onSelect(action)
                     } label: {
                         Text(action.advisorChipTitle)
-                            .font(.system(size: 13, weight: .semibold))
+                            .font(BeautyFont.sized(13, .semibold))
                             .foregroundStyle(BeautyColor.ink)
                             .padding(.horizontal, 12)
                             .frame(height: 34)
@@ -235,7 +235,7 @@ private struct AdvisorConversationIntro: View {
     var body: some View {
         HStack(alignment: .top, spacing: BeautySpacing.sm) {
             Image(systemName: "sparkles")
-                .font(.system(size: 15, weight: .semibold))
+                .font(BeautyFont.sized(15, .semibold))
                 .foregroundStyle(BeautyColor.limeInk)
                 .frame(width: 30, height: 30)
                 .background(BeautyColor.lime.opacity(0.95), in: Circle())
@@ -358,14 +358,14 @@ private struct AdvisorRoutineTray: View {
 
                     if averageMatch > 0 {
                         Text("\(averageMatch)%")
-                            .font(.system(size: 13, weight: .bold))
+                            .font(BeautyFont.sized(13, .bold))
                             .foregroundStyle(BeautyColor.limeInk)
                             .frame(width: 46, height: 30)
                             .background(BeautyColor.limeSoft, in: Capsule())
                     }
 
                     Image(systemName: isExpanded ? "chevron.down" : "chevron.up")
-                        .font(.system(size: 13, weight: .bold))
+                        .font(BeautyFont.sized(13, .bold))
                         .foregroundStyle(BeautyColor.taupe)
                         .frame(width: 28, height: 28)
                 }
@@ -376,7 +376,7 @@ private struct AdvisorRoutineTray: View {
 
             if let selectionNotice {
                 Text(selectionNotice)
-                    .font(.system(size: 12, weight: .semibold))
+                    .font(BeautyFont.sized(12, .semibold))
                     .foregroundStyle(BeautyColor.limeInk)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.top, 9)
@@ -446,13 +446,13 @@ private struct AdvisorActionCards: View {
                     } label: {
                         HStack(spacing: 8) {
                             Image(systemName: icon(for: action))
-                                .font(.system(size: 13, weight: .bold))
+                                .font(BeautyFont.sized(13, .bold))
                             VStack(alignment: .leading, spacing: 2) {
                                 Text(action.title)
-                                    .font(.system(size: 12, weight: .semibold))
+                                    .font(BeautyFont.sized(12, .semibold))
                                     .lineLimit(1)
                                 Text(action.subtitle)
-                                    .font(.system(size: 10, weight: .medium))
+                                    .font(BeautyFont.sized(10, .medium))
                                     .foregroundStyle(BeautyColor.taupe)
                                     .lineLimit(1)
                             }
@@ -546,7 +546,7 @@ private struct AdvisorTrayAction: View {
     var body: some View {
         Button(action: action) {
             Label(title, systemImage: systemImage)
-                .font(.system(size: 12, weight: .semibold))
+                .font(BeautyFont.sized(12, .semibold))
                 .lineLimit(1)
                 .minimumScaleFactor(0.82)
                 .foregroundStyle(isPrimary ? BeautyColor.limeInk : BeautyColor.ink)
@@ -588,7 +588,7 @@ private struct AdvisorComposer: View {
 
             Button(action: onSend) {
                 Image(systemName: isBusy ? "hourglass" : "arrow.up")
-                    .font(.system(size: 16, weight: .bold))
+                    .font(BeautyFont.sized(16, .bold))
                     .foregroundStyle(BeautyColor.limeInk)
                     .frame(width: 46, height: 46)
                     .background(canSend ? BeautyColor.lime : BeautyColor.line.opacity(0.72), in: Circle())
@@ -762,7 +762,7 @@ private struct AdvisorMiniProductCard: View {
     private func miniAction(_ title: String, action: @escaping () -> Void) -> some View {
         Button(action: action) {
             Text(title)
-                .font(.system(size: 11, weight: .semibold))
+                .font(BeautyFont.sized(11, .semibold))
                 .foregroundStyle(BeautyColor.ink)
                 .frame(maxWidth: .infinity)
                 .frame(height: 28)
